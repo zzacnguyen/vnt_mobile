@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorGrey">#e1dede</color>
+    <color name="seekBar">#004d40</color>
+    <color name="bgToolbar">#00a680</color>
+    <color name="colorGray">#868585</color>
+    <color name="colorBlack">#000000</color>
+    <color name="bgRed">#BC161D</color>
+    <color name="bgGreen">#19AC5B</color>
+    <color name="bgBlue">#168DDB</color>
+    <color name="colorPurple">#A248CE</color>
+
+    <!--Toolbar color-->
+    <color name="tbPlace">#00a680</color>
+    <color name="tbEat">#BC161D</color>
+    <color name="tbHotel">#FE6500</color>
+    <color name="tbEntertain">#4a6ea9</color>
+    <color name="tbVehicle">#4dadf7</color>
+
+    <!--Layout đăng nhập-->
+    <color name="colorbtnDangnhap2">#00eeff</color>
+    <color name="colorbtnDangnhap2_2">#219fed</color>
+    <color name="colorKieuchutrang">#ffffff</color>
+    <color name="colorDen1">#383641</color>
+    <color name="colorformDangnhap">#ffffff</color>
+    <color name="colorQuenmatkhau">#665554</color>
+    <color name="editTextbackgroundcolor">#b9eccd</color>
+
+    <color name="colorFacebook">#4a6ea9</color>
+    <color name="colorGoogle">#da4835</color>
+</resources>

@@ -1,0 +1,187 @@
+<resources>
+    <string name="app_name">VietnamTour</string>
+    <string-array name="radio_buttons">
+        <item>button_1</item>
+        <item>button_2</item>
+        <item>button_3</item>
+        <item>button_4</item>
+        <item>button_5</item>
+    </string-array>
+
+    <string name="facebook_app_id" translatable="false">294630491068215</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb294630491068215</string>
+
+    <string name="text_Home">Home</string>
+    <string name="text_Search">Search...</string>
+    <string name="text_Cancel">Cancel</string>
+    <string name="text_PlacesToVisit">Cool places to visit in Vietnam</string>
+    <string name="text_EatAndDrink">Eat and drink</string>
+    <string name="text_Hotelsde">Hotels</string>
+    <string name="text_ThingsToDo">Things to do</string>
+    <string name="text_Transport">Transport</string>
+    <string name="text_All">More</string>
+    <string name="text_Like">Like</string>
+    <string name="text_UnLike">UnLike</string>
+    <string name="text_Near">Near</string>
+    <string name="text_Review">Review this service</string>
+    <string name="text_Reviewed">Reviewed</string>
+    <string name="text_ShowAllReview">Show all review</string>
+    <string name="text_About">About</string>
+
+    <string name="text_Favorite">Favorite</string>
+    <string name="text_Notification">Notification</string>
+
+    <string name="text_Enterprise">Enterprise</string>
+    <string name="text_Personal">Personal</string>
+    <string name="text_SignIn">Sign in</string>
+    <string name="text_SignUp">Sign up</string>
+    <string name="text_SignOut">Sign Out</string>
+
+    <string name="text_AdvancedSearch">Advanced search</string>
+    <string name="hint_Search">Search</string>
+    <string name="text_Place">Places</string>
+    <string name="text_Food">Food</string>
+    <string name="text_Entertainment">Entertain-  ment</string>
+    <string name="text_SightSeeing">Sight Seeing</string>
+
+    <string name="text_AddNewPlace">Add new place</string>
+    <string name="text_PlaceLocation">Place location</string>
+    <string name="text_MapLocation">Map location</string>
+    <string name="text_Lat">Latitude</string>
+    <string name="text_Long">Longitude</string>
+    <string name="hint_PlaceName">Place Name</string>
+    <string name="hint_Address">Address</string>
+    <string name="hint_PhoneNumber">Phone number</string>
+    <string name="hint_Description">Description</string>
+    <string name="text_AddServiceForPlace">Add service for place</string>
+
+    <string name="text_AddNewService">Add new service</string>
+    <string name="hint_ServiceName">Service name</string>
+    <string name="hint_Website" translatable="false">Website</string>
+    <string name="hint_LowestPrice">Lowest price</string>
+    <string name="hint_HighestPrice">Highest price</string>
+    <string name="hint_TimeOpen">Time open</string>
+    <string name="hint_TimeClose">Time close</string>
+    <string name="text_ServicePrice">Service price</string>
+    <string name="text_OpeningTime">Opening time</string>
+    <string name="text_AddPhotos">Add photos</string>
+    <string name="text_Capture">Capture</string>
+    <string name="text_Settings">Settings</string>
+    <string name="text_SetRadiusOfNearbyPlaces">Set radius of nearby places</string>
+    <string name="text_Policy">Policy</string>
+    <string name="text_AboutCanThoTour">About CanThoTour</string>
+    <string name="text_Version">Version</string>
+    <string name="text_Hotel">Hotel</string>
+    <string name="text_Vehicle">Vehicle</string>
+    <string name="text_Send">Send</string>
+    <string name="text_Entertainment_AdvancedSearch">Entertainment</string>
+    <string name="text_ForgetYourPassword">Forget your password ?</string>
+    <string name="text_Username">Username</string>
+    <string name="text_Password">Password</string>
+    <string name="text_NearbyLocationList">List of nearby location</string>
+    <string name="text_resUsername">Username *</string>
+    <string name="text_resPassword">Password *</string>
+    <string name="text_resConfirmPassword">Confirm password *</string>
+    <string name="text_resCountry">Country</string>
+    <string name="text_resLanguage">Language</string>
+    <string name="text_ImperativeInformation">* Imperative Information</string>
+    <string name="text_SignupPolicy">By the way sign up, you have agreed with the rules of VietNam Tour Application</string>
+    <string name="hint_InputUsername">Create your username</string>
+    <string name="hint_InputPassword">Type your password</string>
+    <string name="hint_InputPasswordAgain">Type your password again</string>
+    <string name="hint_InputCountry">Where are you from ?</string>
+    <string name="hint_InputLanguage">What language do you speak?</string>
+    <string name="hint_Title">Title</string>
+    <string name="hint_YourComment">Comment...</string>
+    <string name="text_ListOfReview">All reviews</string>
+    <string name="text_ListOfPlaceToVisit">List of place to visit</string>
+    <string name="text_From">From</string>
+    <string name="text_To">to</string>
+    <string name="title_PlaceDetails">Sight seeing details</string>
+    <string name="hint_InputRadius">Input radius</string>
+    <string name="text_SetRadius">This tool allow you can set location radius to find nearby places</string>
+    <string name="text_Agree">Agree</string>
+    <string name="title_RestaurantDetails">Restaurent details</string>
+    <string name="title_HotelDetails">Hotel details</string>
+    <string name="title_EntertainmentDetails">Entertainment details</string>
+    <string name="title_TransportDetails">Transport details</string>
+    <string name="title_ListOfPlaceToVisit">List of place to visit</string>
+    <string name="title_ListOfRestaurant">List of restaurant</string>
+    <string name="title_ListOfHotel">List of hotel</string>
+    <string name="title_ListOfEntertainment">List of entertainment</string>
+    <string name="title_ListOfTransport">List of transport</string>
+    <string name="text_Liked">Liked</string>
+    <string name="text_UnLiked">UnLiked</string>
+    <string name="text_CannotUnlike">Can\'t unlike</string>
+    <string name="text_Updating">Updating...</string>
+    <string name="hint_NumberOfStar">Number of star</string>
+    <string name="hint_EnterpriseName">Your enterprise name</string>
+    <string name="hint_Email" translatable="false">Email</string>
+    <string name="hint_Notice">Notice</string>
+    <string name="hint_Policy">Policy</string>
+    <string name="text_SearchHistory">Search history</string>
+    <string name="text_ViewSearchHistory">View search history</string>
+    <string name="text_TripSchedule">Trip schedule</string>
+    <string name="text_UserInfomation">Infomation</string>
+    <string name="text_PlaceInformation">Information</string>
+    <string name="text_TripName">Trip name</string>
+    <string name="text_StartDate">Start date</string>
+    <string name="text_EndDate">End Date</string>
+    <string name="text_CreateTrip">Create trip</string>
+    <string name="text_Create">Create</string>
+    <string name="text_BusinessRegistration">Business registration</string>
+    <string name="text_ChangeProfilePhoto">Change profile photo</string>
+    <string name="text_Gender">Gender</string>
+    <string name="text_Birthdate">Birthdate</string>
+    <string name="text_FullName">Full name</string>
+    <string name="text_UpdateProfile">Change profile</string>
+    <string name="text_Province">Province:</string>
+    <string name="text_District">District:</string>
+    <string name="text_Ward">Ward:</string>
+    <string name="text_PleaseReviewBeforeSend">Please review before send</string>
+    <string name="text_ReviewCompleted">Review completed</string>
+    <string name="toast_ShareSuccessful">Share successful</string>
+    <string name="toast_ShareCancel">Share cancel</string>
+    <string name="toast_ShareError">Share error</string>
+    <string name="text_PleaseEnterASearchKey">Please enter a search key</string>
+    <string name="text_NoResults">No results</string>
+    <string name="text_PleaseEnterSearchKey">Please enter search key</string>
+    <string name="text_WhatIsYourPlaceName">What\'s your place name ?</string>
+    <string name="text_EnterYourAddress">Enter your address</string>
+    <string name="text_EnterYourPhoneNumber">Enter your phone number</string>
+    <string name="text_TypeYouDescription">Please type a brief description of your place</string>
+    <string name="text_ChooseAddress">Choose address</string>
+    <string name="text_Success">Success</string>
+    <string name="text_Error">Error</string>
+    <string name="text_SuccessfullyAdded">Successfully Added</string>
+    <string name="text_AddFailed">Add failed</string>
+    <string name="text_LowestPriceIsNotHigherThanHighestPrice">Lowest price is not allowed to be higher than highest price</string>
+    <string name="text_TimeOpenMustBeEarlierThanTimeClose">Time open must be earlier than time close</string>
+    <string name="text_ServiceNameIsNotAllowedToBeEmpty">Service name is not allowed to be empty</string>
+    <string name="text_WebsiteIsNotAllowedToBeEmpty">Website is not allowed to be empty</string>
+    <string name="text_NumberStarIsNotAllowedToBeEmpty">Number of stars is not allowed to be empty</string>
+    <string name="text_DescriptionIsNotAllowedToBeEmpty">Description is not allowed to be empty</string>
+    <string name="text_UsernameIsNotAllowedToBeEmpty">Username is not allowed to be empty</string>
+    <string name="text_PasswordIsNotAllowedToBeEmpty">Password is not allowed to be empty</string>
+    <string name="text_TheUsernameOrPasswordIsIncorrect">The username or password is incorrect</string>
+    <string name="text_SetDistance">Set distance</string>
+    <string name="text_YourUsernameMustBeBetween5And25">Your username must be betwwen 5 and 25 characters long</string>
+    <string name="text_ThisDoesNotMatchThePasswordEnteredAbove">This does not match the password entered above</string>
+    <string name="text_TheUsernameCannotContainSpaces">The username cannot contain spaces</string>
+    <string name="text_RegisterSuccess">Register success</string>
+    <string name="text_ThatUsernameIsAlreadyInUse">That username is already in use</string>
+    <string name="text_YourPasswordMustBeBetween6And26">Your password must be between 6 and 20 characters long</string>
+    <string name="text_Mark">Mark:</string>
+    <string name="text_AddEvent">Add event</string>
+    <string name="text_EventName">Create your event name</string>
+    <string name="text_EventType">Event type:</string>
+    <string name="text_ServiceVenue">Service venue:</string>
+    <string name="text_LoginSuccess">Login success</string>
+    <string name="text_ChangeReviewCompleted">Change review completed</string>
+    <string name="text_TourGuide">Tour guide</string>
+    <string name="text_Partner">Partner</string>
+    <string name="text_Moderator">Moderator</string>
+    <string name="text_Admin">Admin</string>
+    <string name="text_FieldIsEmpty">The field is empty</string>
+    <string name="text_ReviewFailure">Review failure</string>
+</resources>
