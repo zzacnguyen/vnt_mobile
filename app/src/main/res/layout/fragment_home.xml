@@ -51,7 +51,7 @@
                         android:textSize="20sp" />
 
                     <ImageView
-                        android:id="@+id/btnSearch"
+                        android:id="@+id/button_Search"
                         android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_weight="1"

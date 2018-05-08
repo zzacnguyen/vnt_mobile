@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View;
+package com.example.zzacn.vnt_mobile.View.Notification;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

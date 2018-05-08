@@ -184,4 +184,5 @@
     <string name="text_Admin">Admin</string>
     <string name="text_FieldIsEmpty">The field is empty</string>
     <string name="text_ReviewFailure">Review failure</string>
+    <string name="text_Share">SHARE</string>
 </resources>

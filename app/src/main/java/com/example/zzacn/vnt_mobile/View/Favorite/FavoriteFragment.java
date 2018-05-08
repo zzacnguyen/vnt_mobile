@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View;
+package com.example.zzacn.vnt_mobile.View.Favorite;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,13 +10,16 @@ import android.view.ViewGroup;
 
 import com.example.zzacn.vnt_mobile.R;
 
+/**
+ * Created by zzacn on 5/7/2018.
+ */
 
-public class PersonFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
         return view;
     }
