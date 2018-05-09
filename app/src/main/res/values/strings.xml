@@ -8,8 +8,8 @@
         <item>button_5</item>
     </string-array>
 
-    <string name="facebook_app_id" translatable="false">294630491068215</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb294630491068215</string>
+    <string name="facebook_app_id">920411721483836</string>
+    <string name="fb_login_protocol_scheme">fb920411721483836</string>
 
     <string name="text_Home">Home</string>
     <string name="text_Search">Search...</string>

@@ -2,10 +2,16 @@ package com.example.zzacn.vnt_mobile.View.Home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -24,6 +31,17 @@ import com.example.zzacn.vnt_mobile.View.Search.ActivityNearLocation;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.MainActivity.userId;
@@ -41,6 +59,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     int idService, serviceType, REQUEST_CODE = 2;
     String idLike, idRating, longitude, latitude;
     JSONObject saveJson;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
 
     @Override
     public void onClick(View view) {
@@ -84,12 +104,40 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 finish();
                 finishActivity(1);
                 break;
+
+            case R.id.btnShareService:
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareSuccessful), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareCancel), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.toast_ShareError), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("https://vietnamtour.com/"))
+                        .build();
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    shareDialog.show(linkContent);
+                }
+                break;
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_service_info);
 
         btnShare = findViewById(R.id.btnShareService);
@@ -101,12 +149,16 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
         idService = getIntent().getIntExtra("id", 0);
 
-        // click trở lại
+        //Init FB share content
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
+        //Gọi sự kiện click
         btnBack.setOnClickListener(this);
         btnNear.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
 
         getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId);
-
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
@@ -248,4 +300,18 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private void printKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.zzacn.vnt_mobile",
+                    PackageManager.GET_SIGNATURES);
+            ;
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 }
