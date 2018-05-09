@@ -1,6 +1,7 @@
 package com.example.zzacn.vnt_mobile.View.Home;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
+import com.example.zzacn.vnt_mobile.View.Search.TestSearchActivity;
 
 
 import java.util.ArrayList;
@@ -38,6 +41,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         btnSearch = view.findViewById(R.id.button_Search);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iSearch = new Intent(getContext(), ActivityAdvancedSearch.class);
+                startActivity(iSearch);
+            }
+        });
 
         load(view);
 

@@ -29,10 +29,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.MainActivity.childFragment;
 
-
-public class ServiceFragment extends Fragment {
+public class ListServiceFragment extends Fragment {
 
     ArrayList<String> finalArr = new ArrayList<>();
     ArrayList<String> formatJson = new ArrayList<>();

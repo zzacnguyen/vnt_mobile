@@ -1,10 +1,7 @@
-package com.example.zzacn.vnt_mobile;
+package com.example.zzacn.vnt_mobile.View;
 
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,10 +10,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
+import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
 import com.example.zzacn.vnt_mobile.View.Home.HomeFragment;
-import com.example.zzacn.vnt_mobile.View.Home.ServiceFragment;
+import com.example.zzacn.vnt_mobile.View.Home.ListServiceFragment;
 import com.example.zzacn.vnt_mobile.View.Notification.NotificationFragment;
 import com.example.zzacn.vnt_mobile.View.Person.PersonFragment;
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFragment(View view) {
-        childFragment = new ServiceFragment();
+        childFragment = new ListServiceFragment();
         Bundle bundle = new Bundle();
 
         switch (view.getId()) {

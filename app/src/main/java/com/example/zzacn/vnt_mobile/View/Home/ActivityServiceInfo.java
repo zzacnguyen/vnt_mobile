@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.MainActivity.userId;
+import static com.example.zzacn.vnt_mobile.View.MainActivity.userId;
 
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
     public static String[] imgDetail = null;
