@@ -169,4 +169,5 @@
     <string name="text_FieldIsEmpty">Không được để trống</string>
     <string name="text_ReviewFailure">Đánh giá thất bại</string>
     <string name="text_Share">Chia sẻ</string>
+    <string name="text_Default">"Mặc định: "</string>
 </resources>

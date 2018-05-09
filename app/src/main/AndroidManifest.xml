@@ -25,6 +25,7 @@
         <activity android:name=".View.Home.ActivityFullImage" />
         <activity android:name=".View.Search.ActivityAdvancedSearch" />
         <activity android:name=".View.Search.TestSearchActivity"></activity>
+        <activity android:name=".View.Search.ActivityNearLocation"/>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.example.zzacn.vnt_mobile.View.Home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.ServiceInfo;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Search.ActivityNearLocation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +45,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         Intent iDetail = new Intent(ActivityServiceInfo.this, ActivityFullImage.class);
+        Fragment selectedFragment = null;
 
         switch (view.getId()) {
             case R.id.imgInfo1:
@@ -67,6 +70,20 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                     e.printStackTrace();
                 }
                 break;
+
+            case R.id.btnNearLocation:
+                Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
+                // truyền kinh độ vĩ độ loại dịch vụ qua cho form tìm kiếm lân cận
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(0), longitude);
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(1), latitude);
+                intent.putExtra(Config.KEY_NEAR_LOCATION.get(2), serviceType);
+                startActivity(intent);
+                break;
+
+            case R.id.btnBack:
+                finish();
+                finishActivity(1);
+                break;
         }
     }
 
@@ -85,13 +102,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         idService = getIntent().getIntExtra("id", 0);
 
         // click trở lại
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                finishActivity(1);
-            }
-        });
+        btnBack.setOnClickListener(this);
+        btnNear.setOnClickListener(this);
 
         getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId);
 
