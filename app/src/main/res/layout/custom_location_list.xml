@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardViewDanhSach"
+    android:id="@+id/cardView_List"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@null">
@@ -13,14 +13,14 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/imgPlacePhoto"
+            android:id="@+id/image_ServicePhoto"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_avatar" />
+            android:src="@drawable/default_image" />
 
         <TextView
-            android:id="@+id/txtPlaceName"
+            android:id="@+id/textview_ServiceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"

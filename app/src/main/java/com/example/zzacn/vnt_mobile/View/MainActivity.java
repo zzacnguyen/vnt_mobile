@@ -22,7 +22,6 @@ import com.example.zzacn.vnt_mobile.View.Person.PersonFragment;
 public class MainActivity extends AppCompatActivity {
 
     public static Fragment childFragment = null;
-    public static int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

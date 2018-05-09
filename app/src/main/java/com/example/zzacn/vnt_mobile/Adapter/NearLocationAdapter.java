@@ -66,10 +66,10 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtTen = itemView.findViewById(R.id.textViewNearName);
-            txtKhoangCach = itemView.findViewById(R.id.textViewRadius);
-            imgHinh = itemView.findViewById(R.id.imageViewNear);
-            cardView = itemView.findViewById(R.id.cardViewLanCan);
+            txtTen = itemView.findViewById(R.id.textView_NearName);
+            txtKhoangCach = itemView.findViewById(R.id.textView_Radius);
+            imgHinh = itemView.findViewById(R.id.imageview_ViewNear);
+            cardView = itemView.findViewById(R.id.cardView_Near);
         }
     }
 }

@@ -13,14 +13,14 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/image_PlacePhoto"
+            android:id="@+id/imageview_ServicePhoto"
             android:layout_width="180dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/textview_PlaceName"
+            android:id="@+id/textview_ServiceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="2dp"

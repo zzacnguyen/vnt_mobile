@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardViewDanhSach"
+    android:id="@+id/cardView_List"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_grey_border_bottom">
@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewName"
+                android:id="@+id/textView_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -35,7 +35,7 @@
                 android:padding="2dp">
 
                 <RatingBar
-                    android:id="@+id/ratingBarGetStar"
+                    android:id="@+id/ratingBar_GetStar"
                     style="?attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:theme="@style/setRatingBar" />
 
                 <TextView
-                    android:id="@+id/textViewTitle"
+                    android:id="@+id/textView_Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -58,7 +58,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textViewUserReview"
+                android:id="@+id/textView_UserReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,7 +68,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/textViewDateReview"
+                android:id="@+id/textView_DateReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

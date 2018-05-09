@@ -38,9 +38,9 @@ public class ActivityNearLocation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearlocation);
 
-        txtPlaceName = findViewById(R.id.textViewNearName);
-        txtRadius = findViewById(R.id.textViewRadius);
-        imgPlacePhoto = findViewById(R.id.imageViewNear);
+        txtPlaceName = findViewById(R.id.textView_NearName);
+        txtRadius = findViewById(R.id.textView_Radius);
+        imgPlacePhoto = findViewById(R.id.imageview_ViewNear);
         btnSetRadius = findViewById(R.id.btnSetRadius);
         btnBack = findViewById(R.id.btnBack);
         final SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);

@@ -123,9 +123,9 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtName = itemView.findViewById(R.id.txtPlaceName);
-            imgImage = itemView.findViewById(R.id.imgPlacePhoto);
-            cardView = itemView.findViewById(R.id.cardViewDanhSach);
+            txtName = itemView.findViewById(R.id.textview_ServiceName);
+            imgImage = itemView.findViewById(R.id.image_ServicePhoto);
+            cardView = itemView.findViewById(R.id.cardView_List);
 
         }
     }
