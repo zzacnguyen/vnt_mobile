@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.zzacn.vnt_mobile.View.Search.TestSearchActivity">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,14 +23,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="6">
+                android:weightSum="13">
 
                 <EditText
                     android:id="@+id/etSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:background="@color/colorWhite"
+                    android:layout_weight="12"
+                    android:background="@drawable/edittext_rounded_corners"
                     android:hint="@string/hint_Search"
                     android:padding="6dp"
                     android:textSize="16sp" />
@@ -42,6 +40,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@null"
+                    android:layout_weight="1"
                     android:text="@string/text_Cancel"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
@@ -57,31 +56,20 @@
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/checkPlace"
+        <TextView
+            android:id="@+id/textViewSearchHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:padding="2dp"
+            android:text="@string/text_FindService"
+            android:textColor="@color/colorGray"
+            android:textSize="15sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="17dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_sightseeing"
-                android:tint="@color/tbPlace" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/text_SightSeeing"
-                android:textColor="@color/colorBlack"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerView_SearchList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite" />
 
     </LinearLayout>
 

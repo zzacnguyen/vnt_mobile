@@ -24,8 +24,6 @@ import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
-import com.example.zzacn.vnt_mobile.View.Search.TestSearchActivity;
-
 
 import java.util.ArrayList;
 

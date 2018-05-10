@@ -189,4 +189,5 @@
     <string name="text_UpgradeMember">Upgrade member</string>
     <string name="text_General">General</string>
     <string name="text_TranslateToEnglish">Translate to english? OK</string>
+    <string name="text_FindService">Find service you want to add</string>
 </resources>
