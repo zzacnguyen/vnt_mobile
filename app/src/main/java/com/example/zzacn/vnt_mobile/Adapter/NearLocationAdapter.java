@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Model.Object.NearLocation;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Home.ActivityServiceInfo;
+import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 
 import java.util.ArrayList;
 

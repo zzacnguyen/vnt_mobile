@@ -17,7 +17,7 @@ import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
 import com.example.zzacn.vnt_mobile.View.Home.HomeFragment;
 import com.example.zzacn.vnt_mobile.View.Home.ListServiceFragment;
 import com.example.zzacn.vnt_mobile.View.Notification.NotificationFragment;
-import com.example.zzacn.vnt_mobile.View.Person.PersonFragment;
+import com.example.zzacn.vnt_mobile.View.Personal.PersonFragment;
 
 public class MainActivity extends AppCompatActivity {
 

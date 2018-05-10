@@ -5,7 +5,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +31,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.View.Person.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 

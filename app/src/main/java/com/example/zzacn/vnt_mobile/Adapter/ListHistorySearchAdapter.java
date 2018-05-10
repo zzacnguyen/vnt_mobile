@@ -17,14 +17,14 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Home.ActivityServiceInfo;
+import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.zzacn.vnt_mobile.View.Person.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
 
 
 

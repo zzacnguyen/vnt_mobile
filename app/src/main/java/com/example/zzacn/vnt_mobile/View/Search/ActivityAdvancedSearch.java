@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.View.Person.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
 
 
 

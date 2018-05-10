@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:id="@+id/fragment_Personal">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -163,6 +164,7 @@
                 android:orientation="horizontal"
                 android:padding="5dp"
                 android:visibility="gone">
+
                 <Button
                     android:id="@+id/buttonTripSchedule"
                     android:layout_width="match_parent"
@@ -199,34 +201,6 @@
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_event_24dp"
                     android:text="@string/text_AddEvent"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow_right_24dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/Search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:visibility="visible">
-
-                <Button
-                    android:id="@+id/buttonAdvancedSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_search_blue_24dp"
-                    android:text="@string/text_AdvancedSearch"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -282,7 +256,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_verified_user_24dp"
-                    android:text="@string/text_BusinessRegistration"
+                    android:text="@string/text_UpgradeMember"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -308,13 +282,13 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/buttonOption"
+                    android:id="@+id/buttonGeneral"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableLeft="@drawable/ic_setting_24dp"
-                    android:text="@string/text_Settings"
+                    android:drawableLeft="@drawable/ic_general_24dp"
+                    android:text="@string/text_General"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 
@@ -345,12 +319,6 @@
                     android:text="@string/text_SignOut"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_arrow_right_24dp" />
 
             </LinearLayout>
 

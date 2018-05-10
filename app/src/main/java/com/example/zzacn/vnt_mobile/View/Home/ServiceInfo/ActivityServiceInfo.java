@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View.Home;
+package com.example.zzacn.vnt_mobile.View.Home.ServiceInfo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -44,7 +44,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.View.Person.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
 
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
     public static String[] imgDetail = null;
@@ -68,7 +68,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         Fragment selectedFragment = null;
 
         switch (view.getId()) {
-            case R.id.imgInfo1:
+            case R.id.image_Info1:
                 try {
                     imgDetail = new HttpRequestAdapter.httpGet()
                             .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
@@ -80,7 +80,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 }
                 break;
 
-            case R.id.imgInfo2:
+            case R.id.image_Info2:
                 try {
                     imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
                             .replaceAll("\"", "")
@@ -91,7 +91,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 }
                 break;
 
-            case R.id.btnNearLocation:
+            case R.id.button_NearLocation:
                 Intent intent = new Intent(ActivityServiceInfo.this, ActivityNearLocation.class);
                 // truyền kinh độ vĩ độ loại dịch vụ qua cho form tìm kiếm lân cận
                 intent.putExtra(Config.KEY_NEAR_LOCATION.get(0), longitude);
@@ -100,12 +100,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 startActivity(intent);
                 break;
 
-            case R.id.btnBack:
+            case R.id.button_Back:
                 finish();
                 finishActivity(1);
                 break;
 
-            case R.id.btnShareService:
+            case R.id.button_ShareService:
                 shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                     @Override
                     public void onSuccess(Sharer.Result result) {
@@ -130,6 +130,23 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                     shareDialog.show(linkContent);
                 }
                 break;
+
+            case R.id.btnReview:
+//                if (userId == 0) {
+//                    Intent intentReview = new Intent(ActivityServiceInfo.this, ActivityLogin.class);
+//                    startActivityForResult(intentReview, REQUEST_CODE);
+//                } else {
+//                    Intent intentReview = new Intent(ActivityServiceInfo.this, ActivityReview.class);
+//                    intentReview.putExtra("id", idService);
+//                    intentReview.putExtra("idRating", idRating);
+//                    startActivityForResult(intentReview, REQUEST_CODE);
+//                }
+                break;
+            case R.id.btnOpenListReview:
+                Intent intentListReview = new Intent(ActivityServiceInfo.this, ActivityReviewList.class);
+                intentListReview.putExtra("id", idService);
+                startActivity(intentListReview);
+                break;
         }
     }
 
@@ -140,12 +157,12 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_service_info);
 
-        btnShare = findViewById(R.id.btnShareService);
+        btnShare = findViewById(R.id.button_ShareService);
         btnLike = findViewById(R.id.btnLike);
-        btnNear = findViewById(R.id.btnNearLocation);
+        btnNear = findViewById(R.id.button_NearLocation);
         btnReview = findViewById(R.id.btnReview);
         btnShowReview = findViewById(R.id.btnOpenListReview);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.button_Back);
 
         idService = getIntent().getIntExtra("id", 0);
 
@@ -157,6 +174,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         btnBack.setOnClickListener(this);
         btnNear.setOnClickListener(this);
         btnShare.setOnClickListener(this);
+        btnShowReview.setOnClickListener(this);
 
         getServiceInfo(Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId);
     }
@@ -170,8 +188,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         txtAddress = findViewById(R.id.textViewServiceAddress);
         txtPhoneNumber = findViewById(R.id.textViewServicePhone);
         txtWebsite = findViewById(R.id.textViewWebsite);
-        imgThumbInfo1 = findViewById(R.id.imgInfo1);
-        imgThumbInfo2 = findViewById(R.id.imgInfo2);
+        imgThumbInfo1 = findViewById(R.id.image_Info1);
+        imgThumbInfo2 = findViewById(R.id.image_Info2);
         imgBanner = findViewById(R.id.imgBanner);
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = findViewById(R.id.toolbarTitle);

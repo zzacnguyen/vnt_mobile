@@ -17,7 +17,7 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Home.ActivityServiceInfo;
+import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;

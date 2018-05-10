@@ -170,4 +170,6 @@
     <string name="text_ReviewFailure">Đánh giá thất bại</string>
     <string name="text_Share">Chia sẻ</string>
     <string name="text_Default">"Mặc định: "</string>
+    <string name="text_UpgradeMember">Nâng cấp thành viên</string>
+    <string name="text_General">Thông tin chung</string>
 </resources>

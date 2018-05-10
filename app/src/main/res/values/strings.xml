@@ -8,8 +8,8 @@
         <item>button_5</item>
     </string-array>
 
-    <string name="facebook_app_id">920411721483836</string>
-    <string name="fb_login_protocol_scheme">fb920411721483836</string>
+    <string name="facebook_app_id" translatable="false">920411721483836</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb920411721483836</string>
 
     <string name="text_Home">Home</string>
     <string name="text_Search">Search...</string>
@@ -186,4 +186,6 @@
     <string name="text_ReviewFailure">Review failure</string>
     <string name="text_Share">SHARE</string>
     <string name="text_Default">"Default: "</string>
+    <string name="text_UpgradeMember">Upgrade member</string>
+    <string name="text_General">General</string>
 </resources>

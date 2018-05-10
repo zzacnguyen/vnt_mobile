@@ -42,7 +42,7 @@ public class ActivityNearLocation extends AppCompatActivity {
         txtRadius = findViewById(R.id.textView_Radius);
         imgPlacePhoto = findViewById(R.id.imageview_ViewNear);
         btnSetRadius = findViewById(R.id.btnSetRadius);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.button_Back);
         final SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 

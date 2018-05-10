@@ -65,7 +65,7 @@
                 app:layout_collapseMode="pin">
 
                 <ImageButton
-                    android:id="@+id/btnBack"
+                    android:id="@+id/button_Back"
                     android:layout_width="30dp"
                     android:layout_height="15dp"
                     android:background="@null"
@@ -190,7 +190,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btnNearLocation"
+                    android:id="@+id/button_NearLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -201,7 +201,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/btnShareService"
+                    android:id="@+id/button_ShareService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -362,7 +362,7 @@
                     android:padding="5dp">
 
                     <ImageView
-                        android:id="@+id/imgInfo1"
+                        android:id="@+id/image_Info1"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -373,7 +373,7 @@
                         android:layout_height="match_parent" />
 
                     <ImageView
-                        android:id="@+id/imgInfo2"
+                        android:id="@+id/image_Info2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_weight="1"
