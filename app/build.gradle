@@ -35,4 +35,6 @@ dependencies {
         exclude module: "httpclient"
     }
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.google.android.gms:play-services-maps:11.6.2'
+    compile 'com.google.android.gms:play-services-places:11.8.0'
 }

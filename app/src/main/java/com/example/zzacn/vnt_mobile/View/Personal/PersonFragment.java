@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.ActivityLogin;
+import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripSchedule;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,7 +26,7 @@ public class PersonFragment extends Fragment {
     public static int userId;
     public static String userName, userType;
     public static Bitmap avatar;
-    Button btnAddPlace, btnRegEnterprise, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
+    Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
     LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent;
@@ -39,7 +41,7 @@ public class PersonFragment extends Fragment {
 
         btnTripSchedule = view.findViewById(R.id.buttonTripSchedule);
         btnAddPlace = view.findViewById(R.id.buttonAddPlace);
-        btnRegEnterprise = view.findViewById(R.id.buttonRegEnterprise);
+        btnUpgradeMember = view.findViewById(R.id.buttonRegEnterprise);
         btnGeneral = view.findViewById(R.id.buttonGeneral);
         btnLogin = view.findViewById(R.id.buttonLogin);
         btnLogout = view.findViewById(R.id.buttonLogout);
@@ -105,13 +107,13 @@ public class PersonFragment extends Fragment {
             Login.setVisibility(View.GONE);
         }
 
-//        btnTripSchedule.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent iTripSchedule = new Intent(ActivityPersonal.this, ActivityTripSchedule.class);
-//                startActivity(iTripSchedule);
-//            }
-//        });
+        btnTripSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iTripSchedule = new Intent(getContext(), ActivityTripSchedule.class);
+                startActivity(iTripSchedule);
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,21 +128,23 @@ public class PersonFragment extends Fragment {
 //            }
 //        });
 //
-//        btnRegEnterprise.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent iDangKyDoanhNghiep = new Intent(ActivityPersonal.this, ActivityRegCoop.class);
-//                startActivity(iDangKyDoanhNghiep);
-//            }
-//        });
-//
-//        btnGeneral.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent iGeneral = new Intent(ActivityPersonal.this, ActivityGeneral.class);
-//                startActivity(iGeneral);
-//            }
-//        });
+
+        btnUpgradeMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iDangKyDoanhNghiep = new Intent(getContext(), ActivityUpgradeMember.class);
+                startActivity(iDangKyDoanhNghiep);
+            }
+        });
+
+        btnGeneral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iGeneral = new Intent(getContext(), ActivityGeneral.class);
+                startActivity(iGeneral);
+            }
+        });
+
 //        btnLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

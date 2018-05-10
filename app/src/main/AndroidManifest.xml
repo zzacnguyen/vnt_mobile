@@ -23,6 +23,10 @@
         </activity>
 
         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBKurSOfLU5k_ZdLqPINkqVrQHivEqoE1M" />
+
+        <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
@@ -49,8 +53,16 @@
         <activity android:name=".View.Search.ActivityNearLocation" />
         <activity android:name=".View.Home.ServiceInfo.ActivityReview" />
         <activity android:name=".View.Home.ServiceInfo.ActivityReviewList" />
-        <activity android:name=".View.Personal.ActivityLogin" />
-        <activity android:name=".View.Personal.ActivityRegister"></activity>
+        <activity android:name=".View.Personal.Login_Register.ActivityLogin" />
+        <activity android:name=".View.Personal.Login_Register.ActivityRegister" />
+        <activity android:name=".View.Personal.ActivityGeneral"/>
+        <activity android:name=".View.Personal.TripSchedule.ActivityTripSchedule"/>
+        <activity android:name=".View.Personal.TripSchedule.ActivityAddTripSchedule"/>
+        <activity android:name=".View.Personal.TripSchedule.ActitityTripScheduleInfo"/>
+        <activity android:name=".View.Personal.ActivityUpgradeMember"/>
+        <activity android:name=".View.Personal.ActivityAddEvent"/>
+        <activity android:name=".View.Personal.ActivityAddPlace"/>
+        <activity android:name=".View.Personal.ActivityAddService"/>
     </application>
 
 </manifest>

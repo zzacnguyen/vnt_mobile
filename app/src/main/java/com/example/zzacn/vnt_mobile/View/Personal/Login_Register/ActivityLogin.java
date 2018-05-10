@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View.Personal;
+package com.example.zzacn.vnt_mobile.View.Personal.Login_Register;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
@@ -14,6 +15,7 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.PersonFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     EditText etUserId, etPassword;
     Button btnReg, btnLogin;
+    ImageView btnBack;
     int REQUEST_CODE_REGISTER = 1;
     SessionManager sessionManager;
 
@@ -43,8 +46,16 @@ public class ActivityLogin extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnReg = findViewById(R.id.btnRegister);
+        btnBack = findViewById(R.id.button_Back);
 
         sessionManager = new SessionManager(getApplicationContext());
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

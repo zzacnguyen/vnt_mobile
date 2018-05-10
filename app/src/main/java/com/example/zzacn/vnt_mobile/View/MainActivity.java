@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).addToBackStack("main").commit();
+                            selectedFragment).addToBackStack("main").commit(); //Gọi fragment ra view
 
                     return true;
                 }

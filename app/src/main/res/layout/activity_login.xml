@@ -18,11 +18,19 @@
             android:background="@color/bgToolbar"
             app:layout_collapseMode="pin">
 
+            <ImageButton
+                android:id="@+id/button_Back"
+                android:layout_width="23dp"
+                android:layout_height="13dp"
+                android:background="@null"
+                android:tint="@color/colorWhite"
+                android:layout_marginLeft="-50dp"
+                android:src="@drawable/ic_arrow_left_36dp"/>
+
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/text_SignIn"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
@@ -88,17 +96,6 @@
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txtQuenMk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:gravity="right"
-            android:text="@string/text_ForgetYourPassword"
-            android:textColor="@color/colorDen1"
-            android:textSize="15sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,29 +128,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_gravity="top"
-            android:background="@drawable/shadow" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavView_Bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorWhite"
-            app:itemIconTint="@drawable/nav_item_color_state"
-            app:itemTextColor="@drawable/nav_item_color_state"
-            app:menu="@menu/bottom_navigation_menu">
-
-        </android.support.design.widget.BottomNavigationView>
-
-    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
