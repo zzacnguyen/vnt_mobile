@@ -174,4 +174,5 @@
     <string name="text_General">Thông tin chung</string>
     <string name="text_TranslateToEnglish">Dịch sang tiếng anh ? OK</string>
     <string name="text_FindService">Tìm dịch vụ mà bạn muốn thêm</string>
+    <string name="text_YourService">Các địa điểm dịch vụ của bạn</string>
 </resources>

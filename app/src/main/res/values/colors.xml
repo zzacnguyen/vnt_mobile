@@ -35,12 +35,17 @@
 
     <!--Rating bar-->
     <style name="getRatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorGrey</item>
+        <item name="colorControlNormal">@color/colorGray</item>
         <item name="colorControlActivated">@color/colorWhite</item>
     </style>
 
     <style name="setRatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/bgBlue</item>
+    </style>
+
+    <style name="getRatingBarServiceItem" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorControlActivated">@color/tbEntertain</item>
     </style>
 </resources>
