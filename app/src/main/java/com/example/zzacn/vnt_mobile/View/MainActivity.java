@@ -61,10 +61,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (!isStoragePermissionGranted()) {
-            finish();
-            startActivity(getIntent());
-        }
+        isStoragePermissionGranted();
+        startActivity(getIntent());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);

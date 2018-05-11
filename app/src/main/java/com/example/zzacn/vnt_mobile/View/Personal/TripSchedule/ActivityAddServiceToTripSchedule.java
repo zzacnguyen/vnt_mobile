@@ -1,8 +1,8 @@
 package com.example.zzacn.vnt_mobile.View.Personal.TripSchedule;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,60 +41,62 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedsearch);
-//        etSearch = findViewById(R.id.etSearch);
-//        btnCancel = findViewById(R.id.btnCancel);
-//        linearPlace = findViewById(R.id.checkPlace);
-//        linearEat = findViewById(R.id.checkEat);
-//        linearHotel = findViewById(R.id.checkHotel);
-//        linearEntertaiment = findViewById(R.id.checkEntertainment);
-//        linearVehicle = findViewById(R.id.checkVehicle);
-//        linearAll = findViewById(R.id.checkAll);
-//        txtSearchHistory = findViewById(R.id.textViewSearchHistory);
-//
-//        linearEat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(1);
-//            }
-//        });
-//        linearHotel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(2);
-//            }
-//        });
-//        linearVehicle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(3);
-//            }
-//        });
-//        linearPlace.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(4);
-//            }
-//        });
-//        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(5);
-//            }
-//        });
-//        linearAll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                searchByType(0);
-//            }
-//        });
-//        btnCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-//
-//        txtSearchHistory.setVisibility(View.VISIBLE);
+        etSearch = findViewById(R.id.etSearch);
+        btnCancel = findViewById(R.id.btnCancel);
+        linearPlace = findViewById(R.id.checkPlace);
+        linearEat = findViewById(R.id.checkEat);
+        linearHotel = findViewById(R.id.checkHotel);
+        linearEntertaiment = findViewById(R.id.checkEntertainment);
+        linearVehicle = findViewById(R.id.checkVehicle);
+        linearAll = findViewById(R.id.checkAll);
+        txtSearchHistory = findViewById(R.id.textViewSearchHistory);
+
+        linearEat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(1);
+            }
+        });
+        linearHotel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(2);
+            }
+        });
+        linearVehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(3);
+            }
+        });
+        linearPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(4);
+            }
+        });
+        linearEntertaiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(5);
+            }
+        });
+        linearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchByType(0);
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(Activity.RESULT_OK);
+                finishActivity(11);
+                finish();
+            }
+        });
+
+        txtSearchHistory.setVisibility(View.GONE);
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.zzacn.vnt_mobile.View.Personal.TripSchedule;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,7 +66,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityTripScheduleInfo.this, ActivityAddServiceToTripSchedule.class);
                 intent.putExtra("id", schedules.getTripID());
-                startActivity(intent);
+                startActivityForResult(intent,11);
             }
         });
     }
@@ -123,5 +124,14 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 11){
+            System.out.println("Có chạy ko");
+            getTripScheduleInfo();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

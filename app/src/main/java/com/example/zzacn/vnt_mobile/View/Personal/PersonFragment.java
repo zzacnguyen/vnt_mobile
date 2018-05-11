@@ -1,5 +1,6 @@
 package com.example.zzacn.vnt_mobile.View.Personal;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -26,8 +27,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class PersonFragment extends Fragment {
 
-    public static int userId = 1;
-    public static String userName = "Admin", userType = "6";
+    public static int userId;
+    public static String userName, userType;
     public static Bitmap avatar;
     Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
@@ -119,17 +120,17 @@ public class PersonFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ActivityLogin.class));
+                getActivity().startActivityForResult(new Intent(getContext(), ActivityLogin.class), 11);
             }
         });
-//        btnAddPlace.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent iThemDiaDiem = new Intent(ActivityPersonal.this, ActivityAddPlace.class);
-//                startActivity(iThemDiaDiem);
-//            }
-//        });
-//
+        btnAddPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iThemDiaDiem = new Intent(getContext(), ActivityAddPlace.class);
+                startActivity(iThemDiaDiem);
+            }
+        });
+
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,14 +163,15 @@ public class PersonFragment extends Fragment {
                 userType = null;
                 avatar = null;
                 sessionManager.logoutUser();
-                Fragment frg = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_Personal);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.detach(frg);
-                ft.attach(frg);
-                ft.commit();
+                reload();
             }
         });
 
         return view;
+    }
+
+    void reload() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }
