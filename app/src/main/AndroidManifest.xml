@@ -57,7 +57,7 @@
         <activity android:name=".View.Personal.ActivityGeneral"/>
         <activity android:name=".View.Personal.TripSchedule.ActivityTripSchedule"/>
         <activity android:name=".View.Personal.TripSchedule.ActivityAddTripSchedule"/>
-        <activity android:name=".View.Personal.TripSchedule.ActitityTripScheduleInfo"/>
+        <activity android:name=".View.Personal.TripSchedule.ActivityTripScheduleInfo"/>
         <activity android:name=".View.Personal.ActivityUpgradeMember"/>
         <activity android:name=".View.Personal.ActivityAddEvent"/>
         <activity android:name=".View.Personal.ActivityAddPlace"/>

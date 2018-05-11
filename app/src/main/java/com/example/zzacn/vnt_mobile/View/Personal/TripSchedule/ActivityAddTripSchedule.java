@@ -9,12 +9,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-
+import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+
+import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
 
 
 public class ActivityAddTripSchedule extends AppCompatActivity implements View.OnFocusChangeListener {
@@ -63,31 +74,40 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
         });
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SimpleDateFormat")
             @Override
             public void onClick(View view) {
-//                String stt = null;
-//
-//                if (checkInfo) {
-//                    try {
-//                        JSONObject jsonPost = new JSONObject("{"
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(1) + ":\"" + etStartDate.getText().toString() + "\","
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(2) + ":\"" + etEndDate.getText().toString() + "\","
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(3) + ":\"" + 1 + "\","
-//                                + Config.POST_KEY_TRIP_SCHEDULE.get(4) + ":\"" + userId + "\"}");
-//                        stt = new HttpRequestAdapter.httpPost(jsonPost)
-//                                .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE).get();
-//                    } catch (JSONException | InterruptedException | ExecutionException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                // nếu status != null và = OK
-//                if (stt.equals("\'status:200\"")) {
-//                    finish();
-//                } else {
-//                    Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
-//                }
+                String stt = null;
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date startDate = null, endDate = null;
+                try {
+                    startDate = new SimpleDateFormat("dd/MM/yyyy").parse(etStartDate.getText().toString());
+                    endDate = new SimpleDateFormat("dd/MM/yyyy").parse(etEndDate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (checkInfo) {
+                    try {
+                        JSONObject jsonPost = new JSONObject("{"
+                                + Config.POST_KEY_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
+                                + Config.POST_KEY_TRIP_SCHEDULE.get(1) + ":\"" + sdf.format(startDate) + "\","
+                                + Config.POST_KEY_TRIP_SCHEDULE.get(2) + ":\"" + sdf.format(endDate) + "\"}");
+                        stt = new HttpRequestAdapter.httpPost(jsonPost)
+                                .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE + userId).get();
+                    } catch (JSONException | InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // nếu status != null và = OK
+                if (Objects.equals(stt, "\"status:200\"")) {
+                    Toast.makeText(getApplication()
+                            , getResources().getString(R.string.text_SuccessfullyAdded), Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(ActivityAddTripSchedule.this
+                            , getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -1,7 +1,9 @@
 package com.example.zzacn.vnt_mobile.Model.Object;
 
 
-public class TripSchedule {
+import java.io.Serializable;
+
+public class TripSchedule implements Serializable {
     private int tripID;
     private String tripName, tripStartDate, tripEndDate;
 

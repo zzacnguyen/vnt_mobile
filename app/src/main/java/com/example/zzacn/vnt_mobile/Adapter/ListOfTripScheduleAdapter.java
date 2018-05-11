@@ -1,6 +1,7 @@
 package com.example.zzacn.vnt_mobile.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.TripSchedule;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripScheduleInfo;
 
 import java.util.ArrayList;
 
@@ -72,13 +74,21 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder){
-            TripSchedule tripSchedule = tripSchedules.get(position);
+            final TripSchedule tripSchedule = tripSchedules.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTripName.setText(tripSchedule.getTripName());
             viewHolder.txtStartDate.setText(tripSchedule.getTripStartDate());
             viewHolder.txtEndDate.setText(tripSchedule.getTripEndDate());
 
-            //Chưa tạo sự kiện click, chỉ load dữ liệu
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
+                @Override
+                public void onClick(View view) {
+                    Intent iServiceInfo = new Intent(context, ActivityTripScheduleInfo.class);
+                    iServiceInfo.putExtra("schedules", tripSchedule);
+                    iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(iServiceInfo);
+                }
+            });
 
         }else if (holder instanceof ListOfTripScheduleAdapter.LoadingViewHolder) {
             ListOfTripScheduleAdapter.LoadingViewHolder loadingViewHolder = (ListOfTripScheduleAdapter.LoadingViewHolder) holder;
@@ -115,6 +125,7 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
             txtTripName = itemView.findViewById(R.id.textView_TripName);
             txtStartDate = itemView.findViewById(R.id.textView_TripStartDate);
             txtEndDate = itemView.findViewById(R.id.textView_TripEndDate);
+            cardView = itemView.findViewById(R.id.cardViewTripSchedule);
         }
     }
 }

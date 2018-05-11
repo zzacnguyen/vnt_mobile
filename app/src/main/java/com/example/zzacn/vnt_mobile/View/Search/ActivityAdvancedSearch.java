@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.ListHistorySearchAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
@@ -124,7 +125,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
 
     private void search(String url, final int serviceType) {
 
-        final ListOfServiceAdapter listOfServiceAdapter;
+        final ListHistorySearchAdapter listHistorySearchAdapter;
         final RecyclerView recyclerView;
         recyclerView = findViewById(R.id.RecyclerView_SearchList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
@@ -138,9 +139,9 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
             Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
         }
 
-        listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getApplicationContext());
-        recyclerView.setAdapter(listOfServiceAdapter);
-        listOfServiceAdapter.notifyDataSetChanged();
+        listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
+        recyclerView.setAdapter(listHistorySearchAdapter);
+        listHistorySearchAdapter.notifyDataSetChanged();
 
         final ArrayList<Service> finalListService = services;
         try {
@@ -151,7 +152,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         }
 
         //set load more listener for the RecyclerView adapter
-        listOfServiceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+        listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
             public void onLoadMore() {
@@ -159,14 +160,14 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                     finalListService.add(null);
                     recyclerView.post(new Runnable() {
                         public void run() {
-                            listOfServiceAdapter.notifyItemInserted(finalListService.size() - 1);
+                            listHistorySearchAdapter.notifyItemInserted(finalListService.size() - 1);
                         }
                     });
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             finalListService.remove(finalListService.size() - 1);
-                            listOfServiceAdapter.notifyItemRemoved(finalListService.size());
+                            listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelSearch().getAdvancedSearchList(finalArr.get(1), serviceType);
                             finalListService.addAll(serviceArrayList);
@@ -177,8 +178,8 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            listOfServiceAdapter.notifyDataSetChanged();
-                            listOfServiceAdapter.setLoaded();
+                            listHistorySearchAdapter.notifyDataSetChanged();
+                            listHistorySearchAdapter.setLoaded();
                         }
                     }, 1000);
                 }

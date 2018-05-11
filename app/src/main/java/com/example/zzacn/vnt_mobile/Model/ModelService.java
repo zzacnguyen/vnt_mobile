@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 
-import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.Review;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.Object.ServiceInfo;
@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -56,10 +55,10 @@ public class ModelService {
         return bitmap;
     }
 
-    public ServiceInfo getServiceInfo(String url) {
+    public ServiceInfo getServiceInfo(String url, String lang) {
 
         ArrayList<String> arrayServiceInfo;
-        String stringNameOfTheEventType, lang = Locale.getDefault().getLanguage();
+        String stringNameOfTheEventType;
         ServiceInfo serviceInfo = new ServiceInfo();
         Boolean isLike, isRating;
 
@@ -78,7 +77,7 @@ public class ModelService {
             // lấy thông tin chi tiết dịch vụ chuyển vào array
             JSONArray jsonService = new JSONArray(jsonResult.getString(Config.KEY_SERVICE_INFO.get(6)));
             arrayServiceInfo = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
-            if (!lang.equals("vi")) {
+            if (lang.equals("en")) {
                 arrayServiceInfo = translate(arrayServiceInfo, lang);
             }
 

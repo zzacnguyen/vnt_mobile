@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -39,7 +38,7 @@
                 app:layout_collapseMode="pin">
 
                 <TextView
-                    android:id="@+id/toolbarTitle"
+                    android:id="@+id/tvTripName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -54,6 +53,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddServiceTripSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -85,7 +85,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textViewStartDate"
+                    android:id="@+id/tvStartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
@@ -94,7 +94,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textViewEndDate"
+                    android:id="@+id/tvEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"

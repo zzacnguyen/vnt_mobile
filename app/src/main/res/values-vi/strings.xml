@@ -172,7 +172,8 @@
     <string name="text_Default">"Mặc định: "</string>
     <string name="text_UpgradeMember">Nâng cấp thành viên</string>
     <string name="text_General">Thông tin chung</string>
-    <string name="text_TranslateToEnglish">Dịch sang tiếng anh ? OK</string>
+    <string name="text_TranslateToEnglish">Dịch sang tiếng Anh</string>
     <string name="text_FindService">Tìm dịch vụ mà bạn muốn thêm</string>
     <string name="text_YourService">Các địa điểm dịch vụ của bạn</string>
+    <string name="text_TranslateToVietnamese">Dịch sang tiếng Việt</string>
 </resources>
