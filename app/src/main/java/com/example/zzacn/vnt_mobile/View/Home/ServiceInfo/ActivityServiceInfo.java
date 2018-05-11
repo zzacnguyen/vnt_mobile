@@ -409,4 +409,23 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 3) {
+            startActivity(getIntent());
+            if (data.hasExtra("mess"))
+                Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        btnLike.setOnClickListener(null);
+        btnNear.setOnClickListener(null);
+        btnShare.setOnClickListener(null);
+        btnReview.setOnClickListener(null);
+        btnShowReview.setOnClickListener(null);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.zzacn.vnt_mobile.View.Personal.Login_Register;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -74,5 +75,14 @@ public class ActivityRegister extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+        // trả thông báo về cho form đăng nhập
+        data.putExtra("mess", getResources().getString(R.string.text_RegisterSuccess));
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 }

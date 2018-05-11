@@ -177,4 +177,9 @@
     <string name="text_YourService">Các địa điểm dịch vụ của bạn</string>
     <string name="text_CheckDate">Ngày kết thúc chuyến đi phải lớn hơn ngày khởi hành</string>
     <string name="text_TranslateToVietnamese">Dịch sang tiếng việt</string>
+    <string name="text_WhatsYourName">Nhập họ và tên</string>
+    <string name="text_YourName">Họ và tên:</string>
+    <string name="text_YourPhone">Số điện thoại:</string>
+    <string name="text_YourLanguage">Ngôn ngữ:</string>
+    <string name="text_YourCountry">Quốc gia:</string>
 </resources>

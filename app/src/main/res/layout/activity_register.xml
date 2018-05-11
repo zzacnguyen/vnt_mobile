@@ -18,11 +18,21 @@
             android:background="@color/bgToolbar"
             app:layout_collapseMode="pin">
 
+            <ImageView
+                android:id="@+id/button_Back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:foregroundGravity="center"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_arrow_left_36dp"
+                android:tint="@color/colorWhite"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/text_SignUp"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />

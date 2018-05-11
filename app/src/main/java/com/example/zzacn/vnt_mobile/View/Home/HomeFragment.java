@@ -22,16 +22,20 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
+import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class HomeFragment extends Fragment {
 
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
+    SessionManager sessionManager;
 
     @Nullable
     @Override
@@ -47,6 +51,9 @@ public class HomeFragment extends Fragment {
                 startActivity(iSearch);
             }
         });
+
+        sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
 
         load(view);
 

@@ -193,4 +193,11 @@
     <string name="text_YourService">Your services...</string>
     <string name="text_CheckDate">End date is not less than start date</string>
     <string name="text_TranslateToVietnamese">Translate to vietnamese</string>
+    <string name="text_WhatsYourName">What\'s your name ?</string>
+    <string name="text_YourName">Your name:</string>
+    <string name="text_YourPhone">Phone number:</string>
+    <string name="text_YourWebsite" translatable="false">Website:</string>
+    <string name="text_YourEmail" translatable="false">Email:</string>
+    <string name="text_YourLanguage">Language:</string>
+    <string name="text_YourCountry">Country:</string>
 </resources>

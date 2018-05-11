@@ -112,4 +112,20 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            if (data.hasExtra("mess"))
+                Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void finishActivity(int requestCode) {
+        Intent data = new Intent();
+        data.putExtra("mess", getResources().getString(R.string.text_LoginSuccess));
+        setResult(RESULT_OK, data);
+        super.finishActivity(requestCode);
+    }
 }
