@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View.Home;
+package com.example.zzacn.vnt_mobile.View.Personal.Login_Register;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import com.example.zzacn.vnt_mobile.R;
 
 
-public class EnterpriseHomeFragment extends Fragment {
+public class FragmentLogin extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_enterprise_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         return view;
     }

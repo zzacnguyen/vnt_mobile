@@ -48,7 +48,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
     public static String[] imgDetail = null;

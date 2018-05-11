@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
 public class ActivityTripSchedule extends AppCompatActivity {

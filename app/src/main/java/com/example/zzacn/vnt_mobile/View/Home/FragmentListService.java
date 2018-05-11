@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
-public class ListServiceFragment extends Fragment {
+public class FragmentListService extends Fragment {
 
     ArrayList<String> finalArr = new ArrayList<>();
     ArrayList<String> formatJson = new ArrayList<>();

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListHistorySearchAdapter;
-import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
 

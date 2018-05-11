@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class NotificationFragment extends Fragment {
+public class FragmentNotification extends Fragment {
 
     ArrayList<String> finalArr = new ArrayList<>();
 

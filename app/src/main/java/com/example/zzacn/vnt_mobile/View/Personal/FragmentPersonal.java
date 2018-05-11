@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class PersonFragment extends Fragment {
+public class FragmentPersonal extends Fragment {
 
     public static int userId;
     public static String userName, userType;

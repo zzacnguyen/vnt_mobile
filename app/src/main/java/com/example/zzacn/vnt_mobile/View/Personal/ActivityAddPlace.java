@@ -32,7 +32,7 @@ import com.example.zzacn.vnt_mobile.R;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
 public class ActivityAddPlace extends AppCompatActivity {

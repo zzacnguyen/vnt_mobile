@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-public class HomeFragment extends Fragment {
+public class FragmentHome extends Fragment {
 
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;

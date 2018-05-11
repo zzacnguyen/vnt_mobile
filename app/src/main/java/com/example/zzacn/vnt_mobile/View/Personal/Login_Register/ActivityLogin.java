@@ -1,6 +1,5 @@
 package com.example.zzacn.vnt_mobile.View.Personal.Login_Register;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,10 +22,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.avatar;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userName;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userType;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 public class ActivityLogin extends AppCompatActivity {
 

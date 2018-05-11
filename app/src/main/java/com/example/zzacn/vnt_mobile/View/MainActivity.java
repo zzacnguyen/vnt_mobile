@@ -17,10 +17,10 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
-import com.example.zzacn.vnt_mobile.View.Home.HomeFragment;
-import com.example.zzacn.vnt_mobile.View.Home.ListServiceFragment;
-import com.example.zzacn.vnt_mobile.View.Notification.NotificationFragment;
-import com.example.zzacn.vnt_mobile.View.Personal.PersonFragment;
+import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
+import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
+import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
+                            selectedFragment = new FragmentHome();
                             break;
 
                         case R.id.nav_favorite:
@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case R.id.nav_notification:
-                            selectedFragment = new NotificationFragment();
+                            selectedFragment = new FragmentNotification();
                             break;
 
                         case R.id.nav_person:
-                            selectedFragment = new PersonFragment();
+                            selectedFragment = new FragmentPersonal();
                             break;
                     }
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new FragmentHome()).commit();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFragment(View view) {
-        childFragment = new ListServiceFragment();
+        childFragment = new FragmentListService();
         Bundle bundle = new Bundle();
 
         switch (view.getId()) {

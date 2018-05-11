@@ -11,10 +11,10 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.avatar;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userId;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userName;
-import static com.example.zzacn.vnt_mobile.View.Personal.PersonFragment.userType;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 
 /**
