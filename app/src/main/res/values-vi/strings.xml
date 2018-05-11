@@ -175,5 +175,6 @@
     <string name="text_TranslateToEnglish">Dịch sang tiếng Anh</string>
     <string name="text_FindService">Tìm dịch vụ mà bạn muốn thêm</string>
     <string name="text_YourService">Các địa điểm dịch vụ của bạn</string>
-    <string name="text_TranslateToVietnamese">Dịch sang tiếng Việt</string>
+    <string name="text_CheckDate">Ngày kết thúc chuyến đi phải lớn hơn ngày khởi hành</string>
+    <string name="text_TranslateToVietnamese">Dịch sang tiếng việt</string>
 </resources>

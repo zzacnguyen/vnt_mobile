@@ -36,9 +36,10 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
     TextView txtSearchHistory;
     Button btnCancel;
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedsearch);
 //        etSearch = findViewById(R.id.etSearch);
 //        btnCancel = findViewById(R.id.btnCancel);
@@ -94,6 +95,7 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
 //        });
 //
 //        txtSearchHistory.setVisibility(View.VISIBLE);
+
     }
 
     void searchByType(int serviceType) {

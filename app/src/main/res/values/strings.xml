@@ -191,5 +191,6 @@
     <string name="text_TranslateToEnglish">Translate to English</string>
     <string name="text_FindService">Find service you want to add</string>
     <string name="text_YourService">Your services...</string>
-    <string name="text_TranslateToVietnamese">Translate to Vietnamese</string>
+    <string name="text_CheckDate">End date is not less than start date</string>
+    <string name="text_TranslateToVietnamese">Translate to vietnamese</string>
 </resources>

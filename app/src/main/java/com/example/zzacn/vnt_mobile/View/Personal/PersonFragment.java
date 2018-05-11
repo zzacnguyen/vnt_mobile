@@ -130,6 +130,12 @@ public class PersonFragment extends Fragment {
 //            }
 //        });
 //
+        btnAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ActivityAddEvent.class));
+            }
+        });
 
         btnUpgradeMember.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,7 +68,8 @@
             android:inputType="date"
             android:maxLength="13"
             android:padding="10dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:focusable="false"/>
 
         <EditText
             android:id="@+id/etEndDatePicker"
@@ -80,7 +81,8 @@
             android:inputType="date"
             android:maxLength="13"
             android:padding="10dp"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:focusable="false"/>
 
 
     </LinearLayout>
