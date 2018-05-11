@@ -200,4 +200,5 @@
     <string name="text_YourEmail" translatable="false">Email:</string>
     <string name="text_YourLanguage">Language:</string>
     <string name="text_YourCountry">Country:</string>
+    <string name="text_UpgradeTo">Upgrade to:</string>
 </resources>
