@@ -1,4 +1,4 @@
-package com.example.zzacn.vnt_mobile.View.Personal;
+package com.example.zzacn.vnt_mobile.View.Personal.Event;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;

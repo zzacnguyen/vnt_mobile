@@ -1,6 +1,5 @@
 package com.example.zzacn.vnt_mobile.View.Personal;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddEvent;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.ActivityLogin;
 import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripSchedule;
 
