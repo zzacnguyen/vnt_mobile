@@ -104,14 +104,6 @@ public class FragmentListService extends Fragment {
                 new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getFullServiceList(url, formatJson);
-
-        listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getContext());
-        recyclerView.setAdapter(listOfServiceAdapter);
-        listOfServiceAdapter.notifyDataSetChanged();
-
-        //set load more listener for the RecyclerView adapter
-        final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
                     (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
@@ -119,6 +111,14 @@ public class FragmentListService extends Fragment {
             e.printStackTrace();
         }
 
+        ArrayList<Service> services = new ModelService().getFullServiceList(finalArr.get(0), formatJson);
+        final ArrayList<Service> finalListService = services;
+
+        listOfServiceAdapter = new ListOfServiceAdapter(recyclerView, services, getContext());
+        recyclerView.setAdapter(listOfServiceAdapter);
+        listOfServiceAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
         listOfServiceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
@@ -136,18 +136,17 @@ public class FragmentListService extends Fragment {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelService().
-                                    getFullServiceList(finalArr.get(1), formatJson);
-                            for (int i = 0; i < serviceArrayList.size(); i++) {
-                                finalListService.add(serviceArrayList.get(i));
-                            }
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()),
+                                                (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()),
                                         Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<Service> serviceArrayList = new ModelService().
+                                    getFullServiceList(finalArr.get(0), formatJson);
+                            finalListService.addAll(serviceArrayList);
 
                             listOfServiceAdapter.notifyDataSetChanged();
                             listOfServiceAdapter.setLoaded();

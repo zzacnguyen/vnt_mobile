@@ -3,7 +3,6 @@ package com.example.zzacn.vnt_mobile.Model;
 import android.app.Activity;
 import android.widget.Toast;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.NearLocation;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
 
@@ -28,7 +26,7 @@ import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 public class ModelSearch {
     public ArrayList<NearLocation> getNearLocationList(String url, int type, Activity activity) {
 
-        ArrayList<String> arrayList = new ArrayList<>(), keyJson;
+        ArrayList<String> arrayList, keyJson;
         ArrayList<NearLocation> services = new ArrayList<>();
 
         try {
@@ -62,13 +60,11 @@ public class ModelSearch {
                 }
 
                 JSONArray jsonArray = jsonObject.getJSONArray(Config.GET_KEY_SEARCH_NEAR.get(0));
-                System.out.println(jsonArray);
                 for (int i = 0; i < jsonArray.length(); i++) {
 
                     NearLocation service = new NearLocation();
                     JSONObject jsonObjectData = jsonArray.getJSONObject(i);
 
-                    arrayList.clear();
                     arrayList = parseJson(jsonObjectData, keyJson);
 
                     //Set hình ảnh
@@ -82,6 +78,7 @@ public class ModelSearch {
                     service.setNearLocationDistance(arrayList.get(4));
 
                     services.add(service);
+                    arrayList.clear();
                 }
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
@@ -91,21 +88,18 @@ public class ModelSearch {
         return services;
     }
 
-    public ArrayList<Service> getAdvancedSearchList(String url, int type) {
+    public ArrayList<Service> getAdvancedSearchList(String getJson, int type) {
 
         ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().
-                    execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arrayList.get(0));
+            JSONArray jsonArray = new JSONArray(getJson);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList.clear();
                 if (type == 0) {
                     arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_SERVICE_LIST);
 
@@ -144,9 +138,10 @@ public class ModelSearch {
                     service.setName(arrayList.get(1));
 
                     services.add(service);
+                    arrayList.clear();
                 }
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

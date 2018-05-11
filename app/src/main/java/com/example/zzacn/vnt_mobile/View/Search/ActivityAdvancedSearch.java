@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListHistorySearchAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
-
 
 
 public class ActivityAdvancedSearch extends AppCompatActivity {
@@ -133,22 +131,22 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelSearch().getAdvancedSearchList(url, serviceType);
-        if (services.size() == 0) {
-            Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
-        }
-
-        listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
-        recyclerView.setAdapter(listHistorySearchAdapter);
-        listHistorySearchAdapter.notifyDataSetChanged();
-
-        final ArrayList<Service> finalListService = services;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
                     (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        ArrayList<Service> services = new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
+        if (services.size() == 0) {
+            Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
+        }
+        final ArrayList<Service> finalListService = services;
+
+        listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
+        recyclerView.setAdapter(listHistorySearchAdapter);
+        listHistorySearchAdapter.notifyDataSetChanged();
 
         //set load more listener for the RecyclerView adapter
         listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -167,15 +165,16 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                         public void run() {
                             finalListService.remove(finalListService.size() - 1);
                             listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
-
-                            ArrayList<Service> serviceArrayList = new ModelSearch().getAdvancedSearchList(finalArr.get(1), serviceType);
-                            finalListService.addAll(serviceArrayList);
                             try {
-                                finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter
+                                        .httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+                            ArrayList<Service> serviceArrayList =
+                                    new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
+                            finalListService.addAll(serviceArrayList);
+
 
                             listHistorySearchAdapter.notifyDataSetChanged();
                             listHistorySearchAdapter.setLoaded();

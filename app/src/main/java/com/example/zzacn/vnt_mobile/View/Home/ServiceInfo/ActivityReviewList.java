@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfReviewAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -55,19 +54,6 @@ public class ActivityReviewList extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.RecyclerView_ReviewList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        ArrayList<Review> reviews = new ModelService().getReviewList(url, formatJson);
-
-        final ListOfReviewAdapter listOfReviewAdapter =
-                new ListOfReviewAdapter(recyclerView, reviews, getApplicationContext());
-        recyclerView.setAdapter(listOfReviewAdapter);
-        listOfReviewAdapter.notifyDataSetChanged();
-
-        //set load more listener for the RecyclerView adapter
-        final ArrayList<Review> finalListService = reviews;
         try {
             finalArr = parseJsonNoId(new JSONObject
                     (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
@@ -75,6 +61,19 @@ public class ActivityReviewList extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        ArrayList<Review> reviews = new ModelService().getReviewList(finalArr.get(0), formatJson);
+        final ArrayList<Review> finalListService = reviews;
+
+        final ListOfReviewAdapter listOfReviewAdapter =
+                new ListOfReviewAdapter(recyclerView, reviews, getApplicationContext());
+        recyclerView.setAdapter(listOfReviewAdapter);
+        listOfReviewAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
         listOfReviewAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
@@ -92,16 +91,14 @@ public class ActivityReviewList extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfReviewAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Review> reviewArrayList = new ModelService().getReviewList(finalArr.get(1), formatJson);
-                            for (int i = 0; i < reviewArrayList.size(); i++) {
-                                finalListService.add(reviewArrayList.get(i));
-                            }
                             try {
                                 finalArr = parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+                            ArrayList<Review> reviewArrayList = new ModelService().getReviewList(finalArr.get(0), formatJson);
+                            finalListService.addAll(reviewArrayList);
 
                             listOfReviewAdapter.notifyDataSetChanged();
                             listOfReviewAdapter.setLoaded();

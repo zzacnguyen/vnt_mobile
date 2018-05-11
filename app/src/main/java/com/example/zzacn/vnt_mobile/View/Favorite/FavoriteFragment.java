@@ -40,6 +40,7 @@ public class FavoriteFragment extends Fragment {
     TextView txtServiceName;
     ImageView imgServiceImage;
     RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,16 +83,6 @@ public class FavoriteFragment extends Fragment {
 
     private void getFavoriteList(final File file, int id) {
 
-        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(file, Config.URL_HOST +
-                Config.URL_GET_ALL_FAVORITE + "/" + id);
-
-        final ListOfServiceAdapter listOfServiceAdapter =
-                new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
-        recyclerView.setAdapter(listOfServiceAdapter);
-        listOfServiceAdapter.notifyDataSetChanged();
-
-        //set load more listener for the RecyclerView adapter
-        final ArrayList<Service> finalListService = favoriteList;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST +
                     Config.URL_GET_ALL_FAVORITE + "/" + id).get()), Config.GET_KEY_JSON_LOAD);
@@ -99,6 +90,14 @@ public class FavoriteFragment extends Fragment {
             e.printStackTrace();
         }
 
+        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(file, finalArr.get(0));
+        final ArrayList<Service> finalListService = favoriteList;
+        final ListOfServiceAdapter listOfServiceAdapter =
+                new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
+        recyclerView.setAdapter(listOfServiceAdapter);
+        listOfServiceAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
         listOfServiceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
@@ -116,15 +115,16 @@ public class FavoriteFragment extends Fragment {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(file, finalArr.get(1));
-                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<Service> serviceArrayList = new ModelFavorite().
+                                    getFavoriteList(file, finalArr.get(0));
+                            finalListService.addAll(serviceArrayList);
 
                             listOfServiceAdapter.notifyDataSetChanged();
                             listOfServiceAdapter.setLoaded();

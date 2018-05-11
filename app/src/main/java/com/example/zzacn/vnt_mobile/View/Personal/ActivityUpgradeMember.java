@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -11,9 +12,9 @@ import android.widget.TextView;
 import com.example.zzacn.vnt_mobile.R;
 
 
-public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener {
+public class ActivityUpgradeMember extends AppCompatActivity{
 
-    TextView btnCancel, btnSend;
+    ImageView btnBack;
     RadioGroup rgUserType;
     RadioButton rbTourGuide, rbEnterprise, rbPartner;
 
@@ -22,24 +23,10 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrademember);
 
-        btnCancel = findViewById(R.id.button_Cancel);
-        btnSend = findViewById(R.id.button_Send);
+        btnBack = findViewById(R.id.button_Back);
         rgUserType = findViewById(R.id.radioGroup_UserType);
         rbTourGuide = findViewById(R.id.radioButton_TourGuide);
         rbEnterprise = findViewById(R.id.radioButton_Enterprise);
         rbPartner = findViewById(R.id.radioButton_Partner);
-
-        btnCancel.setOnClickListener(this); //Gọi sự kiện click
-    }
-
-    @Override
-    public void onClick(View view) { //Set sự kiện click dựa vào id
-        switch (view.getId()){
-            case R.id.button_Cancel:
-                finish();
-                break;
-            case R.id.button_Send:
-                break;
-        }
     }
 }

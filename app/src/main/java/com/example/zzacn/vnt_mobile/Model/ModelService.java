@@ -251,20 +251,18 @@ public class ModelService {
         return services;
     }
 
-    public ArrayList<Service> getFullServiceList(String url, ArrayList<String> formatJson) {
+    public ArrayList<Service> getFullServiceList(String getJson, ArrayList<String> formatJson) {
 
         ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arrayList.get(0));
+            JSONArray jsonArray = new JSONArray(getJson);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList.clear();
                 arrayList = parseJson(jsonObject, formatJson);
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                         arrayList.get(2), arrayList.get(3)));
@@ -272,22 +270,21 @@ public class ModelService {
                 service.setName(arrayList.get(1));
 
                 services.add(service);
+                arrayList.clear();
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return services;
     }
 
-    public ArrayList<Review> getReviewList(String url, ArrayList<String> formatJson) {
+    public ArrayList<Review> getReviewList(String getJson, ArrayList<String> formatJson) {
 
-        ArrayList<String> arr, arrayList;
+        ArrayList<String> arrayList;
         ArrayList<Review> reviews = new ArrayList<>();
 
         try {
-            arr = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()),
-                    Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            JSONArray jsonArray = new JSONArray(getJson);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -301,8 +298,9 @@ public class ModelService {
                 review.setDateReview(arrayList.get(4));
 
                 reviews.add(review);
+                arrayList.clear();
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return reviews;

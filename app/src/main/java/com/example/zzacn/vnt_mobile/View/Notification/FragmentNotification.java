@@ -54,14 +54,6 @@ public class FragmentNotification extends Fragment {
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Event> events = new ModelEvent().getEventList(getContext(), url);
-
-        final EventAdapter eventAdapter = new EventAdapter(recyclerView, events, getContext());
-        recyclerView.setAdapter(eventAdapter);
-        eventAdapter.notifyDataSetChanged();
-
-        //set load more listener for the RecyclerView adapter
-        final ArrayList<Event> finalListService = events;
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject
                     (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
@@ -69,6 +61,14 @@ public class FragmentNotification extends Fragment {
             e.printStackTrace();
         }
 
+        ArrayList<Event> events = new ModelEvent().getEventList(getContext(), finalArr.get(0));
+        final ArrayList<Event> finalListService = events;
+
+        final EventAdapter eventAdapter = new EventAdapter(recyclerView, events, getContext());
+        recyclerView.setAdapter(eventAdapter);
+        eventAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
         eventAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
@@ -86,16 +86,17 @@ public class FragmentNotification extends Fragment {
                             finalListService.remove(finalListService.size() - 1);
                             eventAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Event> serviceArrayList = new ModelEvent().
-                                    getEventList(getApplicationContext(), finalArr.get(1));
-                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()),
+                                                (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()),
                                         Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<Event> serviceArrayList = new ModelEvent().
+                                    getEventList(getApplicationContext(), finalArr.get(0));
+                            finalListService.addAll(serviceArrayList);
 
                             eventAdapter.notifyDataSetChanged();
                             eventAdapter.setLoaded();

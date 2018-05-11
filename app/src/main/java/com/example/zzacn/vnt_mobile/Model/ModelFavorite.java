@@ -1,7 +1,6 @@
 package com.example.zzacn.vnt_mobile.Model;
 
 
-import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 
@@ -11,36 +10,32 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.mergeJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
 
 public class ModelFavorite {
-    public ArrayList<Service> getFavoriteList(File file, String url) {
+    public ArrayList<Service> getFavoriteList(File file, String getJson) {
 
         ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
             JSONArray jsonArray;
 
             if (file.exists()) {
-                jsonArray = mergeJson(new JSONArray(arrayList.get(0)), new JSONArray(readJson(file)));
+                jsonArray = mergeJson(new JSONArray(getJson), new JSONArray(readJson(file)));
             } else {
-                jsonArray = new JSONArray(arrayList.get(0));
+                jsonArray = new JSONArray(getJson);
             }
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                arrayList.clear();
                 arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_SERVICE_LIST);
 
                 //Set hình ảnh
@@ -55,8 +50,9 @@ public class ModelFavorite {
                                         !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4) : arrayList.get(5));
 
                 services.add(service);
+                arrayList.clear();
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

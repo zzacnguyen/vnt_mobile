@@ -14,9 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
+import com.example.zzacn.vnt_mobile.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import com.example.zzacn.vnt_mobile.R;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
@@ -158,40 +157,40 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postPlace();
-                openActivityAddService(4);
+                if (postPlace())
+                    openActivityAddService(4);
             }
         });
 
         linearEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postPlace();
-                openActivityAddService(1);
+                if (postPlace())
+                    openActivityAddService(1);
             }
         });
 
         linearHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postPlace();
-                openActivityAddService(2);
+                if (postPlace())
+                    openActivityAddService(2);
             }
         });
 
         linearEntertaiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postPlace();
-                openActivityAddService(5);
+                if (postPlace())
+                    openActivityAddService(5);
             }
         });
 
         linearVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postPlace();
-                openActivityAddService(3);
+                if (postPlace())
+                    openActivityAddService(3);
             }
         });
 
@@ -203,7 +202,7 @@ public class ActivityAddPlace extends AppCompatActivity {
         });
     }
 
-    private void postPlace() {
+    private boolean postPlace() {
         if (etPlaceName.getText().toString().equals("")) {
             etPlaceName.setError(getResources().getString(R.string.text_WhatIsYourPlaceName));
         } else if (etAddress.getText().toString().equals("")) {
@@ -240,14 +239,17 @@ public class ActivityAddPlace extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if (stringIdPlace.equals("\"status: 500\"")) {
+            if (stringIdPlace.equals("\"status:500\"")) {
                 Toast.makeText(ActivityAddPlace.this, getResources()
                         .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
+                return false;
             } else {
                 stringIdPlace = stringIdPlace.contains(":")
                         ? stringIdPlace.replaceAll("\"", "").split(":")[1] : "0";
+                return true;
             }
         }
+        return true;
     }
 
     private void openActivityAddService(int type) {

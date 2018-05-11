@@ -104,7 +104,7 @@ public class ActivityNearLocation extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
 
-        ArrayList<NearLocation> favoriteList = new ModelSearch().getNearLocationList(
+        ArrayList<NearLocation> nearLocationList = new ModelSearch().getNearLocationList(
                 Config.URL_HOST + Config.URL_SEARCH_SERVICE_NEAR.get(0) + latitude.trim() + "," + longitude.trim()
                         + Config.URL_SEARCH_SERVICE_NEAR.get(1) + serviceType + Config.URL_SEARCH_SERVICE_NEAR.get(2)
                         + sharedPreferences.getString(Config.KEY_DISTANCE, Config.DEFAULT_DISTANCE), serviceType, this);
@@ -117,7 +117,7 @@ public class ActivityNearLocation extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         NearLocationAdapter nearLocationAdapter =
-                new NearLocationAdapter(favoriteList, getApplicationContext());
+                new NearLocationAdapter(nearLocationList, getApplicationContext());
         recyclerView.setAdapter(nearLocationAdapter);
 
         nearLocationAdapter.notifyDataSetChanged();

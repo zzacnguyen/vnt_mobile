@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfTripScheduleAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -68,15 +67,6 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(url);
-
-        final ListOfTripScheduleAdapter listOfTripScheduleAdapter =
-                new ListOfTripScheduleAdapter(recyclerView, getApplicationContext(), tripScheduleList);
-        recyclerView.setAdapter(listOfTripScheduleAdapter);
-        listOfTripScheduleAdapter.notifyDataSetChanged();
-
-        //set load more listener for the RecyclerView adapter
-        final ArrayList<TripSchedule> finalListService = tripScheduleList;
         try {
             finalArr = parseJsonNoId(new JSONObject
                     (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
@@ -84,6 +74,15 @@ public class ActivityTripSchedule extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        ArrayList<TripSchedule> tripScheduleList = new ModelTripSchedule().getTripScheduleList(finalArr.get(0));
+        final ArrayList<TripSchedule> finalListService = tripScheduleList;
+
+        final ListOfTripScheduleAdapter listOfTripScheduleAdapter =
+                new ListOfTripScheduleAdapter(recyclerView, getApplicationContext(), tripScheduleList);
+        recyclerView.setAdapter(listOfTripScheduleAdapter);
+        listOfTripScheduleAdapter.notifyDataSetChanged();
+
+        //set load more listener for the RecyclerView adapter
         listOfTripScheduleAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -100,14 +99,16 @@ public class ActivityTripSchedule extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfTripScheduleAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<TripSchedule> tripscheduleArrayList = new ModelTripSchedule().getTripScheduleList(finalArr.get(1));
-                            finalListService.addAll(tripscheduleArrayList);
                             try {
-                                finalArr = parseJsonNoId(new JSONObject
-                                        (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                finalArr = parseJsonNoId(new JSONObject(new HttpRequestAdapter
+                                        .httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<TripSchedule> tripscheduleArrayList =
+                                    new ModelTripSchedule().getTripScheduleList(finalArr.get(0));
+                            finalListService.addAll(tripscheduleArrayList);
 
                             listOfTripScheduleAdapter.notifyDataSetChanged();
                             listOfTripScheduleAdapter.setLoaded();

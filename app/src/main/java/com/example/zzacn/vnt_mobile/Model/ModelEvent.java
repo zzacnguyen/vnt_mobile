@@ -3,22 +3,17 @@ package com.example.zzacn.vnt_mobile.Model;
 import android.content.Context;
 import android.os.Environment;
 
-
-import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
 import com.example.zzacn.vnt_mobile.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
@@ -46,20 +41,17 @@ public class ModelEvent {
         return jsonFile;
     }
 
-    public ArrayList<Event> getEventList(Context context, String url) { //Get danh sách thông báo sự kiện
+    public ArrayList<Event> getEventList(Context context, String getJson) { //Get danh sách thông báo sự kiện
 
         ArrayList<String> arrayList;
         JSONArray jsonArray;
         ArrayList<Event> events = new ArrayList<>();
         try {
-            //Sử dụng parseJsonNoId vì KEY_JSON_LOAD ko có id
-            arrayList = parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-            jsonArray = new JSONArray(arrayList.get(0));
+            jsonArray = new JSONArray(getJson);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 Event event = new Event();
-                arrayList.clear();
                 arrayList = parseJson(jsonArray.getJSONObject(i), Config.GET_KEY_JSON_EVENT); //Parse json event
 
                 event.setEventId(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
@@ -75,8 +67,9 @@ public class ModelEvent {
 
                 event.setSeen(getJsonFileEvent().toString().contains("\"id\":\"" + event.getEventId() + "\""));
                 events.add(event);
+                arrayList.clear();
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
