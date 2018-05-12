@@ -35,10 +35,13 @@ public class Config {
     public static final String URL_GET_LINK_DETAIL_1 = "get-detail-1/";
     public static final String URL_GET_LINK_DETAIL_2 = "get-detail-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
-    public static final String URL_GET_THUMB = "thumbnails/";
+    public static final String URL_GET_THUMB = "public/thumbnails/";
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
+    public static final String URL_POST_CONTACT_INFO = "edit_user_mobile/";
+    public static final String URL_POST_UPGRADE_MEMBER = "savequyendangky/";
+    public static final String URL_GET_PRIVILEGE = "get_quyen_dangky/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events";
     public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
@@ -48,7 +51,6 @@ public class Config {
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
     public static final String FILE_EVENT = "listOfEvent.json";
-    public static final String FILE_LIKE = "listOfFavorite.json";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
@@ -132,6 +134,9 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",
                     "\"vr_title\"", "\"details\""));
 
+    public static final ArrayList<String> POST_KEY_JSON_PRIVILEGE =
+            new ArrayList<>(Collections.singletonList("\"quyen\""));
+
     public static final ArrayList<String> POST_KEY_JSON_LIKE =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));
 
@@ -142,6 +147,10 @@ public class Config {
     public static final ArrayList<String> POST_KEY_JSON_LIKE_SERVICE =
             new ArrayList<>(Arrays.asList("\"id\"", "\"hotel_name\"", "\"entertainments_name\"", "\"transport_name\"",
                     "\"sightseeing_name\"", "\"eat_name\"", "\"image_id\"", "\"image_details_1\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_CONTACT_INFO =
+            new ArrayList<>(Arrays.asList("\"contact_name\"", "\"contact_phone\"", "\"contact_website\"",
+                    "\"contact_email_address\"", "\"contact_language\"", "\"contact_country\""));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",

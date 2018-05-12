@@ -20,7 +20,7 @@
                 app:layout_collapseMode="pin">
 
                 <ImageView
-                    android:id="@+id/button_Back"
+                    android:id="@+id/btn_Back"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:background="@null"
@@ -82,17 +82,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
-                        android:text="Username"
                         android:textColor="@color/colorBlack"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/txtUsernameInfo"
+                        android:id="@+id/txtUserType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="4dp"
-                        android:text="Usertype"
                         android:textColor="@color/colorBlack"
                         android:textSize="12sp" />
 
@@ -163,6 +161,7 @@
                         android:text="@string/text_YourPhone" />
 
                     <EditText
+                        android:id="@+id/etPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -187,6 +186,7 @@
                         android:text="@string/text_YourWebsite" />
 
                     <EditText
+                        android:id="@+id/etWebsite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -211,6 +211,7 @@
                         android:text="@string/text_YourEmail" />
 
                     <EditText
+                        android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -235,6 +236,7 @@
                         android:text="@string/text_YourLanguage" />
 
                     <EditText
+                        android:id="@+id/etLanguage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -259,6 +261,7 @@
                         android:text="@string/text_YourCountry" />
 
                     <EditText
+                        android:id="@+id/etCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -292,31 +295,13 @@
                     android:text="@string/text_UpgradeTo"
                     android:textSize="14sp" />
 
-                <RadioGroup
-                    android:id="@+id/radioGroup_UserType"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spnrUserType"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/radioButton_TourGuide"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_TourGuide"/>
-
-                    <RadioButton
-                        android:id="@+id/radioButton_Enterprise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Enterprise"/>
-
-                    <RadioButton
-                        android:id="@+id/radioButton_Partner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_Partner"/>
-
-                </RadioGroup>
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:spinnerMode="dropdown" />
 
             </LinearLayout>
 
@@ -327,7 +312,7 @@
                 android:background="@color/colorGrey" />
 
             <Button
-                android:id="@+id/button_Upgrade"
+                android:id="@+id/btn_Upgrade"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
