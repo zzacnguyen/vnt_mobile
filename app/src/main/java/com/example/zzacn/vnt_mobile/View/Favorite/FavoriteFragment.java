@@ -1,7 +1,6 @@
 package com.example.zzacn.vnt_mobile.View.Favorite;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,11 +22,9 @@ import com.example.zzacn.vnt_mobile.Model.ModelFavorite;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -50,12 +47,6 @@ public class FavoriteFragment extends Fragment {
         txtServiceName = view.findViewById(R.id.textViewFavorite);
         imgServiceImage = view.findViewById(R.id.imageViewFavorite);
 
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
-        if (!path.exists()) {
-            path.mkdirs();
-        }
-        File file = new File(path, Config.FILE_LIKE);
-
         recyclerView = view.findViewById(R.id.RecyclerView_FavoriteList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
@@ -63,25 +54,12 @@ public class FavoriteFragment extends Fragment {
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        getFavoriteList(file, userId);
-        if (file.exists()) {
-            try {
-                JSONArray jsonFile = new JSONArray(JsonHelper.readJson(file));
-                for (int i = 0; i < jsonFile.length(); i++) {
-                    JSONObject jsonObject = new JSONObject("{" +
-                            Config.POST_KEY_JSON_LIKE.get(0) + ":\"" + jsonFile.getJSONObject(i).getString("id") + "\"," +
-                            Config.POST_KEY_JSON_LIKE.get(1) + ":\"" + userId + "\"}");
-                    new HttpRequestAdapter.httpPost(jsonObject).execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE);
-                }
-                file.delete();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        getFavoriteList(userId);
+
         return view;
     }
 
-    private void getFavoriteList(final File file, int id) {
+    private void getFavoriteList(int id) {
 
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST +
@@ -90,7 +68,7 @@ public class FavoriteFragment extends Fragment {
             e.printStackTrace();
         }
 
-        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(file, finalArr.get(0));
+        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(finalArr.get(0));
         final ArrayList<Service> finalListService = favoriteList;
         final ListOfServiceAdapter listOfServiceAdapter =
                 new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
@@ -123,7 +101,7 @@ public class FavoriteFragment extends Fragment {
                             }
 
                             ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(file, finalArr.get(0));
+                                    getFavoriteList(finalArr.get(0));
                             finalListService.addAll(serviceArrayList);
 
                             listOfServiceAdapter.notifyDataSetChanged();

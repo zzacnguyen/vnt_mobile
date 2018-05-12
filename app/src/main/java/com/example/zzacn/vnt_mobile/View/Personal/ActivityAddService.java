@@ -341,11 +341,12 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     }
 
     private File createImageFile() throws IOException {
-        File storageDir = Environment.getExternalStorageDirectory();
+        File path = new File(Environment.getExternalStorageDirectory().toString() + Config.FOLDER);
+        path.mkdirs();
         File image = File.createTempFile(
                 "example",  /* prefix */
                 ".jpg",         /* suffix */
-                storageDir      /* directory */
+                path      /* directory */
         );
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;

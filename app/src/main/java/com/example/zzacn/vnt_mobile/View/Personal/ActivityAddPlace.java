@@ -45,7 +45,7 @@ public class ActivityAddPlace extends AppCompatActivity {
 
     Spinner spinnerDistrict, spinnerProvince, spinnerWard;
     ArrayAdapter<String> arrayListProvince, arrayListDistrict, arrayListWard;
-    int ID = 0;
+    int idWard = 0;
     ArrayList<String> arrayIdProvince = new ArrayList<>(),
             arrayIdDistrict = new ArrayList<>(),
             arrayIdWard = new ArrayList<>();
@@ -137,7 +137,7 @@ public class ActivityAddPlace extends AppCompatActivity {
         spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ID = Integer.parseInt(arrayIdWard.get(i));
+                idWard = Integer.parseInt(arrayIdWard.get(i));
             }
 
             @Override
@@ -211,7 +211,7 @@ public class ActivityAddPlace extends AppCompatActivity {
             etPlacePhone.setError(getResources().getString(R.string.text_EnterYourPhoneNumber));
         } else if (etPlaceAbout.getText().toString().equals("")) {
             etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
-        } else if (ID == 0) {
+        } else if (idWard == 0) {
             Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
         } else {
             try {
@@ -229,11 +229,12 @@ public class ActivityAddPlace extends AppCompatActivity {
                         // kinh độ
                         + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\","
                         // mã xã phường
-                        + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + ID + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + idWard + "\","
                         // id người dùng ctv
                         + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\","
                         // id người dùng hdv
                         + Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
+                System.out.println(jsonPost);
                 stringIdPlace = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();

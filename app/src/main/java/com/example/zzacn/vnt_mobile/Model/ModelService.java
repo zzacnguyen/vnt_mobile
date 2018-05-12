@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
 
 public class ModelService {
 
@@ -65,8 +64,7 @@ public class ModelService {
         try {
             // get thông tin dịch vụ chuyển về dạng jsonarray
             String data = new HttpRequestAdapter.httpGet().execute(url).get();
-            JSONArray jsonArray = new JSONArray(data);
-            JSONObject jsonResult = jsonArray.getJSONObject(0);
+            JSONObject jsonResult = new JSONArray(data).getJSONObject(0);
 
             // lây thông tin người dùng đã thích dịch vụ hay chưa
             isLike = jsonResult.getString(Config.KEY_SERVICE_INFO.get(0)).equals("1");
@@ -135,35 +133,15 @@ public class ModelService {
             // set loại hình sự kiện
             serviceInfo.setEventType(stringNameOfTheEventType);
 
-            // khởi tạo đường dẫn tới file yêu thích
-            File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
-            if (!path.exists()) {
-                path.mkdirs();
-            }
-            File file = new File(path, Config.FILE_LIKE);
-
-            boolean checkIsLike = false;
-            // nếu file tồn tại thì đọc file lên
-            if (file.exists()) {
-                JSONArray jsonFile = new JSONArray(readJson(file));
-                for (int i = 0; i < jsonFile.length(); i++) {
-                    // nếu id dịch vụ == id dịch vụ trong file yêu thích => người dùng đã thích
-                    if (serviceInfo.getId() == Integer.parseInt(jsonFile.getJSONObject(i).getString("id"))) {
-                        serviceInfo.setIsLike(true);
-                        checkIsLike = true;
-                    }
-                }
-            }
-            // nếu trong file yêu thích chưa có thì xem trong csdl đã thích hay chưa
-            if (!checkIsLike) {
-                if (isLike) {
-                    serviceInfo.setIsLike(true);
-                    JSONObject jsonIdLike = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(1)));
-                    serviceInfo.setIdLike(jsonIdLike.getString(Config.KEY_SERVICE_INFO.get(2)));
-                } else {
-                    serviceInfo.setIsLike(false);
-                    serviceInfo.setIdLike("0");
-                }
+            if (isLike) {
+                serviceInfo.setIsLike(true);
+                // lấy id like
+                JSONObject jsonIdLike = new JSONObject(jsonResult.getString(Config.KEY_SERVICE_INFO.get(1)));
+                // getString like_id
+                serviceInfo.setIdLike(jsonIdLike.getString(Config.KEY_SERVICE_INFO.get(2)));
+            } else {
+                serviceInfo.setIsLike(false);
+                serviceInfo.setIdLike("0");
             }
 
             if (isRating) {
@@ -216,6 +194,7 @@ public class ModelService {
 
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
+            serviceInfo = null;
         }
         return serviceInfo;
     }

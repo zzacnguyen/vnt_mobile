@@ -74,7 +74,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
     private void getServiceList(String id) {
         String url = Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE_INFO + id;
         // dùng chung hàm get danh sách yêu thích vì giống nhau chỉ khác file
-        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(new File(""), url);
+        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(url);
 
         final ListOfServiceAdapter listOfServiceAdapter =
                 new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
@@ -108,7 +108,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
                             ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(new File(""), finalArr.get(1));
+                                    getFavoriteList(finalArr.get(1));
                             finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject

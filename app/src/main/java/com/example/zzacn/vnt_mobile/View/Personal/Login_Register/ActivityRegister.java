@@ -66,6 +66,7 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 // nếu status != null và = OK
                 if (stt != null && stt.equals(Config.GET_KEY_JSON_LOGIN.get(4))) {
+                    finishActivity(2);
                     finish();
                 } else {
                     // nếu lỗi != null và = 3 => tài khoản trùng

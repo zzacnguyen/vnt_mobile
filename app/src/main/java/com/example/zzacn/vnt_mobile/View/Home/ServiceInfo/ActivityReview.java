@@ -114,6 +114,7 @@ public class ActivityReview extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("mess", mess);
         setResult(RESULT_OK, intent);
+        finishActivity(1);
         finish();
     }
 }

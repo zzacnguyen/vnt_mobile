@@ -8,29 +8,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.mergeJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
 
 public class ModelFavorite {
-    public ArrayList<Service> getFavoriteList(File file, String getJson) {
+    public ArrayList<Service> getFavoriteList(String getJson) {
 
         ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
-            JSONArray jsonArray;
-
-            if (file.exists()) {
-                jsonArray = mergeJson(new JSONArray(getJson), new JSONArray(readJson(file)));
-            } else {
-                jsonArray = new JSONArray(getJson);
-            }
+            JSONArray jsonArray = new JSONArray(getJson);
 
             for (int i = 0; i < jsonArray.length(); i++) {
 

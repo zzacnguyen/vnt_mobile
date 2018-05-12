@@ -90,6 +90,7 @@ public class ActivityLogin extends AppCompatActivity {
                             sessionManager.createLoginSession(userId + "", userName, userType, avatar);
 
                             if (getCallingActivity() != null) {
+                                finishActivity(1);
                                 finish();
                             } else {
                                 finish();
@@ -106,7 +107,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
@@ -114,7 +115,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == 1) {
+        if (resultCode == RESULT_OK && requestCode == 2) {
             if (data.hasExtra("mess"))
                 Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
         }

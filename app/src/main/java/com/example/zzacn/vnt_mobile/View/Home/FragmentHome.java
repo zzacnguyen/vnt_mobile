@@ -36,6 +36,7 @@ public class FragmentHome extends Fragment {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
     SessionManager sessionManager;
+    ArrayList<Service> services;
 
     @Nullable
     @Override
@@ -68,7 +69,7 @@ public class FragmentHome extends Fragment {
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelService().getServiceInMain(url, formatJson);
+        services = new ModelService().getServiceInMain(url, formatJson);
 
         ServiceAdapter serviceAdapter =
                 new ServiceAdapter(services, getContext());
@@ -105,5 +106,4 @@ public class FragmentHome extends Fragment {
         loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.GET_KEY_JSON_VEHICLE);
         // endregion
     }
-
 }
