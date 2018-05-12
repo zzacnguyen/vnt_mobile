@@ -129,7 +129,6 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 11){
-            System.out.println("Có chạy ko");
             getTripScheduleInfo();
         }
         super.onActivityResult(requestCode, resultCode, data);
