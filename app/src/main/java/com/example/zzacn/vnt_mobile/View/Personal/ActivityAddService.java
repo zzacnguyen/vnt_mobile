@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.BuildConfig;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.R;
 
@@ -91,7 +94,11 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         ibCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                try {
+                    dispatchTakePictureIntent();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -236,10 +243,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Lấy hình ảnh và đưa lên màn hình
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CAMERA_CAPTURE && resultCode == RESULT_OK) {
-            galleryAddPic();
-        }
-
         switch (requestCode) {
             case RESULT_BANNER:
                 if (resultCode == RESULT_OK) {
@@ -283,6 +286,19 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     }
                 }
                 break;
+
+            case REQUEST_CAMERA_CAPTURE:
+                if(resultCode == RESULT_OK){
+                    Uri imageUri = Uri.parse(mCurrentPhotoPath);
+
+                    // ScanFile so it will be appeared on Gallery
+                    MediaScannerConnection.scanFile(ActivityAddService.this,
+                            new String[]{imageUri.getPath()}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                public void onScanCompleted(String path, Uri uri) {
+                                }
+                            });
+                }
         }
     }
 
@@ -341,28 +357,40 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     }
 
     private File createImageFile() throws IOException {
-        File path = new File(Environment.getExternalStorageDirectory().toString() + Config.FOLDER);
-        path.mkdirs();
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
         File image = File.createTempFile(
-                "example",  /* prefix */
+                imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
-                path      /* directory */
+                storageDir      /* directory */
         );
-        mCurrentPhotoPath = image.getAbsolutePath();
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent() throws IOException {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                // Error occurred while creating the File
+                return;
             }
+            // Continue only if the File was successfully created
             if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                Uri photoURI = FileProvider.getUriForFile(ActivityAddService.this,
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        createImageFile());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_CAMERA_CAPTURE);
             }
         }
