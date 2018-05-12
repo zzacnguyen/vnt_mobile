@@ -64,7 +64,7 @@ public class FragmentPersonal extends Fragment {
             tripSchedule.setVisibility(View.GONE);
             regEnterprise.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
-            addEvent.setVisibility(View.GONE);
+            addEvent.setVisibility(View.VISIBLE);
         } else {
             Cavatar.setImageBitmap(avatar);
             txtUserName.setText(userName);

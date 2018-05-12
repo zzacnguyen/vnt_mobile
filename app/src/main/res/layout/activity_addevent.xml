@@ -20,12 +20,11 @@
             app:layout_collapseMode="pin">
 
             <ImageButton
-                android:id="@+id/btnBack"
+                android:id="@+id/button_Back"
                 android:layout_width="23dp"
                 android:layout_height="13dp"
                 android:background="@null"
                 android:tint="@color/colorWhite"
-                android:layout_marginLeft="-50dp"
                 android:src="@drawable/ic_arrow_left_36dp"/>
 
             <TextView
@@ -49,7 +48,7 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/etEventName"
+            android:id="@+id/editText_EventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_grey_border_bottom"
@@ -59,7 +58,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/etEventStart"
+            android:id="@+id/editText_EventStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -71,7 +70,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/etEventEnd"
+            android:id="@+id/editText_EventEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -99,7 +98,7 @@
                 android:text="@string/text_EventType"/>
 
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_Province"
+                android:id="@+id/spinner_EventType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -123,6 +122,7 @@
                 android:text="@string/text_ServiceVenue" />
 
             <EditText
+                android:id="@+id/editText_ServiceVenue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -130,15 +130,14 @@
                 android:background="@color/colorWhite"
                 android:ems="10"
                 android:padding="5dp"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnCreateTripSchedule"
+        android:id="@+id/button_CreateEvent"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -47,6 +47,8 @@ public class Config {
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
     public static final String URL_POST_TRIP_SCHEDULE = "post-schedule/user=";
     public static final String URL_POST_TRIP_SCHEDULE_DETAILS = "post-schedule-details/schedule=";
+    public static final String URL_POST_EVENT = "events";
+    public static final String URL_GET_EVENT_TYPE = "type-event";
 
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
@@ -54,6 +56,10 @@ public class Config {
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
+
+
+    public static final ArrayList<String> GET_KEY_JSON_EVENT_TYPE =
+            new ArrayList<>(Collections.singletonList("type_name"));
 
     public static final ArrayList<String> KEY_NEAR_LOCATION =
             new ArrayList<>(Arrays.asList("longitude", "latitude", "serviceType"));
@@ -156,6 +162,10 @@ public class Config {
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",
                     "\"sv_highest_price\"", "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"",
                     "\"tourguide_user\"", "\"partner_user\"", "\"sv_website\"", "\"id_place\""));
+
+    public static final ArrayList<String> POST_KEY_EVENT =
+            new ArrayList<>(Arrays.asList("\"event_name\"", "\"event_start\"",
+                    "\"event_end\"", "\"type_id\"", "\"service_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE_EAT =
             new ArrayList<>(Collections.singletonList("\"eat_name\""));
