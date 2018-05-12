@@ -123,7 +123,15 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Service> services = new ModelSearch().getAdvancedSearchList(url, serviceType);
+        try {
+            finalArr = JsonHelper.parseJsonNoId(new JSONObject
+                    (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Service> services = new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
+        final ArrayList<Service> finalListService = services;
         if (services.size() == 0) {
             Toast.makeText(this, getResources().getString(R.string.text_NoResults), Toast.LENGTH_SHORT).show();
         }
@@ -132,14 +140,6 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
         addServiceScheduleAdapter = new AddServiceScheduleAdapter(recyclerView, services, getApplicationContext(), id);
         recyclerView.setAdapter(addServiceScheduleAdapter);
         addServiceScheduleAdapter.notifyDataSetChanged();
-
-        final ArrayList<Service> finalListService = services;
-        try {
-            finalArr = JsonHelper.parseJsonNoId(new JSONObject
-                    (new HttpRequestAdapter.httpGet().execute(url).get()), Config.GET_KEY_JSON_LOAD);
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
         //set load more listener for the RecyclerView adapter
         addServiceScheduleAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -159,14 +159,15 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             addServiceScheduleAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelSearch().getAdvancedSearchList(finalArr.get(1), serviceType);
-                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<Service> serviceArrayList = new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
+                            finalListService.addAll(serviceArrayList);
 
                             addServiceScheduleAdapter.notifyDataSetChanged();
                             addServiceScheduleAdapter.setLoaded();

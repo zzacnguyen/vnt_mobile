@@ -65,7 +65,7 @@
             android:background="@drawable/white_grey_border_bottom"
             android:hint="@string/text_StartDate"
             android:inputType="number"
-            android:maxLength="1"
+            android:maxLength="13"
             android:padding="10dp"
             android:textSize="14sp" />
 

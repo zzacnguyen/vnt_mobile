@@ -89,9 +89,9 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 if (checkInfo) {
                     try {
                         JSONObject jsonPost = new JSONObject("{"
-                                + Config.POST_KEY_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
-                                + Config.POST_KEY_TRIP_SCHEDULE.get(1) + ":\"" + sdf.format(startDate) + "\","
-                                + Config.POST_KEY_TRIP_SCHEDULE.get(2) + ":\"" + sdf.format(endDate) + "\"}");
+                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
+                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(1) + ":\"" + sdf.format(startDate) + "\","
+                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(2) + ":\"" + sdf.format(endDate) + "\"}");
                         stt = new HttpRequestAdapter.httpPost(jsonPost)
                                 .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE + userId).get();
                     } catch (JSONException | InterruptedException | ExecutionException e) {

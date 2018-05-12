@@ -94,12 +94,8 @@ public class AddServiceScheduleAdapter extends RecyclerView.Adapter<RecyclerView
                 public void onClick(View view) {
                     if (userId != 0) {
                         try {
-                            new HttpRequestAdapter.httpPost(new JSONObject("{"
-                                    + Config.POST_KEY_HISTORY_SEARCH.get(0) + ":\"" + view.getTag() + "\","
-                                    + Config.POST_KEY_HISTORY_SEARCH.get(1) + ":\"" + userId + "\"" + "}"))
-                                    .execute(Config.URL_HOST + Config.URL_GET_HISTORY_SEARCH);
                             String stt = new HttpRequestAdapter.httpPost(new JSONObject("{"
-                                    + Config.POST_KEY_TRIP_SCHEDULE.get(3) + ":\"" + view.getTag() + "\"}"))
+                                    + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(3) + ":\"" + view.getTag() + "\"}"))
                                     .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE_DETAILS + scheduleId).get();
                             if (stt.equals("\"status:200\"")) {
                                 Toast.makeText(context, context.getResources()

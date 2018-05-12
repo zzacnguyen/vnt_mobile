@@ -53,8 +53,8 @@ public class ActivityRegister extends AppCompatActivity {
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{"
-                                + Config.POST_KEY_REGISTER.get(0) + ":\"" + etUserName.getText().toString() + "\","
-                                + Config.POST_KEY_REGISTER.get(1) + ":\"" + etPassword.getText().toString() + "\"}");
+                                + Config.POST_KEY_JSON_LOGIN_REGISTER.get(0) + ":\"" + etUserName.getText().toString() + "\","
+                                + Config.POST_KEY_JSON_LOGIN_REGISTER.get(1) + ":\"" + etPassword.getText().toString() + "\"}");
                         json = new JSONObject(new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_REGISTER).get());
                         // lấy status trả về
                         stt = json.getString(Config.GET_KEY_JSON_LOGIN.get(2));

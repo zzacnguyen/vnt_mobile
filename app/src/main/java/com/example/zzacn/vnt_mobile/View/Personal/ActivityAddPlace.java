@@ -234,7 +234,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                         + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\","
                         // id người dùng hdv
                         + Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
-                System.out.println(jsonPost);
+
                 stringIdPlace = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();

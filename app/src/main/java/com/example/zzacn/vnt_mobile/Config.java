@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.11/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -124,16 +124,13 @@ public class Config {
     public static final ArrayList<String> GET_KEY_SEARCH_NEAR =
             new ArrayList<>(Arrays.asList("data", "status", "NOT FOUND", "OK"));
 
-    public static final ArrayList<String> POST_KEY_HISTORY_SEARCH =
+    public static final ArrayList<String> POST_KEY_JSON_HISTORY_SEARCH =
             new ArrayList<>(Arrays.asList("\"id_service\"", "\"id_user\""));
 
-    public static final ArrayList<String> POST_KEY_LOGIN =
+    public static final ArrayList<String> POST_KEY_JSON_LOGIN_REGISTER =
             new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
 
-    public static final ArrayList<String> POST_KEY_REGISTER =
-            new ArrayList<>(Arrays.asList("\"username\"", "\"password\""));
-
-    public static final ArrayList<String> POST_KEY_TRIP_SCHEDULE =
+    public static final ArrayList<String> POST_KEY_JSON_TRIP_SCHEDULE =
             new ArrayList<>(Arrays.asList("\"trip_name\"", "\"trip_startdate\"", "\"trip_enddate\"", "\"service_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
@@ -163,7 +160,7 @@ public class Config {
                     "\"sv_highest_price\"", "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"",
                     "\"tourguide_user\"", "\"partner_user\"", "\"sv_website\"", "\"id_place\""));
 
-    public static final ArrayList<String> POST_KEY_EVENT =
+    public static final ArrayList<String> POST_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("\"event_name\"", "\"event_start\"",
                     "\"event_end\"", "\"type_id\"", "\"service_id\""));
 

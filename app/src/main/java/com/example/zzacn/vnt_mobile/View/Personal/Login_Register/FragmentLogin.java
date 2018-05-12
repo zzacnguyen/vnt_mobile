@@ -70,8 +70,8 @@ public class FragmentLogin extends Fragment {
                     etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
                 } else {
                     try {
-                        JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_LOGIN.get(0) + ":\""
-                                + etUserId.getText().toString() + "\"," + Config.POST_KEY_LOGIN.get(1) + ":\""
+                        JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_LOGIN_REGISTER.get(0) + ":\""
+                                + etUserId.getText().toString() + "\"," + Config.POST_KEY_JSON_LOGIN_REGISTER.get(1) + ":\""
                                 + etPassword.getText().toString() + "\"}");
                         String rs = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_LOGIN).get();
                         JSONObject jsonGet = new JSONObject(rs);
