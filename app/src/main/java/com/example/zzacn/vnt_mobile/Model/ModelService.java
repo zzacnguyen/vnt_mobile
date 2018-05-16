@@ -201,13 +201,13 @@ public class ModelService {
 
     public ArrayList<Service> getServiceInMain(String url, ArrayList<String> formatJson) {
 
-        ArrayList<String> arr, arrayList;
+        ArrayList<String> arrayList;
         ArrayList<Service> services = new ArrayList<>();
 
         try {
             String rs = new HttpRequestAdapter.httpGet().execute(url).get();
-            arr = parseJsonNoId(new JSONObject(rs), Config.GET_KEY_JSON_LOAD);
-            JSONArray jsonArray = new JSONArray(arr.get(0));
+            arrayList = parseJsonNoId(new JSONObject(rs), Config.GET_KEY_JSON_LOAD);
+            JSONArray jsonArray = new JSONArray(arrayList.get(0));
 
             int limit = jsonArray.length() > 5 ? 5 : jsonArray.length();
 
@@ -215,6 +215,7 @@ public class ModelService {
 
                 Service service = new Service();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                arrayList.clear();
                 arrayList = parseJson(jsonObject, formatJson);
 
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
@@ -223,6 +224,7 @@ public class ModelService {
                 service.setName(arrayList.get(1));
 
                 services.add(service);
+                arrayList.clear();
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();

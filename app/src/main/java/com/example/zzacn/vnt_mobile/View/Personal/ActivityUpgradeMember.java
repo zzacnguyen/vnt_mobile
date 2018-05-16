@@ -183,7 +183,7 @@ public class ActivityUpgradeMember extends AppCompatActivity {
                     if (sttPostContact.equals("1"))
                         isPostContactSuccess = true;
 
-                    JSONObject jsonPrivilege = new JSONObject("{" + Config.POST_KEY_JSON_PRIVILEGE + ":\"" + privilege + "\"}");
+                    JSONObject jsonPrivilege = new JSONObject("{\"quyen\":\"" + privilege + "\"}");
                     String sttPostPrivilege = new HttpRequestAdapter.httpPost(jsonPrivilege)
                             .execute(Config.URL_HOST + Config.URL_POST_UPGRADE_MEMBER + userId).get();
                     if (sttPostPrivilege.equals("1"))

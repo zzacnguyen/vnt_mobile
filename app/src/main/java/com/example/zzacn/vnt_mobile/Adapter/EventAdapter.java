@@ -3,6 +3,7 @@ package com.example.zzacn.vnt_mobile.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,8 +70,9 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return events.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(context).inflate(R.layout.custom_notify, parent, false);
             return new ViewHolder(view);
@@ -82,7 +84,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             Event event = events.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
@@ -160,7 +162,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 
-        public LoadingViewHolder(View view) {
+        LoadingViewHolder(View view) {
             super(view);
             progressBar = view.findViewById(R.id.progressBar);
         }
@@ -173,7 +175,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ImageView imgHinhSk;
         View cardView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             txtTenSk = itemView.findViewById(R.id.textView_EventName);

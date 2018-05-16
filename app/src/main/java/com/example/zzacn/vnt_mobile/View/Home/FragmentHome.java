@@ -1,15 +1,10 @@
 package com.example.zzacn.vnt_mobile.View.Home;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
+import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
@@ -36,13 +31,16 @@ public class FragmentHome extends Fragment {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
     SessionManager sessionManager;
-    ArrayList<Service> services;
+    ArrayList<Service> servicesPlace, servicesEat, servicesHotel, servicesEntertainment, servicesVehicle;
+    RecyclerView recyclerView;
+    Bundle save;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        save = savedInstanceState;
         btnSearch = view.findViewById(R.id.button_Search);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -62,19 +60,50 @@ public class FragmentHome extends Fragment {
     }
 
     //Custom view service
-    private void loadService(RecyclerView recyclerView, String url, ArrayList<String> formatJson) {
+    private void loadService(String url) {
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        ServiceAdapter serviceAdapter = null;
 
-        services = new ModelService().getServiceInMain(url, formatJson);
+        switch (url) {
+            case Config.URL_GET_ALL_PLACES:
+                servicesPlace = setService("place", url, Config.GET_KEY_JSON_PLACE);
+                serviceAdapter = new ServiceAdapter(servicesPlace, getContext());
+                break;
+            case Config.URL_GET_ALL_HOTELS:
+                servicesHotel = setService("hotel", url, Config.GET_KEY_JSON_HOTEL);
+                serviceAdapter = new ServiceAdapter(servicesHotel, getContext());
+                break;
+            case Config.URL_GET_ALL_EATS:
+                servicesEat = setService("eat", url, Config.GET_KEY_JSON_EAT);
+                serviceAdapter = new ServiceAdapter(servicesEat, getContext());
+                break;
+            case Config.URL_GET_ALL_ENTERTAINMENTS:
+                servicesEntertainment = setService("entertainment", url, Config.GET_KEY_JSON_ENTERTAINMENT);
+                serviceAdapter = new ServiceAdapter(servicesEntertainment, getContext());
+                break;
+            case Config.URL_GET_ALL_VEHICLES:
+                servicesVehicle = setService("vehicle", url, Config.GET_KEY_JSON_VEHICLE);
+                serviceAdapter = new ServiceAdapter(servicesVehicle, getContext());
+                break;
+        }
 
-        ServiceAdapter serviceAdapter =
-                new ServiceAdapter(services, getContext());
         recyclerView.setAdapter(serviceAdapter);
         serviceAdapter.notifyDataSetChanged();
+    }
+
+    ArrayList<Service> setService(String key, String url,
+                              ArrayList<String> formatJson) {
+        ArrayList<Service> services;
+        if (save == null || !save.containsKey(key)) {
+            services = new ModelService().getServiceInMain(Config.URL_HOST + url, formatJson);
+        } else {
+            services = save.getParcelableArrayList(key);
+        }
+        return services;
     }
 
     void load(View view) {
@@ -86,24 +115,42 @@ public class FragmentHome extends Fragment {
 
         // region load service
         // load place
-        RecyclerView recyclerViewDD = view.findViewById(R.id.RecyclerView_Place);
-        loadService(recyclerViewDD, Config.URL_HOST + Config.URL_GET_ALL_PLACES, Config.GET_KEY_JSON_PLACE);
+        recyclerView = view.findViewById(R.id.RecyclerView_Place);
+        loadService(Config.URL_GET_ALL_PLACES);
 
         // load eat
-        RecyclerView recyclerViewAU = view.findViewById(R.id.RecyclerView_Eat);
-        loadService(recyclerViewAU, Config.URL_HOST + Config.URL_GET_ALL_EATS, Config.GET_KEY_JSON_EAT);
+        recyclerView = view.findViewById(R.id.RecyclerView_Eat);
+        loadService(Config.URL_GET_ALL_EATS);
 
         // load entertainment
-        RecyclerView recyclerViewVC = view.findViewById(R.id.RecyclerView_Entertain);
-        loadService(recyclerViewVC, Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS, Config.GET_KEY_JSON_ENTERTAINMENT);
+        recyclerView = view.findViewById(R.id.RecyclerView_Entertain);
+        loadService(Config.URL_GET_ALL_ENTERTAINMENTS);
 
         // load hotel
-        RecyclerView recyclerViewKS = view.findViewById(R.id.RecyclerView_Hotel);
-        loadService(recyclerViewKS, Config.URL_HOST + Config.URL_GET_ALL_HOTELS, Config.GET_KEY_JSON_HOTEL);
+        recyclerView = view.findViewById(R.id.RecyclerView_Hotel);
+        loadService(Config.URL_GET_ALL_HOTELS);
 
         // load vehicle
-        RecyclerView recyclerViewPT = view.findViewById(R.id.RecyclerView_Vehicle);
-        loadService(recyclerViewPT, Config.URL_HOST + Config.URL_GET_ALL_VEHICLES, Config.GET_KEY_JSON_VEHICLE);
+        recyclerView = view.findViewById(R.id.RecyclerView_Vehicle);
+        loadService(Config.URL_GET_ALL_VEHICLES);
         // endregion
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList("place", servicesPlace);
+        outState.putParcelableArrayList("hotel", servicesHotel);
+        outState.putParcelableArrayList("eat", servicesEat);
+        outState.putParcelableArrayList("entertainment", servicesEntertainment);
+        outState.putParcelableArrayList("vehicle", servicesVehicle);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        btnSearch.setOnClickListener(null);
+        recyclerView.setAdapter(null);
+        super.onDestroyView();
     }
 }

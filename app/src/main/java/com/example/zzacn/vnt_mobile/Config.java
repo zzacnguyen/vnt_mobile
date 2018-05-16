@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.0.104/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -136,9 +136,6 @@ public class Config {
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",
                     "\"vr_title\"", "\"details\""));
-
-    public static final ArrayList<String> POST_KEY_JSON_PRIVILEGE =
-            new ArrayList<>(Collections.singletonList("\"quyen\""));
 
     public static final ArrayList<String> POST_KEY_JSON_LIKE =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));

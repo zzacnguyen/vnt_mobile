@@ -64,7 +64,7 @@ public class FragmentPersonal extends Fragment {
             tripSchedule.setVisibility(View.GONE);
             regEnterprise.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
-            addEvent.setVisibility(View.VISIBLE);
+            addEvent.setVisibility(View.GONE);
         } else {
             Cavatar.setImageBitmap(avatar);
             txtUserName.setText(userName);
@@ -117,12 +117,12 @@ public class FragmentPersonal extends Fragment {
                 startActivity(iTripSchedule);
             }
         });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().startActivityForResult(new Intent(getContext(), ActivityLogin.class), 11);
-            }
-        });
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getActivity().startActivityForResult(new Intent(getContext(), ActivityLogin.class), 11);
+//            }
+//        });
         btnAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

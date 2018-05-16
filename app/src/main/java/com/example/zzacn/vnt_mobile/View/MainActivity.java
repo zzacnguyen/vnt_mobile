@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,40 +22,58 @@ import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
+import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigationView;
+
     public static Fragment childFragment = null;
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
 
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            selectedFragment = new FragmentHome();
-                            break;
+    private void BottomNavigation(){
+        bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
-                        case R.id.nav_favorite:
-                            selectedFragment = new FavoriteFragment();
-                            break;
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                        case R.id.nav_notification:
-                            selectedFragment = new FragmentNotification();
-                            break;
+                Fragment selectedFragment = null;
+                int i = 0;
+                Menu menu = bottomNavigationView.getMenu();
 
-                        case R.id.nav_person:
-                            selectedFragment = new FragmentPersonal();
-                            break;
-                    }
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        i = 0;
+                        selectedFragment = new FragmentHome();
+                        break;
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).addToBackStack("main").commit(); //Gọi fragment ra view
+                    case R.id.nav_favorite:
+                        i = 1;
+                        selectedFragment = new FavoriteFragment();
+                        break;
 
-                    return true;
+                    case R.id.nav_notification:
+                        i = 2;
+                        selectedFragment = new FragmentNotification();
+                        break;
+
+                    case R.id.nav_person:
+                        i = 3;
+                        selectedFragment = new FragmentPersonal();
+                        break;
                 }
-            };
+
+                MenuItem menuItem = menu.getItem(i);
+                menuItem.setChecked(true);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        selectedFragment).addToBackStack("main").commit(); //Gọi fragment ra view
+
+                return true;
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +83,7 @@ public class MainActivity extends AppCompatActivity {
         isStoragePermissionGranted();
         startActivity(getIntent());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        BottomNavigation();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentHome()).commit();
@@ -110,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
                 childFragment.setArguments(bundle);
                 break;
+
+            case R.id.buttonLogin:
+                childFragment = new FragmentLogin();
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();

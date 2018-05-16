@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,11 +99,12 @@ public class FragmentLogin extends Fragment {
 
                             sessionManager.createLoginSession(userId + "", userName, userType, avatar);
 
-//                            if (getCallingActivity() != null) {
-//                                finish();
-//                            } else {
-//                                finish();
-//                            }
+                            FragmentPersonal fragmentPersonal = new FragmentPersonal();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, fragmentPersonal);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     } catch (JSONException | ExecutionException | InterruptedException e) {
                         e.printStackTrace();
