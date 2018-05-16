@@ -18,11 +18,14 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
+import com.example.zzacn.vnt_mobile.View.Home.FragmentEnterpriseHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
+
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         i = 0;
-                        selectedFragment = new FragmentHome();
+                        if (userId != 2){
+                            selectedFragment = new FragmentHome();
+                        }else{
+                            selectedFragment = new FragmentEnterpriseHome();
+                        }
                         break;
 
                     case R.id.nav_favorite:
@@ -125,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.btnAllVehicle:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
+                childFragment.setArguments(bundle);
+                break;
+
+            case R.id.btnAllService: //Danh sách các địa điểm dịch vụ của doanh nghiệp đó
+                bundle.putString("url", "link");
                 childFragment.setArguments(bundle);
                 break;
 
