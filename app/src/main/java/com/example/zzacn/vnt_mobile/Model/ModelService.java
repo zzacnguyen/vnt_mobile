@@ -16,7 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -38,6 +40,17 @@ public class ModelService {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 bitmap = BitmapFactory.decodeFile(file.toString(), options);
+                if (bitmap == null) {
+                    if (file.delete()) {
+                        try {
+                            bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
+                            FileOutputStream out = new FileOutputStream(file);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        } catch (InterruptedException | ExecutionException | FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             } else {
                 // nếu file không tồn tại thì tải hình về và lưu hình vào bộ nhớ
                 try {
@@ -46,7 +59,7 @@ public class ModelService {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
                     out.flush();
                     out.close();
-                } catch (Exception e) {
+                } catch (InterruptedException | ExecutionException | IOException e) {
                     e.printStackTrace();
                 }
             }

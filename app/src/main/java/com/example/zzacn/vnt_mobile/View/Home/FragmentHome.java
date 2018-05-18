@@ -31,16 +31,14 @@ public class FragmentHome extends Fragment {
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
     SessionManager sessionManager;
-    ArrayList<Service> servicesPlace, servicesEat, servicesHotel, servicesEntertainment, servicesVehicle;
     RecyclerView recyclerView;
-    Bundle save;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        save = savedInstanceState;
         btnSearch = view.findViewById(R.id.button_Search);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -54,56 +52,26 @@ public class FragmentHome extends Fragment {
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
 
-        load(view);
+        if (getUserVisibleHint()) {
+            load(view);
+        }
 
         return view;
     }
 
     //Custom view service
-    private void loadService(String url) {
+    private void loadService(String url, ArrayList<String> arrayKey) {
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        ServiceAdapter serviceAdapter = null;
 
-        switch (url) {
-            case Config.URL_GET_ALL_PLACES:
-                servicesPlace = setService("place", url, Config.GET_KEY_JSON_PLACE);
-                serviceAdapter = new ServiceAdapter(servicesPlace, getContext());
-                break;
-            case Config.URL_GET_ALL_HOTELS:
-                servicesHotel = setService("hotel", url, Config.GET_KEY_JSON_HOTEL);
-                serviceAdapter = new ServiceAdapter(servicesHotel, getContext());
-                break;
-            case Config.URL_GET_ALL_EATS:
-                servicesEat = setService("eat", url, Config.GET_KEY_JSON_EAT);
-                serviceAdapter = new ServiceAdapter(servicesEat, getContext());
-                break;
-            case Config.URL_GET_ALL_ENTERTAINMENTS:
-                servicesEntertainment = setService("entertainment", url, Config.GET_KEY_JSON_ENTERTAINMENT);
-                serviceAdapter = new ServiceAdapter(servicesEntertainment, getContext());
-                break;
-            case Config.URL_GET_ALL_VEHICLES:
-                servicesVehicle = setService("vehicle", url, Config.GET_KEY_JSON_VEHICLE);
-                serviceAdapter = new ServiceAdapter(servicesVehicle, getContext());
-                break;
-        }
+        ServiceAdapter serviceAdapter = new ServiceAdapter(
+                new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
 
         recyclerView.setAdapter(serviceAdapter);
         serviceAdapter.notifyDataSetChanged();
-    }
-
-    ArrayList<Service> setService(String key, String url,
-                              ArrayList<String> formatJson) {
-        ArrayList<Service> services;
-        if (save == null || !save.containsKey(key)) {
-            services = new ModelService().getServiceInMain(Config.URL_HOST + url, formatJson);
-        } else {
-            services = save.getParcelableArrayList(key);
-        }
-        return services;
     }
 
     void load(View view) {
@@ -116,41 +84,29 @@ public class FragmentHome extends Fragment {
         // region load service
         // load place
         recyclerView = view.findViewById(R.id.RecyclerView_Place);
-        loadService(Config.URL_GET_ALL_PLACES);
+        loadService(Config.URL_GET_ALL_PLACES, Config.GET_KEY_JSON_PLACE);
 
         // load eat
         recyclerView = view.findViewById(R.id.RecyclerView_Eat);
-        loadService(Config.URL_GET_ALL_EATS);
+        loadService(Config.URL_GET_ALL_EATS, Config.GET_KEY_JSON_EAT);
 
         // load entertainment
         recyclerView = view.findViewById(R.id.RecyclerView_Entertain);
-        loadService(Config.URL_GET_ALL_ENTERTAINMENTS);
+        loadService(Config.URL_GET_ALL_ENTERTAINMENTS, Config.GET_KEY_JSON_ENTERTAINMENT);
 
         // load hotel
         recyclerView = view.findViewById(R.id.RecyclerView_Hotel);
-        loadService(Config.URL_GET_ALL_HOTELS);
+        loadService(Config.URL_GET_ALL_HOTELS, Config.GET_KEY_JSON_HOTEL);
 
         // load vehicle
         recyclerView = view.findViewById(R.id.RecyclerView_Vehicle);
-        loadService(Config.URL_GET_ALL_VEHICLES);
+        loadService(Config.URL_GET_ALL_VEHICLES, Config.GET_KEY_JSON_VEHICLE);
         // endregion
-
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelableArrayList("place", servicesPlace);
-        outState.putParcelableArrayList("hotel", servicesHotel);
-        outState.putParcelableArrayList("eat", servicesEat);
-        outState.putParcelableArrayList("entertainment", servicesEntertainment);
-        outState.putParcelableArrayList("vehicle", servicesVehicle);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onDestroyView() {
-        btnSearch.setOnClickListener(null);
-        recyclerView.setAdapter(null);
         super.onDestroyView();
+        view = null;
     }
 }

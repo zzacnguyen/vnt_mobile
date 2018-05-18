@@ -74,7 +74,14 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
     private void getServiceList(String id) {
         String url = Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE_INFO + id;
         // dùng chung hàm get danh sách yêu thích vì giống nhau chỉ khác file
-        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(url);
+        try {
+            finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get())
+                    , Config.GET_KEY_JSON_LOAD);
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(finalArr.get(0));
+        final ArrayList<Service> finalListService = favoriteList;
 
         final ListOfServiceAdapter listOfServiceAdapter =
                 new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
@@ -82,14 +89,6 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
         listOfServiceAdapter.notifyDataSetChanged();
 
         //set load more listener for the RecyclerView adapter
-        final ArrayList<Service> finalListService = favoriteList;
-        try {
-            finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(url).get())
-                    , Config.GET_KEY_JSON_LOAD);
-        } catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
         listOfServiceAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
             @Override
@@ -107,15 +106,17 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
                             finalListService.remove(finalListService.size() - 1);
                             listOfServiceAdapter.notifyItemRemoved(finalListService.size());
 
-                            ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(finalArr.get(1));
-                            finalListService.addAll(serviceArrayList);
                             try {
                                 finalArr = JsonHelper.parseJsonNoId(new JSONObject
                                         (new HttpRequestAdapter.httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
                             } catch (JSONException | InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
+
+                            ArrayList<Service> serviceArrayList = new ModelFavorite().
+                                    getFavoriteList(finalArr.get(0));
+                            finalListService.addAll(serviceArrayList);
+
 
                             listOfServiceAdapter.notifyDataSetChanged();
                             listOfServiceAdapter.setLoaded();
