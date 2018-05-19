@@ -95,7 +95,7 @@
                     app:civ_border_width="4dp" />
 
                 <TextView
-                    android:id="@+id/textView_UpdateAvatar"
+                    android:id="@+id/textView_ChangeAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"

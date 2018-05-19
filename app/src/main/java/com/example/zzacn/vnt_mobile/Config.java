@@ -151,7 +151,7 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_CONTACT_INFO =
             new ArrayList<>(Arrays.asList("\"contact_name\"", "\"contact_phone\"", "\"contact_website\"",
-                    "\"contact_email_address\"", "\"contact_language\"", "\"contact_country\""));
+                    "\"contact_email_address\"", "\"contact_language\"", "\"contact_country\"", "\"contact_avatar\""));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",
