@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddEvent;
-import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.ActivityLogin;
 import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripSchedule;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,7 +39,7 @@ public class FragmentPersonal extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_personal, container, false);
 
         btnTripSchedule = view.findViewById(R.id.buttonTripSchedule);
         btnAddPlace = view.findViewById(R.id.buttonAddPlace);

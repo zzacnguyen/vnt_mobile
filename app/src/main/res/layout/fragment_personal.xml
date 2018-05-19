@@ -52,8 +52,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:src="@drawable/default_avatar"
                     app:civ_border_color="@android:color/white"
@@ -101,23 +101,24 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/colorGrey" />
 
+
             <LinearLayout
-                android:id="@+id/Information"
+                android:id="@+id/EditProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:visibility="gone">
+                android:padding="5dp">
 
                 <Button
-                    android:id="@+id/buttonInfomation"
+                    android:onClick="addFragment"
+                    android:id="@+id/button_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableLeft="@drawable/ic_info_24dp"
-                    android:text="@string/text_UserInfomation"
+                    android:drawableLeft="@drawable/ic_edit_profile"
+                    android:text="@string/text_EditProfile"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
 

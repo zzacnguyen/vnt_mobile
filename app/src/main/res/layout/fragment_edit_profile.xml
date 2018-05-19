@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:fitsSystemWindows="true">
+
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,38 +24,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="5">
+                android:weightSum="10">
 
-                <ImageView
-                    android:id="@+id/button_Back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                <TextView
+                    android:id="@+id/textView_Cancel"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@null"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="left"
-                    android:src="@drawable/ic_arrow_left_36dp"
-                    android:tint="@color/colorWhite"
+                    android:text="@string/text_Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/toolbarTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="@string/text_PlaceInformation"
+                    android:layout_weight="9"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="@string/text_EditProfile"
                     android:textColor="@color/colorWhite"
-                    android:textSize="19sp" />
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView_Done"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:text="@string/text_Done"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
+
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:background="@color/colorGrey"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -65,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -77,48 +94,23 @@
                     app:civ_border_color="@android:color/white"
                     app:civ_border_width="4dp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/textView_UpdateAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@string/text_ChangeProfilePhoto"
+                    android:textColor="@color/colorFacebook"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/textView_UserName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="Username"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/textView_UserType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="4dp"
-                        android:text="Usertype"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/textView_UpdateAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="4dp"
-                        android:text="@string/text_ChangeProfilePhoto"
-                        android:textColor="@color/colorFacebook"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -126,170 +118,176 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/text_Username" />
+                        android:text="@string/text_YourName"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_FullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/text_FullName"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/hint_PhoneNumber" />
+                        android:text="@string/text_YourPhone"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_PhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/hint_PhoneNumber"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/hint_Website" />
+                        android:text="@string/text_YourWebsite"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_Website"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/hint_Website"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/hint_Email" />
+                        android:text="@string/text_YourEmail"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_Email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/hint_Email"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/text_resLanguage" />
+                        android:text="@string/text_YourLanguage"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_Language"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/text_resLanguage"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="13"
+                        android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/text_resCountry" />
+                        android:text="@string/text_YourCountry"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/editText_Country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:layout_weight="7"
+                        android:layout_weight="6"
+                        android:background="@color/colorWhite"
                         android:ems="10"
-                        android:hint="@string/text_resCountry"
+                        android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorGrey" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/tbPlace"
-                android:text="@string/text_EditProfile"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp" />
-
         </LinearLayout>
-
 
     </android.support.v4.widget.NestedScrollView>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

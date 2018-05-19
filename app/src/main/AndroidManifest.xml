@@ -76,6 +76,7 @@
         <activity android:name=".View.Personal.TripSchedule.ActivityAddServiceToTripSchedule"/>
         <activity android:name=".View.Personal.Event.ActivityAddVenue"/>
         <activity android:name=".View.Personal.ActivityUserInfo"/>
+        <activity android:name=".View.Home.ServiceInfo.ActivityEnterpriseServiceInfo"/>
     </application>
 
 </manifest>

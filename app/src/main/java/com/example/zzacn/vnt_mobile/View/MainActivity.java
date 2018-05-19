@@ -22,6 +22,7 @@ import com.example.zzacn.vnt_mobile.View.Home.FragmentEnterpriseHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentEditProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
 
@@ -142,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.buttonLogin:
                 childFragment = new FragmentLogin();
+                break;
+
+            case R.id.button_EditProfile:
+                childFragment = new FragmentEditProfile();
+                break;
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();

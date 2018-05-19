@@ -134,7 +134,7 @@
     <string name="text_Gender">Gender</string>
     <string name="text_Birthdate">Birthdate</string>
     <string name="text_FullName">Full name</string>
-    <string name="text_UpdateProfile">Change profile</string>
+    <string name="text_EditProfile">Edit profile</string>
     <string name="text_Province">Province:</string>
     <string name="text_District">District:</string>
     <string name="text_Ward">Ward:</string>
@@ -201,4 +201,6 @@
     <string name="text_YourLanguage">Language:</string>
     <string name="text_YourCountry">Country:</string>
     <string name="text_UpgradeTo">Upgrade to:</string>
+    <string name="text_Done">Done</string>
+    <string name="text_EditService">Edit service</string>
 </resources>

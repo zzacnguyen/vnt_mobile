@@ -118,7 +118,7 @@
     <string name="text_Gender">Giới tính</string>
     <string name="text_Birthdate">Ngày sinh</string>
     <string name="text_FullName">Họ và tên</string>
-    <string name="text_UpdateProfile">Đổi thông tin</string>
+    <string name="text_EditProfile">Sửa thông tin</string>
     <string name="text_Province">Tỉnh/Thành phố:</string>
     <string name="text_District">Quận/huyện</string>
     <string name="text_Ward">Phường/xã</string>
@@ -183,4 +183,6 @@
     <string name="text_YourLanguage">Ngôn ngữ:</string>
     <string name="text_YourCountry">Quốc gia:</string>
     <string name="text_UpgradeTo">Nâng cấp thành:</string>
+    <string name="text_Done">Lưu</string>
+    <string name="text_EditService">Thay đổi thông tin</string>
 </resources>
