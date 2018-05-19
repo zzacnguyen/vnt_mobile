@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setChecked(true);
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        selectedFragment).addToBackStack("main").commit(); //Gọi fragment ra view
+                        selectedFragment).commit(); //Gọi fragment ra view
 
                 return true;
             }
@@ -150,14 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, childFragment);
-        fragmentTransaction.addToBackStack("stack");
-        fragmentTransaction.commit();
+        replaceFragment(childFragment);
 
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                childFragment).commit();
     }
 
     public boolean isStoragePermissionGranted() {
@@ -171,6 +165,20 @@ public class MainActivity extends AppCompatActivity {
             }
         } else { //permission is automatically granted on sdk<23 upon installation
             return true;
+        }
+    }
+
+    private void replaceFragment (Fragment fragment){
+        String backStateName = fragment.getClass().getName();
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        if (!fragmentPopped){ //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.addToBackStack(backStateName);
+            ft.commit();
         }
     }
 }
