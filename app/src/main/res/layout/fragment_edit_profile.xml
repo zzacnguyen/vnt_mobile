@@ -118,7 +118,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -135,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -146,7 +145,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -163,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -174,7 +172,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -191,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -202,7 +199,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -219,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -230,7 +226,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -247,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
@@ -258,7 +253,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/white_grey_border_bottom"
                     android:weightSum="20">
 
                     <TextView
@@ -275,7 +269,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_weight="6"
-                        android:background="@color/colorWhite"
+                        android:background="@drawable/white_grey_border_bottom"
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
