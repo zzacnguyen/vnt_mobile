@@ -83,11 +83,10 @@ public class AddServiceScheduleAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtName.setText(service.getName());
-            viewHolder.imgImage.setImageBitmap(service.getImage());
-            viewHolder.cardView.setTag(service.getId());
+            viewHolder.txtName.setText(services.get(position).getName());
+            viewHolder.imgImage.setImageBitmap(services.get(position).getImage());
+            viewHolder.cardView.setTag(services.get(position).getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -136,7 +135,7 @@ public class AddServiceScheduleAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtName;
         ImageView imgImage;

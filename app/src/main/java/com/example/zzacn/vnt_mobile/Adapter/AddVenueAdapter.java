@@ -1,5 +1,6 @@
 package com.example.zzacn.vnt_mobile.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddEvent;
-import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddVenue;
 
 import java.util.ArrayList;
 
@@ -80,19 +80,18 @@ public class AddVenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof ViewHolder) {
-            final Service service = services.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtName.setText(service.getName());
-            viewHolder.imgImage.setImageBitmap(service.getImage());
-            viewHolder.cardView.setTag(service.getId());
+            viewHolder.txtName.setText(services.get(position).getName());
+            viewHolder.imgImage.setImageBitmap(services.get(position).getImage());
+            viewHolder.cardView.setTag(services.get(position).getId());
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ActivityAddEvent.class);
-                    intent.putExtra("service", String.valueOf(view.getTag() + "-" + service.getName()));
+                    intent.putExtra("service", String.valueOf(view.getTag() + "-" + services.get(position).getName()));
                     intent.putExtra("event", event);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -125,7 +124,7 @@ public class AddVenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtName;
         ImageView imgImage;

@@ -1,7 +1,9 @@
 package com.example.zzacn.vnt_mobile.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.example.zzacn.vnt_mobile.Model.Object.NearLocation;
 import com.example.zzacn.vnt_mobile.R;
@@ -19,28 +20,30 @@ import java.util.ArrayList;
 
 
 public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapter.ViewHolder> {
-    ArrayList<NearLocation> nearLocations;
-    Context context;
+    private ArrayList<NearLocation> nearLocations;
+    private Context context;
 
     public NearLocationAdapter(ArrayList<NearLocation> nearLocations, Context context) {
         this.nearLocations = nearLocations;
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.custom_nearlocation, parent, false);
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
-        NearLocation nearLocation = nearLocations.get(position);
-        holder.txtTen.setText("Tên dịch vụ: " + nearLocation.getNearLocationName());
-        holder.imgHinh.setImageBitmap(nearLocation.getNearLocationImage());
-        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocation.getNearLocationDistance() + "m");
-        holder.cardView.setTag(nearLocation.getNearLocationId());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { //Mỗi 1 lần chạy hàm này tương ứng với load 1 item trong recycler view
+
+        holder.txtTen.setText("Tên dịch vụ: " + nearLocations.get(position).getNearLocationName());
+        holder.imgHinh.setImageBitmap(nearLocations.get(position).getNearLocationImage());
+        holder.txtKhoangCach.setText("Khoảng cách: " + nearLocations.get(position).getNearLocationDistance() + "m");
+        holder.cardView.setTag(nearLocations.get(position).getNearLocationId());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
             @Override
@@ -58,7 +61,7 @@ public class NearLocationAdapter extends RecyclerView.Adapter<NearLocationAdapte
         return nearLocations.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    static class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTen, txtKhoangCach;
         ImageView imgHinh;
         CardView cardView;

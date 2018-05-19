@@ -1,6 +1,7 @@
 package com.example.zzacn.vnt_mobile.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Review;
@@ -58,8 +58,9 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return reviews.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(context).inflate(R.layout.custom_review, parent, false);
             return new ViewHolder(view);
@@ -71,15 +72,14 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Review review = reviews.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTen.setText(review.getUserName());
-            viewHolder.txtTieuDe.setText(review.getTitle());
-            viewHolder.txtNgay.setText(review.getDateReview());
-            viewHolder.rbSoSao.setRating(review.getStars());
-            viewHolder.txtDanhGia.setText(review.getReview());
+            viewHolder.txtTen.setText(reviews.get(position).getUserName());
+            viewHolder.txtTieuDe.setText(reviews.get(position).getTitle());
+            viewHolder.txtNgay.setText(reviews.get(position).getDateReview());
+            viewHolder.rbSoSao.setRating(reviews.get(position).getStars());
+            viewHolder.txtDanhGia.setText(reviews.get(position).getReview());
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
@@ -99,14 +99,14 @@ public class ListOfReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 
-        public LoadingViewHolder(View view) {
+        LoadingViewHolder(View view) {
             super(view);
             progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+    static class ViewHolder extends RecyclerView.ViewHolder { //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTen, txtTieuDe, txtDanhGia, txtNgay;
         RatingBar rbSoSao;
         CardView cardView;

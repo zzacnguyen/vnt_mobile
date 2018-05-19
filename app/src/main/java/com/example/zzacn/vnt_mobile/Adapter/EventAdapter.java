@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
@@ -86,13 +85,12 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Event event = events.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenSk.setText(event.getEventName());
-            viewHolder.txtNgaySk.setText(event.getEventDate());
-            viewHolder.imgHinhSk.setImageBitmap(event.getEventImage());
-            viewHolder.cardView.setTag(event.getEventId());
-            if (event.isSeen())
+            viewHolder.txtTenSk.setText(events.get(position).getEventName());
+            viewHolder.txtNgaySk.setText(events.get(position).getEventDate());
+            viewHolder.imgHinhSk.setImageBitmap(events.get(position).getEventImage());
+            viewHolder.cardView.setTag(events.get(position).getEventId());
+            if (events.get(position).isSeen())
                 viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +167,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     //"Normal item" Viewholder
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
         TextView txtTenSk, txtNgaySk;
         ImageView imgHinhSk;

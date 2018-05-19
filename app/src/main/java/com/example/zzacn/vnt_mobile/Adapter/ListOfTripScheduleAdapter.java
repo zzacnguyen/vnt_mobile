@@ -2,6 +2,7 @@ package com.example.zzacn.vnt_mobile.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,8 +60,9 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
         return tripSchedules.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(context).inflate(R.layout.custom_tripschedule, parent, false);
             return new ListOfTripScheduleAdapter.ViewHolder(view);
@@ -72,7 +74,7 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder){
             final TripSchedule tripSchedule = tripSchedules.get(position);
             ViewHolder viewHolder = (ViewHolder) holder;
@@ -109,13 +111,13 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 
-        public LoadingViewHolder(View view) {
+        LoadingViewHolder(View view) {
             super(view);
             progressBar = view.findViewById(R.id.progressBar);
         }
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTripName, txtStartDate, txtEndDate;
         CardView cardView;
 
