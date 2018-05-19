@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardView"
+    android:id="@+id/cardViewEnterprise"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@null">
@@ -45,6 +45,7 @@
                 android:theme="@style/getRatingBarServiceItem" />
 
             <TextView
+                android:id="@+id/tvTotalRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="13 đánh giá"
@@ -68,6 +69,7 @@
             android:src="@drawable/ic_favorite_24dp"/>
 
         <TextView
+            android:id="@+id/tvTotalLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"

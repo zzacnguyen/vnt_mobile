@@ -128,7 +128,6 @@ public class ModelSearch {
                     } else {
                         arrayList = parseJson(jsonObject, Config.GET_KEY_JSON_ENTERTAINMENT);
                     }
-
                     //Set hình ảnh
                     service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
                             arrayList.get(2), arrayList.get(3)));

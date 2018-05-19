@@ -231,13 +231,46 @@ public class ModelService {
                 arrayList.clear();
                 arrayList = parseJson(jsonObject, formatJson);
 
-                service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                        arrayList.get(2), arrayList.get(3)));
-                service.setId(Integer.parseInt(arrayList.get(0)));
-                service.setName(arrayList.get(1));
+                if (arrayList.size() > 4) {
+                    //Set mã dịch vụ
+                    service.setId(Integer.parseInt(arrayList.get(0)));
+                    //Set tên dịch vụ tìm kiếm
+                    service.setName(!arrayList.get(1).equals(Config.NULL) ? arrayList.get(1)
+                            : !arrayList.get(2).equals(Config.NULL) ? arrayList.get(2)
+                            : !arrayList.get(3).equals(Config.NULL) ? arrayList.get(3)
+                            : !arrayList.get(4).equals(Config.NULL) ? arrayList.get(4)
+                            : arrayList.get(5));
+                    //Set số sao trung bình
+                    if (arrayList.get(6).equals(Config.NULL)) {
+                        service.setAverageScore(0);
+                    } else {
+                        service.setAverageScore(Float.parseFloat(arrayList.get(6)));
+                    }
+                    //Set tổng lượt like
+                    if (arrayList.get(7).equals(Config.NULL)) {
+                        service.setTotalLike(0);
+                    } else {
+                        service.setTotalLike(Integer.parseInt(arrayList.get(7)));
+                    }
+                    //Set tổng lượt rate
+                    if (arrayList.get(8).equals(Config.NULL)) {
+                        service.setTotalRate(0);
+                    } else {
+                        service.setTotalRate(Integer.parseInt(arrayList.get(8)));
+                    }
+                    //Set hình ảnh
+                    service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(10),
+                            arrayList.get(9), arrayList.get(10)));
 
-                services.add(service);
-                arrayList.clear();
+                    services.add(service);
+                } else {
+                    service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
+                            arrayList.get(2), arrayList.get(3)));
+                    service.setId(Integer.parseInt(arrayList.get(0)));
+                    service.setName(arrayList.get(1));
+
+                    services.add(service);
+                }
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();

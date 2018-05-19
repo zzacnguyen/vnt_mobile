@@ -7,9 +7,8 @@ import android.os.AsyncTask;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -143,10 +142,11 @@ public class HttpRequestAdapter {
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
                 urlConnection.connect();
-                DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-                dataOutputStream.writeBytes(json.toString());
-                dataOutputStream.flush();
-                dataOutputStream.close();
+                BufferedWriter bw =
+                        new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
+                bw.write(json.toString());
+                bw.flush();
+                bw.close();
                 if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) { //success
                     BufferedReader in = new BufferedReader(new InputStreamReader(
                             urlConnection.getInputStream()));

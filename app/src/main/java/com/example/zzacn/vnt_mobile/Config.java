@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.7/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -26,6 +26,7 @@ public class Config {
     public static final String URL_GET_ALL_HOTELS = "hotels";
     public static final ArrayList<String> URL_GET_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("service/service-id=", "&user-id="));
+    public static final String URL_GET_ALL_ENTERPRISE_SERVICE = "get-serives-enterprise/";
     public static final String URL_GET_ALL_VEHICLES = "transport";
     public static final String URL_GET_ALL_EVENTS = "events";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "entertainments";
@@ -81,6 +82,10 @@ public class Config {
             new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
                     "sightseeing_name", "eat_name", "sv_website", "sv_description", "sv_open", "sv_close", "sv_lowest_price",
                     "sv_highest_price", "pl_address", "pl_phone_number", "rating", "pl_latitude", "pl_longitude"));
+
+    public static final ArrayList<String> GET_KEY_JSON_ENTERPRISE_SERVICE =
+            new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name", "sightseeing_name",
+                    "eat_name", "rating", "num_like", "num_rating", "image_id", "image_details_1"));
 
     public static final ArrayList<String> GET_KEY_JSON_HOTEL =
             new ArrayList<>(Arrays.asList("hotel_name", "image_id", "image_details_1"));
@@ -142,11 +147,7 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",
-                    "\"pl_latitude\"", "\"pl_longitude\"", "\"id_ward\"", "\"partner_user\"", "\"tourguide_user\""));
-
-    public static final ArrayList<String> POST_KEY_JSON_LIKE_SERVICE =
-            new ArrayList<>(Arrays.asList("\"id\"", "\"hotel_name\"", "\"entertainments_name\"", "\"transport_name\"",
-                    "\"sightseeing_name\"", "\"eat_name\"", "\"image_id\"", "\"image_details_1\""));
+                    "\"pl_latitude\"", "\"pl_longitude\"", "\"id_ward\"", "\"user_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_CONTACT_INFO =
             new ArrayList<>(Arrays.asList("\"contact_name\"", "\"contact_phone\"", "\"contact_website\"",
@@ -155,7 +156,7 @@ public class Config {
     public static final ArrayList<String> POST_KEY_JSON_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",
                     "\"sv_highest_price\"", "\"sv_lowest_price\"", "\"sv_phone_number\"", "\"sv_types\"",
-                    "\"tourguide_user\"", "\"partner_user\"", "\"sv_website\"", "\"id_place\""));
+                    "\"user_id\"", "\"sv_website\""));
 
     public static final ArrayList<String> POST_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("\"event_name\"", "\"event_start\"",

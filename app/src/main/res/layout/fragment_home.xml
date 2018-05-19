@@ -97,6 +97,59 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearEnterpriseService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/text_YourService"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnAllService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@null"
+                        android:drawableRight="@drawable/ic_arrow_right_24dp"
+                        android:onClick="addFragment"
+                        android:text="@string/text_All"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorGray"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/RecyclerView_EnterpriseService"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/tbPlace"
+                android:visibility="gone"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

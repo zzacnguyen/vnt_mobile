@@ -1,14 +1,13 @@
 package com.example.zzacn.vnt_mobile.Model.Object;
 
 import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 
 public class Service {
-    private int id;
+    private int id, totalLike, totalRate;
     private Bitmap image;
     private String name;
+    private float averageScore;
 
     public Service() {
 
@@ -38,4 +37,27 @@ public class Service {
         this.name = name;
     }
 
+    public int getTotalLike() {
+        return totalLike;
+    }
+
+    public void setTotalLike(int totalLike) {
+        this.totalLike = totalLike;
+    }
+
+    public int getTotalRate() {
+        return totalRate;
+    }
+
+    public void setTotalRate(int totalRate) {
+        this.totalRate = totalRate;
+    }
+
+    public float getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(float averageScore) {
+        this.averageScore = averageScore;
+    }
 }

@@ -12,17 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.example.zzacn.vnt_mobile.Adapter.EnterpriseServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
-import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
 
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -32,7 +35,8 @@ public class FragmentHome extends Fragment {
     ImageView btnSearch;
     SessionManager sessionManager;
     RecyclerView recyclerView;
-    View view;
+    View view, viewLine;
+    LinearLayout linearEnterpriseService;
 
     @Nullable
     @Override
@@ -67,11 +71,18 @@ public class FragmentHome extends Fragment {
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        ServiceAdapter serviceAdapter = new ServiceAdapter(
-                new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
+        if (url.equals(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId)) {
+            EnterpriseServiceAdapter enterpriseServiceAdapter = new EnterpriseServiceAdapter(
+                    new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
+            recyclerView.setAdapter(enterpriseServiceAdapter);
+            enterpriseServiceAdapter.notifyDataSetChanged();
+        } else {
+            ServiceAdapter serviceAdapter = new ServiceAdapter(
+                    new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
+            recyclerView.setAdapter(serviceAdapter);
+            serviceAdapter.notifyDataSetChanged();
+        }
 
-        recyclerView.setAdapter(serviceAdapter);
-        serviceAdapter.notifyDataSetChanged();
     }
 
     void load(View view) {
@@ -80,8 +91,18 @@ public class FragmentHome extends Fragment {
         btnHoTel = view.findViewById(R.id.btnAllHotel);
         btnEntertain = view.findViewById(R.id.btnAllEntertain);
         btnVehicle = view.findViewById(R.id.btnAllVehicle);
+        viewLine = view.findViewById(R.id.viewLine);
+        linearEnterpriseService = view.findViewById(R.id.linearEnterpriseService);
 
         // region load service
+        // load enterprise's service nếu người dùng là doanh nghiệp
+        if (userType != null && userType.equals("2")) {
+            linearEnterpriseService.setVisibility(View.VISIBLE);
+            viewLine.setVisibility(View.VISIBLE);
+            recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
+            loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
+        }
+
         // load place
         recyclerView = view.findViewById(R.id.RecyclerView_Place);
         loadService(Config.URL_GET_ALL_PLACES, Config.GET_KEY_JSON_PLACE);

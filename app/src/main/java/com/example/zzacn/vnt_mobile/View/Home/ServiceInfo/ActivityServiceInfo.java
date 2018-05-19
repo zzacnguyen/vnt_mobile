@@ -39,7 +39,7 @@ import java.util.concurrent.ExecutionException;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class ActivityServiceInfo extends AppCompatActivity implements View.OnClickListener {
-    public static String[] imgDetail = null;
+    String[] imgDetail;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     ImageButton btnBack;
     TextView txtServiceName, txtServiceAbout, txtPrice, txtTime, txtAddress, txtPhoneNumber, txtWebsite,
@@ -50,7 +50,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
-    JSONObject saveJson;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
@@ -66,6 +65,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
                             .replaceAll("\"", "")
                             .split("\\+");
+                    iDetail.putExtra("img", imgDetail);
                     startActivity(iDetail);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -74,9 +74,11 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
             case R.id.image_Info2:
                 try {
-                    imgDetail = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
+                    imgDetail = new HttpRequestAdapter.httpGet()
+                            .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
                             .replaceAll("\"", "")
                             .split("\\+");
+                    iDetail.putExtra("img", imgDetail);
                     startActivity(iDetail);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -151,9 +153,9 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                         txtCountLike.setText(Integer.parseInt(txtCountLike.getText().toString()) + 1 + "");
 
                         try {
-                            JSONObject jsonObject = new JSONObject("{" +
-                                    Config.POST_KEY_JSON_LIKE.get(0) + ":\"" + idService + "\"," +
-                                    Config.POST_KEY_JSON_LIKE.get(1) + ":\"" + userId + "\"}");
+                            JSONObject jsonObject = new JSONObject("{"
+                                    + Config.POST_KEY_JSON_LIKE.get(0) + ":\"" + idService + "\","
+                                    + Config.POST_KEY_JSON_LIKE.get(1) + ":\"" + userId + "\"}");
                             idLike = new HttpRequestAdapter.httpPost(jsonObject)
                                     .execute(Config.URL_HOST + Config.URL_GET_ALL_FAVORITE).get();
                         } catch (JSONException | ExecutionException | InterruptedException e) {
@@ -342,19 +344,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             // set số ngôi sao
             rbStar.setRating(serviceInfo.getStars());
 
-            // json yêu thích lưu vào thẻ nhớ
-            try {
-                saveJson = new JSONObject("{" + Config.POST_KEY_JSON_LIKE_SERVICE.get(0) + ":\"" + idService + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(1) + ":\"" + serviceInfo.getHotelName() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(2) + ":\"" + serviceInfo.getEntertainName() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(3) + ":\"" + serviceInfo.getVehicleName() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(4) + ":\"" + serviceInfo.getPlaceName() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(5) + ":\"" + serviceInfo.getEatName() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(6) + ":\"" + serviceInfo.getIdImage() + "\","
-                        + Config.POST_KEY_JSON_LIKE_SERVICE.get(7) + ":\"" + serviceInfo.getImageName() + "\"}");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         } else {
             Toast.makeText(this, getResources().getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
         }

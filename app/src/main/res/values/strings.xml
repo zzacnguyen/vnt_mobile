@@ -153,7 +153,7 @@
     <string name="text_ChooseAddress">Choose address</string>
     <string name="text_Success">Success</string>
     <string name="text_Error">Error</string>
-    <string name="text_SuccessfullyAdded">Successfully Added</string>
+    <string name="text_AddNewSuccess">Add new success</string>
     <string name="text_AddFailed">Add failed</string>
     <string name="text_LowestPriceIsNotHigherThanHighestPrice">Lowest price is not allowed to be higher than highest price</string>
     <string name="text_TimeOpenMustBeEarlierThanTimeClose">Time open must be earlier than time close</string>
@@ -203,4 +203,5 @@
     <string name="text_UpgradeTo">Upgrade to:</string>
     <string name="text_Done">Done</string>
     <string name="text_EditService">Edit service</string>
+    <string name="text_EditFailed">Edit failed</string>
 </resources>

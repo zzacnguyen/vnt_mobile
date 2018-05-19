@@ -102,7 +102,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 // nếu status != null và = OK
                 if (Objects.equals(stt, "\"status:200\"")) {
                     Toast.makeText(getApplication()
-                            , getResources().getString(R.string.text_SuccessfullyAdded), Toast.LENGTH_SHORT).show();
+                            , getResources().getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(ActivityAddTripSchedule.this

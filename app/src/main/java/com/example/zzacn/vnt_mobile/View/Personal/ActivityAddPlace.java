@@ -230,16 +230,14 @@ public class ActivityAddPlace extends AppCompatActivity {
                         + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\","
                         // mã xã phường
                         + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + idWard + "\","
-                        // id người dùng ctv
-                        + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\","
-                        // id người dùng hdv
-                        + Config.POST_KEY_JSON_PLACE.get(8) + ":\"" + "" + "\"" + "}");
+                        // id người dùng
+                        + Config.POST_KEY_JSON_PLACE.get(7) + ":\"" + userId + "\"}");
 
                 stringIdPlace = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_POST_PLACE).get();
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
             }
-
+            System.out.println(stringIdPlace);
             if (stringIdPlace.equals("\"status:500\"")) {
                 Toast.makeText(ActivityAddPlace.this, getResources()
                         .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();

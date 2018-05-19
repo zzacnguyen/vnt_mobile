@@ -137,7 +137,7 @@
     <string name="text_ChooseAddress">Chưa chọn địa điểm</string>
     <string name="text_Success">Thành công</string>
     <string name="text_Error">Lỗi</string>
-    <string name="text_SuccessfullyAdded">Thêm thành công</string>
+    <string name="text_AddNewSuccess">Thêm thành công</string>
     <string name="text_AddFailed">Thêm thất bại</string>
     <string name="text_LowestPriceIsNotHigherThanHighestPrice">Giá thấp nhất không được lớn hơn giá cao nhất</string>
     <string name="text_ServiceNameIsNotAllowedToBeEmpty">Tên dịch vụ không được để trống</string>
@@ -185,4 +185,5 @@
     <string name="text_UpgradeTo">Nâng cấp thành:</string>
     <string name="text_Done">Lưu</string>
     <string name="text_EditService">Thay đổi thông tin</string>
+    <string name="text_EditFailed">Sửa thất bại</string>
 </resources>

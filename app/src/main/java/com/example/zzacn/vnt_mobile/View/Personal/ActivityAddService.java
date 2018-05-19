@@ -174,12 +174,10 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                                 + Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + etServicePhone.getText().toString() + "\","
                                 // loại hình
                                 + Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + type + "\","
-                                // id tour guide
-                                + Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + "" + "\","
-                                // id partner
-                                + Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + userId + "\","
+                                // user id
+                                + Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + userId + "\","
                                 // website
-                                + Config.POST_KEY_JSON_SERVICE.get(9) + ":\"" + etWebsite.getText().toString() + "\","
+                                + Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + etWebsite.getText().toString() + "\","
                                 // tên dịch vụ
                                 + name + "}");
                         // post dịch vụ lên trả về id dịch vụ đó

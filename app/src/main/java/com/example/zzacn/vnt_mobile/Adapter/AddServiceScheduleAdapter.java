@@ -98,7 +98,7 @@ public class AddServiceScheduleAdapter extends RecyclerView.Adapter<RecyclerView
                                     .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE_DETAILS + scheduleId).get();
                             if (stt.equals("\"status:200\"")) {
                                 Toast.makeText(context, context.getResources()
-                                        .getString(R.string.text_SuccessfullyAdded), Toast.LENGTH_SHORT).show();
+                                        .getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(context, context.getResources()
                                         .getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();

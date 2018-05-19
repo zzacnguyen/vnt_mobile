@@ -18,7 +18,6 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
-import com.example.zzacn.vnt_mobile.View.Home.FragmentEnterpriseHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
@@ -26,15 +25,12 @@ import com.example.zzacn.vnt_mobile.View.Personal.FragmentEditProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
 
-import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
-
 public class MainActivity extends AppCompatActivity {
 
+    public static Fragment childFragment = null;
     BottomNavigationView bottomNavigationView;
 
-    public static Fragment childFragment = null;
-
-    private void BottomNavigation(){
+    private void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -49,11 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         i = 0;
-                        if (userId != 2){
-                            selectedFragment = new FragmentHome();
-                        }else{
-                            selectedFragment = new FragmentEnterpriseHome();
-                        }
+                        selectedFragment = new FragmentHome();
                         break;
 
                     case R.id.nav_favorite:
@@ -154,27 +146,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean isStoragePermissionGranted() {
+    public void isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
-        } else { //permission is automatically granted on sdk<23 upon installation
-            return true;
         }
     }
 
-    private void replaceFragment (Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getName();
 
         FragmentManager manager = getSupportFragmentManager();
-        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
 
-        if (!fragmentPopped){ //fragment not in back stack, create it.
+        if (!fragmentPopped) { //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();
             ft.replace(R.id.fragment_container, fragment);
             ft.addToBackStack(backStateName);

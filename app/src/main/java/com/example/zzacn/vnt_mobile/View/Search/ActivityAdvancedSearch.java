@@ -147,41 +147,42 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
         listHistorySearchAdapter = new ListHistorySearchAdapter(recyclerView, services, getApplicationContext());
         recyclerView.setAdapter(listHistorySearchAdapter);
         listHistorySearchAdapter.notifyDataSetChanged();
+        if (services.size() < Integer.parseInt(finalArr.get(2))) {
+            //set load more listener for the RecyclerView adapter
+            listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
 
-        //set load more listener for the RecyclerView adapter
-        listHistorySearchAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-
-            @Override
-            public void onLoadMore() {
-                if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
-                    finalListService.add(null);
-                    recyclerView.post(new Runnable() {
-                        public void run() {
-                            listHistorySearchAdapter.notifyItemInserted(finalListService.size() - 1);
-                        }
-                    });
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finalListService.remove(finalListService.size() - 1);
-                            listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
-                            try {
-                                finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter
-                                        .httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
-                            } catch (JSONException | InterruptedException | ExecutionException e) {
-                                e.printStackTrace();
+                @Override
+                public void onLoadMore() {
+                    if (finalListService.size() < Integer.parseInt(finalArr.get(2))) {
+                        finalListService.add(null);
+                        recyclerView.post(new Runnable() {
+                            public void run() {
+                                listHistorySearchAdapter.notifyItemInserted(finalListService.size() - 1);
                             }
-                            ArrayList<Service> serviceArrayList =
-                                    new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
-                            finalListService.addAll(serviceArrayList);
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finalListService.remove(finalListService.size() - 1);
+                                listHistorySearchAdapter.notifyItemRemoved(finalListService.size());
+                                try {
+                                    finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter
+                                            .httpGet().execute(finalArr.get(1)).get()), Config.GET_KEY_JSON_LOAD);
+                                } catch (JSONException | InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+                                ArrayList<Service> serviceArrayList =
+                                        new ModelSearch().getAdvancedSearchList(finalArr.get(0), serviceType);
+                                finalListService.addAll(serviceArrayList);
 
 
-                            listHistorySearchAdapter.notifyDataSetChanged();
-                            listHistorySearchAdapter.setLoaded();
-                        }
-                    }, 1000);
+                                listHistorySearchAdapter.notifyDataSetChanged();
+                                listHistorySearchAdapter.setLoaded();
+                            }
+                        }, 1000);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
