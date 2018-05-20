@@ -2,7 +2,10 @@ package com.example.zzacn.vnt_mobile.View.Home.ServiceInfo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +26,8 @@ import com.example.zzacn.vnt_mobile.R;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
@@ -38,38 +43,26 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
+    final int RESULT_BANNER = 111,
+            RESULT_INFO1 = 112,
+            RESULT_INFO2 = 113;
+    private ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View view) {
-        Intent iDetail = new Intent(ActivityEnterpriseServiceInfo.this, ActivityFullImage.class);
 
         switch (view.getId()) {
+            case R.id.imgBanner:
+                PickImageFromGallery(RESULT_BANNER);
+                break;
             case R.id.image_Info1:
-                try {
-                    imgDetail = new HttpRequestAdapter.httpGet()
-                            .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
-                            .replaceAll("\"", "")
-                            .split("\\+");
-                    System.out.println(imgDetail[0]);
-                    iDetail.putExtra("img", imgDetail);
-                    startActivity(iDetail);
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                PickImageFromGallery(RESULT_INFO1);
                 break;
 
             case R.id.image_Info2:
-                try {
-                    imgDetail = new HttpRequestAdapter.httpGet()
-                            .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
-                            .replaceAll("\"", "")
-                            .split("\\+");
-                    iDetail.putExtra("img", imgDetail);
-                    startActivity(iDetail);
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                PickImageFromGallery(RESULT_INFO2);
                 break;
 
             case R.id.textView_Cancel:
@@ -93,6 +86,56 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case RESULT_BANNER:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        imgBanner.setImageBitmap(bitmap);
+                        bitmapArrayList.add(bitmap); //Add vào arraylist
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            case RESULT_INFO1:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        imgThumbInfo1.setImageBitmap(bitmap);
+                        bitmapArrayList.add(bitmap); //Add vào arraylist
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                break;
+
+            case RESULT_INFO2:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    Bitmap bitmap;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                        imgThumbInfo2.setImageBitmap(bitmap);
+                        bitmapArrayList.add(bitmap); //Add vào arraylist
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }
@@ -131,6 +174,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         btnCancel = findViewById(R.id.textView_Cancel);
         btnDone = findViewById(R.id.textView_Done);
 
+        imgBanner.setOnClickListener(this);
         imgThumbInfo1.setOnClickListener(this);
         imgThumbInfo2.setOnClickListener(this);
         btnShowReview.setOnClickListener(this);
@@ -217,5 +261,40 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         } else {
             Toast.makeText(this, getResources().getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void PickImageFromGallery(int requestCode) { //Chọn 1 tấm hình từ thư viện
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
+    }
+
+    private void enableWidget(){
+        txtServiceName.setEnabled(true);
+        etAddress.setEnabled(true);
+        etPhoneNumber.setEnabled(true);
+        etWebsite.setEnabled(true);
+        etLowestPrice.setEnabled(true);
+        etHighestPrice.setEnabled(true);
+        etTimeOpen.setEnabled(true);
+        etTimeClose.setEnabled(true);
+        imgBanner.setEnabled(true);
+        imgThumbInfo1.setEnabled(true);
+        imgThumbInfo2.setEnabled(true);
+    }
+
+    private void disbleWidget(){
+        txtServiceName.setEnabled(false);
+        etAddress.setEnabled(false);
+        etPhoneNumber.setEnabled(false);
+        etWebsite.setEnabled(false);
+        etLowestPrice.setEnabled(false);
+        etHighestPrice.setEnabled(false);
+        etTimeOpen.setEnabled(false);
+        etTimeClose.setEnabled(false);
+        imgBanner.setEnabled(false);
+        imgThumbInfo1.setEnabled(false);
+        imgThumbInfo2.setEnabled(false);
     }
 }

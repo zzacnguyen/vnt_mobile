@@ -205,4 +205,5 @@
     <string name="text_EditService">Edit service</string>
     <string name="text_EditFailed">Edit failed</string>
     <string name="text_ChangeSuccessful">Change successful</string>
+    <string name="text_Edit">Edit</string>
 </resources>

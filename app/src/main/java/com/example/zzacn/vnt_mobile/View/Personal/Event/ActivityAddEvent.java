@@ -42,7 +42,7 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
     Button btnCreate;
     EditText etEventName, etEventStart, etEventEnd, etServiceVenue;
     String name, start, end;
-    Spinner spEventType;
+    Spinner spEventType, spServiceVenue;
     int eventTypeId;
     String[] event;
 
@@ -62,6 +62,7 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
         etEventEnd = findViewById(R.id.editText_EventEnd);
         etServiceVenue = findViewById(R.id.editText_ServiceVenue);
         spEventType = findViewById(R.id.spinner_EventType);
+        spServiceVenue = findViewById(R.id.spinner_ServiceVenue);
 
         btnBack.setOnClickListener(this);
         etEventStart.setOnClickListener(this);

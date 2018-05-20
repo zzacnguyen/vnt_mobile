@@ -187,4 +187,5 @@
     <string name="text_EditService">Thay đổi thông tin</string>
     <string name="text_EditFailed">Sửa thất bại</string>
     <string name="text_ChangeSuccessful">Thay đổi thành công</string>
+    <string name="text_Edit">Sửa</string>
 </resources>
