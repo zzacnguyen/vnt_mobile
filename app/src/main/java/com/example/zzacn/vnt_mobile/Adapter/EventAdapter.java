@@ -2,7 +2,6 @@ package com.example.zzacn.vnt_mobile.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,15 +18,12 @@ import com.example.zzacn.vnt_mobile.Model.Object.Event;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.writeJson;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
 public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -85,7 +81,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            ViewHolder viewHolder = (ViewHolder) holder;
+            final ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTenSk.setText(events.get(position).getEventName());
             viewHolder.txtNgaySk.setText(events.get(position).getEventDate());
             viewHolder.imgHinhSk.setImageBitmap(events.get(position).getEventImage());
@@ -98,7 +94,15 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     Intent iEventInfo = new Intent(context, ActivityServiceInfo.class);
                     iEventInfo.putExtra("id", (int) view.getTag());
-                    addEventSeen(view);
+                    try {
+                        new HttpRequestAdapter.httpPost(new JSONObject("{"
+                                + Config.POST_KEY_JSON_SEEN.get(0) + view.getTag()
+                                + Config.POST_KEY_JSON_SEEN.get(0) + userId + "}"))
+                                .execute(Config.URL_HOST + Config.URL_POST_SEEN_EVENT);
+                        viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iEventInfo);
                 }
@@ -118,54 +122,6 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         isLoading = false;
     }
 
-    private void addEventSeen(View view) {
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
-        if (!path.exists()) {
-            path.mkdirs();
-        }
-        File file = new File(path, Config.FILE_EVENT);
-        JSONArray jsonArray;
-
-        if (file.exists()) {
-            boolean exists = false;
-            try {
-                jsonArray = new JSONArray(readJson(file));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    if (view.getTag().toString().equals(jsonArray.getJSONObject(i).getString("id"))) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    jsonArray.put(new JSONObject().put("id", view.getTag().toString()));
-                    if (file.delete()) {
-                        writeJson(file, jsonArray);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                jsonArray = new JSONArray().put(new JSONObject()
-                        .put("id", view.getTag().toString()));
-                writeJson(file, jsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    // "Loading item" ViewHolder
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progressBar;
-
-        LoadingViewHolder(View view) {
-            super(view);
-            progressBar = view.findViewById(R.id.progressBar);
-        }
-    }
-
     //"Normal item" Viewholder
     static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
@@ -180,6 +136,16 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             imgHinhSk = itemView.findViewById(R.id.image_ViewSuKien);
             txtNgaySk = itemView.findViewById(R.id.textView_EventDate);
             cardView = itemView.findViewById(R.id.cardView_SuKien);
+        }
+    }
+
+    // "Loading item" ViewHolder
+    private class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        LoadingViewHolder(View view) {
+            super(view);
+            progressBar = view.findViewById(R.id.progressBar);
         }
     }
 }

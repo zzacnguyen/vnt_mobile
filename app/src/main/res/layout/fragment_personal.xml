@@ -108,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:visibility="gone">
 
                 <Button
                     android:onClick="addFragment"

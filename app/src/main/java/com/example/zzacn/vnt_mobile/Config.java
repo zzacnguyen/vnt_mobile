@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
@@ -37,23 +37,23 @@ public class Config {
     public static final String URL_GET_LINK_DETAIL_2 = "get-detail-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "public/thumbnails/";
+    public static final String URL_GET_PRIVILEGE = "get_quyen_dangky/";
+    public static final String URL_GET_EVENT_NUMBER = "counter-events";
+    public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
+    public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
+    public static final String URL_GET_EVENT_TYPE = "type-event";
+    public static final String URL_POST_TRIP_SCHEDULE = "post-schedule/user=";
+    public static final String URL_POST_TRIP_SCHEDULE_DETAILS = "post-schedule-details/schedule=";
+    public static final String URL_POST_EVENT = "events";
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_POST_CONTACT_INFO = "edit_user_mobile/";
     public static final String URL_POST_UPGRADE_MEMBER = "savequyendangky/";
-    public static final String URL_GET_PRIVILEGE = "get_quyen_dangky/";
-    public static final String URL_GET_EVENT_NUMBER = "counter-events";
-    public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
-    public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
-    public static final String URL_POST_TRIP_SCHEDULE = "post-schedule/user=";
-    public static final String URL_POST_TRIP_SCHEDULE_DETAILS = "post-schedule-details/schedule=";
-    public static final String URL_POST_EVENT = "events";
-    public static final String URL_GET_EVENT_TYPE = "type-event";
+    public static final String URL_POST_SEEN_EVENT = "seenevents";
 
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
-    public static final String FILE_EVENT = "listOfEvent.json";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
@@ -95,7 +95,7 @@ public class Config {
 
     public static final ArrayList<String> GET_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("event_name", "event_start", "event_end",
-                    "image_id", "image_details_1"));
+                    "image_id", "image_details_1", "is_seen"));
 
     public static final ArrayList<String> GET_KEY_JSON_ENTERTAINMENT =
             new ArrayList<>(Arrays.asList("entertainments_name", "image_id", "image_details_1"));
@@ -144,6 +144,9 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_LIKE =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));
+
+    public static final ArrayList<String> POST_KEY_JSON_SEEN =
+            new ArrayList<>(Arrays.asList("\"id_events\"", "\"user_id\""));
 
     public static final ArrayList<String> POST_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("\"pl_name\"", "\"pl_details\"", "\"pl_address\"", "\"pl_phone_number\"",

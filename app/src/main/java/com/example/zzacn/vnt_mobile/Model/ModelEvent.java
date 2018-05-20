@@ -1,7 +1,6 @@
 package com.example.zzacn.vnt_mobile.Model;
 
 import android.content.Context;
-import android.os.Environment;
 
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
@@ -10,11 +9,9 @@ import com.example.zzacn.vnt_mobile.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
-import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.readJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
 
@@ -23,23 +20,6 @@ import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
  */
 
 public class ModelEvent {
-
-    public static JSONArray getJsonFileEvent() {
-        File path = new File(Environment.getExternalStorageDirectory() + Config.FOLDER);
-        if (!path.exists()) {
-            path.mkdirs();
-        }
-        File file = new File(path, Config.FILE_EVENT);
-        JSONArray jsonFile = new JSONArray();
-        if (file.exists()) {
-            try {
-                jsonFile = new JSONArray(readJson(file));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return jsonFile;
-    }
 
     public ArrayList<Event> getEventList(Context context, String getJson) { //Get danh sách thông báo sự kiện
 
@@ -64,8 +44,8 @@ public class ModelEvent {
                         arrayList.get(4), arrayList.get(5)));
 
                 // kiểm tra đã xem
+                event.setSeen(arrayList.get(6).equals("1"));
 
-                event.setSeen(getJsonFileEvent().toString().contains("\"id\":\"" + event.getEventId() + "\""));
                 events.add(event);
                 arrayList.clear();
             }

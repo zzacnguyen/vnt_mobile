@@ -32,7 +32,7 @@ public class FragmentPersonal extends Fragment {
     Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent;
+    LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent, editProfile;
     SessionManager sessionManager;
 
     @Nullable
@@ -57,6 +57,7 @@ public class FragmentPersonal extends Fragment {
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
         addEvent = view.findViewById(R.id.AddEvent);
+        editProfile = view.findViewById(R.id.EditProfile);
 
         if (userId == 0) {
             addPlace.setVisibility(View.GONE);
@@ -67,6 +68,7 @@ public class FragmentPersonal extends Fragment {
         } else {
             Cavatar.setImageBitmap(avatar);
             txtUserName.setText(userName);
+            editProfile.setVisibility(View.VISIBLE);
             switch (userType) {
                 case "1": // cá nhân
                     txtUserType.setText(getResources().getString(R.string.text_Personal));
