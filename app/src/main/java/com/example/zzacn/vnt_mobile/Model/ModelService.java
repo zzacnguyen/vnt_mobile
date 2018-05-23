@@ -89,7 +89,7 @@ public class ModelService {
             JSONArray jsonService = new JSONArray(jsonResult.getString(Config.KEY_SERVICE_INFO.get(6)));
             arrayServiceInfo = parseJson(jsonService.getJSONObject(0), Config.GET_KEY_JSON_SERVICE_INFO);
             if (lang.equals("en")) {
-                arrayServiceInfo = translate(arrayServiceInfo, lang);
+                arrayServiceInfo.set(7, yandexApiTranslate(arrayServiceInfo.get(7), lang));
             }
 
             // nếu type_event != null thì lấy tên loại hình sự kiện ngược lại cho = null
@@ -331,13 +331,6 @@ public class ModelService {
             e.printStackTrace();
         }
         return reviews;
-    }
-
-    private ArrayList<String> translate(ArrayList<String> arrayList, String lang) {
-        for (int i = 0; i < arrayList.size(); i++) {
-            arrayList.set(i, yandexApiTranslate(arrayList.get(i), lang));
-        }
-        return arrayList;
     }
 
     private String yandexApiTranslate(String key, String lang) {

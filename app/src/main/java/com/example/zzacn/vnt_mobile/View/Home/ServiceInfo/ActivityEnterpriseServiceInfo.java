@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,21 +19,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.ServiceInfo;
 import com.example.zzacn.vnt_mobile.R;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements View.OnClickListener {
+    final int RESULT_BANNER = 111,
+            RESULT_INFO1 = 112,
+            RESULT_INFO2 = 113;
     String[] imgDetail;
     Button btnShowReview;
     TextView txtServiceName, txtServiceAbout, toolbarTitle, fbEvent, txtMark, btnCancel, btnDone;
@@ -43,9 +43,6 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
-    final int RESULT_BANNER = 111,
-            RESULT_INFO1 = 112,
-            RESULT_INFO2 = 113;
     private ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
 
 
@@ -75,17 +72,21 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                 startActivity(intentListReview);
                 break;
 
-                // chưa xong
             case R.id.textView_Done:
-                try {
-                    String rs = new HttpRequestAdapter.httpPut(new JSONObject()).execute(Config.URL_HOST).get();
-                    if (rs.equals("status:200")) {
-                        finish();
-                    } else {
-                        Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                if (btnDone.getText().equals(getResources().getString(R.string.text_Edit))) {
+                    enableWidget();
+                    btnDone.setText(getResources().getString(R.string.text_Done));
+                } else {
+//                    try {
+//                        String rs = new HttpRequestAdapter.httpPut(new JSONObject()).execute(Config.URL_HOST).get();
+//                        if (rs.equals("status:200")) {
+//                            finish();
+//                        } else {
+//                            Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+//                        }
+//                    } catch (InterruptedException | ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
                 }
                 break;
         }
@@ -95,7 +96,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
             case RESULT_BANNER:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
@@ -152,8 +153,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     public void getServiceInfo() {
         idService = getIntent().getIntExtra("id", 0);
         String url = Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId;
-        txtServiceName = findViewById(R.id.textViewServiceName);
-        txtServiceAbout = findViewById(R.id.tvAbout);
+        txtServiceName = findViewById(R.id.tvServiceName);
+        txtServiceAbout = findViewById(R.id.tvServiceAbout);
         etLowestPrice = findViewById(R.id.editText_ServiceLowestPrice);
         etHighestPrice = findViewById(R.id.editText_ServiceHighestPrice);
         etTimeOpen = findViewById(R.id.editText_TimeOpen);
@@ -180,6 +181,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         btnShowReview.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnDone.setOnClickListener(this);
+
+        disbleWidget();
 
         ServiceInfo serviceInfo = new ModelService().getServiceInfo(Config.URL_HOST + url, "vi");
 
@@ -270,31 +273,35 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
     }
 
-    private void enableWidget(){
-        txtServiceName.setEnabled(true);
-        etAddress.setEnabled(true);
-        etPhoneNumber.setEnabled(true);
-        etWebsite.setEnabled(true);
-        etLowestPrice.setEnabled(true);
-        etHighestPrice.setEnabled(true);
-        etTimeOpen.setEnabled(true);
-        etTimeClose.setEnabled(true);
-        imgBanner.setEnabled(true);
-        imgThumbInfo1.setEnabled(true);
-        imgThumbInfo2.setEnabled(true);
+    private void enableWidget() {
+        // mở khóa nhập
+        txtServiceName.setInputType(InputType.TYPE_CLASS_TEXT);
+        txtServiceAbout.setInputType(InputType.TYPE_CLASS_TEXT);
+        etLowestPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etHighestPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
+        etTimeOpen.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
+        etTimeClose.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
+        etAddress.setInputType(InputType.TYPE_CLASS_TEXT);
+        etPhoneNumber.setInputType(InputType.TYPE_CLASS_PHONE);
+        etWebsite.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT);
+        imgBanner.setClickable(true);
+        imgThumbInfo1.setClickable(true);
+        imgThumbInfo2.setClickable(true);
     }
 
-    private void disbleWidget(){
-        txtServiceName.setEnabled(false);
-        etAddress.setEnabled(false);
-        etPhoneNumber.setEnabled(false);
-        etWebsite.setEnabled(false);
-        etLowestPrice.setEnabled(false);
-        etHighestPrice.setEnabled(false);
-        etTimeOpen.setEnabled(false);
-        etTimeClose.setEnabled(false);
-        imgBanner.setEnabled(false);
-        imgThumbInfo1.setEnabled(false);
-        imgThumbInfo2.setEnabled(false);
+    private void disbleWidget() {
+        // khóa nhập
+        txtServiceName.setInputType(InputType.TYPE_NULL);
+        txtServiceAbout.setInputType(InputType.TYPE_NULL);
+        etLowestPrice.setInputType(InputType.TYPE_NULL);
+        etHighestPrice.setInputType(InputType.TYPE_NULL);
+        etTimeOpen.setInputType(InputType.TYPE_NULL);
+        etTimeClose.setInputType(InputType.TYPE_NULL);
+        etAddress.setInputType(InputType.TYPE_NULL);
+        etPhoneNumber.setInputType(InputType.TYPE_NULL);
+        etWebsite.setInputType(InputType.TYPE_NULL);
+        imgBanner.setClickable(false);
+        imgThumbInfo1.setClickable(false);
+        imgThumbInfo2.setClickable(false);
     }
 }

@@ -79,13 +79,13 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             final ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtTenSk.setText(events.get(position).getEventName());
             viewHolder.txtNgaySk.setText(events.get(position).getEventDate());
             viewHolder.imgHinhSk.setImageBitmap(events.get(position).getEventImage());
-            viewHolder.cardView.setTag(events.get(position).getEventId());
+            viewHolder.cardView.setTag(events.get(position).getServiceId());
             if (events.get(position).isSeen())
                 viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
 
@@ -96,8 +96,8 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     iEventInfo.putExtra("id", (int) view.getTag());
                     try {
                         new HttpRequestAdapter.httpPost(new JSONObject("{"
-                                + Config.POST_KEY_JSON_SEEN.get(0) + view.getTag()
-                                + Config.POST_KEY_JSON_SEEN.get(0) + userId + "}"))
+                                + Config.POST_KEY_JSON_SEEN.get(0) + ":\"" + events.get(position).getEventId() + "\","
+                                + Config.POST_KEY_JSON_SEEN.get(1) + ":\"" + userId + "\"}"))
                                 .execute(Config.URL_HOST + Config.URL_POST_SEEN_EVENT);
                         viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
                     } catch (JSONException e) {

@@ -21,9 +21,11 @@ import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
-import com.example.zzacn.vnt_mobile.View.Personal.FragmentEditProfile;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
+
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,31 +107,37 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btnAllPlace:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
+                bundle.putInt("type",4);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllEat:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
+                bundle.putInt("type",1);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllHotel:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
+                bundle.putInt("type",2);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllEntertain:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
+                bundle.putInt("type",5);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllVehicle:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
+                bundle.putInt("type",3);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllService: //Danh sách các địa điểm dịch vụ của doanh nghiệp đó
-                bundle.putString("url", "link");
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId);
+                bundle.putInt("type",0);
                 childFragment.setArguments(bundle);
                 break;
 
@@ -138,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.button_EditProfile:
-                childFragment = new FragmentEditProfile();
+                childFragment = new FragmentProfile();
                 break;
         }
 

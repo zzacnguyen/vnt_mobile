@@ -8,6 +8,7 @@ import java.util.Collections;
 public class Config {
     public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
+    public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
     public static final String URL_GET_DISTRICT = "district/";
     public static final String URL_GET_WARD = "ward/";
@@ -48,7 +49,7 @@ public class Config {
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
-    public static final String URL_POST_CONTACT_INFO = "edit_user_mobile/";
+    public static final String URL_POST_CONTACT_INFO = "edit-user-mobile/";
     public static final String URL_POST_UPGRADE_MEMBER = "savequyendangky/";
     public static final String URL_POST_SEEN_EVENT = "seenevents";
 
@@ -75,6 +76,10 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_USER =
             new ArrayList<>(Arrays.asList("username", "avatar", "level"));
 
+    public static final ArrayList<String> GET_KEY_JSON_CONTACT_INFO =
+            new ArrayList<>(Arrays.asList("contact_name", "contact_phone", "contact_website",
+                    "contact_email_address", "contact_language", "contact_country", "contact_avatar"));
+
     public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));
 
@@ -95,7 +100,7 @@ public class Config {
 
     public static final ArrayList<String> GET_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("event_name", "event_start", "event_end",
-                    "image_id", "image_details_1", "is_seen"));
+                    "image_id", "image_details_1", "is_seen", "id_event"));
 
     public static final ArrayList<String> GET_KEY_JSON_ENTERTAINMENT =
             new ArrayList<>(Arrays.asList("entertainments_name", "image_id", "image_details_1"));
@@ -141,6 +146,9 @@ public class Config {
     public static final ArrayList<String> POST_KEY_JSON_REVIEW =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\"", "\"vr_rating\"",
                     "\"vr_title\"", "\"details\""));
+
+    public static final ArrayList<String> PUT_KEY_JSON_REVIEW =
+            new ArrayList<>(Arrays.asList("\"rate\"", "\"title\"", "\"details\""));
 
     public static final ArrayList<String> POST_KEY_JSON_LIKE =
             new ArrayList<>(Arrays.asList("\"service_id\"", "\"user_id\""));

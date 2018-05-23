@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zzacn.vnt_mobile.Adapter.EnterpriseServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
@@ -28,6 +30,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
 public class FragmentListService extends Fragment {
@@ -48,32 +52,36 @@ public class FragmentListService extends Fragment {
         btnBack = view.findViewById(R.id.button_Back);
 
         Bundle bundle = getArguments();
-
-        String url = bundle.getString("url");
-
-        if (url != null) {
-            switch (url) { //Kiểm tra từng đường dẫn url
-                case Config.URL_HOST + Config.URL_GET_ALL_EATS:
+        String url = bundle != null ? bundle.getString("url") : null;
+        int type = bundle != null ? bundle.getInt("type") : -1;
+        if (type != -1) {
+            switch (type) { //Kiểm tra từng đường dẫn url
+                case 1:
                     formatJson = Config.GET_KEY_JSON_EAT;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfRestaurant));
                     break;
-                case Config.URL_HOST + Config.URL_GET_ALL_PLACES:
+                case 4:
                     formatJson = Config.GET_KEY_JSON_PLACE;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfPlaceToVisit));
                     break;
-                case Config.URL_HOST + Config.URL_GET_ALL_HOTELS:
+                case 2:
                     formatJson = Config.GET_KEY_JSON_HOTEL;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfHotel));
                     break;
-                case Config.URL_HOST + Config.URL_GET_ALL_VEHICLES:
+                case 3:
                     formatJson = Config.GET_KEY_JSON_VEHICLE;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfTransport));
                     break;
-                default:
+                case 0:
+                    formatJson = Config.GET_KEY_JSON_ENTERPRISE_SERVICE;
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
+                    toolbarTitle.setText(getResources().getString(R.string.title_ListOfEnterpriseService));
+                    break;
+                case 5:
                     formatJson = Config.GET_KEY_JSON_ENTERTAINMENT;
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));

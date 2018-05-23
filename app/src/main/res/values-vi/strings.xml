@@ -188,4 +188,6 @@
     <string name="text_EditFailed">Sửa thất bại</string>
     <string name="text_ChangeSuccessful">Thay đổi thành công</string>
     <string name="text_Edit">Sửa</string>
+    <string name="text_Profile">Thông tin cá nhân</string>
+    <string name="title_ListOfEnterpriseService">Dịch vụ của bạn</string>
 </resources>

@@ -34,7 +34,8 @@ public class ModelEvent {
                 Event event = new Event();
                 arrayList = parseJson(jsonArray.getJSONObject(i), Config.GET_KEY_JSON_EVENT); //Parse json event
 
-                event.setEventId(Integer.parseInt(arrayList.get(0))); //Set mã sự kiện
+                event.setServiceId(Integer.parseInt(arrayList.get(0))); //Set mã dịch vụ
+                event.setEventId(Integer.parseInt(arrayList.get(7)));
                 event.setEventName(arrayList.get(1)); //Set tên
 
                 //Set ngày bắt đầu và ngày kết thúc sự kiện

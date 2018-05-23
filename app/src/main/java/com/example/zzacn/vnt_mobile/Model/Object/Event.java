@@ -4,14 +4,21 @@ import android.graphics.Bitmap;
 
 
 public class Event {
-    private int eventId;
-    private String eventName;
-    private String eventDate;
+    private int serviceId, eventId;
+    private String eventName, eventDate;
     private Bitmap eventImage;
     private boolean seen;
 
     public Event(){
 
+    }
+
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public boolean isSeen() {

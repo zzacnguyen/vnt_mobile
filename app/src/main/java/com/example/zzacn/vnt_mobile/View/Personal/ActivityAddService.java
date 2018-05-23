@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.BuildConfig;
 import com.example.zzacn.vnt_mobile.Config;
@@ -38,7 +37,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,20 +110,9 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                Date timeOpen = null, timeClose = null;
-                try {
-                    timeOpen = sdf.parse(txtOpenTime.getText().toString());
-                    timeClose = sdf.parse(txtCloseTime.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                if (Integer.parseInt(etLowestPrice.getText().toString()) > Integer.parseInt(etHighestPrice.getText().toString())) {
+                if (Integer.parseInt(etLowestPrice.getText().toString())
+                        > Integer.parseInt(etHighestPrice.getText().toString())) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
-                } else if (timeClose != null && timeClose.before(timeOpen)) {
-                    txtCloseTime.setError(getResources().getString(R.string.text_TimeOpenMustBeEarlierThanTimeClose));
                 } else if (etServiceName.getText().toString().equals("")) {
                     etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
                 } else if (etWebsite.getText().toString().equals("")) {
@@ -286,7 +273,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 break;
 
             case REQUEST_CAMERA_CAPTURE:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Uri imageUri = Uri.parse(mCurrentPhotoPath);
 
                     // ScanFile so it will be appeared on Gallery

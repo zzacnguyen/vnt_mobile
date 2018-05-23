@@ -2,6 +2,7 @@ package com.example.zzacn.vnt_mobile.View.Personal.TripSchedule;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -101,8 +102,6 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
 
                 // nếu status != null và = OK
                 if (Objects.equals(stt, "\"status:200\"")) {
-                    Toast.makeText(getApplication()
-                            , getResources().getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(ActivityAddTripSchedule.this
@@ -110,8 +109,15 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 }
             }
         });
+    }
 
-
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+        data.putExtra("mess",getResources().getString(R.string.text_AddNewSuccess));
+        setResult(RESULT_OK,data);
+        finishActivity(1);
+        super.finish();
     }
 
     private void datePicker(final EditText editText) {

@@ -29,7 +29,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <meta-data
@@ -65,18 +65,17 @@
         <activity android:name=".View.Home.ServiceInfo.ActivityReviewList" />
         <activity android:name=".View.Personal.Login_Register.ActivityLogin" />
         <activity android:name=".View.Personal.Login_Register.ActivityRegister" />
-        <activity android:name=".View.Personal.ActivityGeneral"/>
-        <activity android:name=".View.Personal.TripSchedule.ActivityTripSchedule"/>
-        <activity android:name=".View.Personal.TripSchedule.ActivityAddTripSchedule"/>
-        <activity android:name=".View.Personal.TripSchedule.ActivityTripScheduleInfo"/>
-        <activity android:name=".View.Personal.ActivityUpgradeMember"/>
-        <activity android:name=".View.Personal.Event.ActivityAddEvent"/>
-        <activity android:name=".View.Personal.ActivityAddPlace"/>
-        <activity android:name=".View.Personal.ActivityAddService"/>
-        <activity android:name=".View.Personal.TripSchedule.ActivityAddServiceToTripSchedule"/>
-        <activity android:name=".View.Personal.Event.ActivityAddVenue"/>
-        <activity android:name=".View.Personal.ActivityUserInfo"/>
-        <activity android:name=".View.Home.ServiceInfo.ActivityEnterpriseServiceInfo"/>
+        <activity android:name=".View.Personal.ActivityGeneral" />
+        <activity android:name=".View.Personal.TripSchedule.ActivityTripSchedule" />
+        <activity android:name=".View.Personal.TripSchedule.ActivityAddTripSchedule" />
+        <activity android:name=".View.Personal.TripSchedule.ActivityTripScheduleInfo" />
+        <activity android:name=".View.Personal.ActivityUpgradeMember" />
+        <activity android:name=".View.Personal.Event.ActivityAddEvent" />
+        <activity android:name=".View.Personal.ActivityAddPlace" />
+        <activity android:name=".View.Personal.ActivityAddService" />
+        <activity android:name=".View.Personal.TripSchedule.ActivityAddServiceToTripSchedule" />
+        <activity android:name=".View.Personal.Event.ActivityAddVenue" />
+        <activity android:name=".View.Home.ServiceInfo.ActivityEnterpriseServiceInfo" />
     </application>
 
 </manifest>

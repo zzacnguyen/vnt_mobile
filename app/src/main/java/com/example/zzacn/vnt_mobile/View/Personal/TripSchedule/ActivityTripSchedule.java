@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfTripScheduleAdapter;
@@ -117,7 +118,14 @@ public class ActivityTripSchedule extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
+            Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();
+            startActivity(getIntent());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

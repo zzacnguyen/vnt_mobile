@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -39,7 +40,7 @@ public class FragmentNotification extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        getNotify(Config.URL_HOST + Config.URL_GET_ALL_EVENTS, view);
+        getNotify(Config.URL_HOST + Config.URL_GET_ALL_EVENTS + "/" + userId, view);
 
         return view;
     }

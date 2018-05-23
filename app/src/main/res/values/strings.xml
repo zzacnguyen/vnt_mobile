@@ -94,7 +94,7 @@
     <string name="hint_Title">Title</string>
     <string name="hint_YourComment">Comment...</string>
     <string name="text_ListOfReview">All reviews</string>
-    <string name="text_ListOfPlaceToVisit">List of place to visit</string>
+    <string name="text_ListOfPlaceToVisit">All place to visit</string>
     <string name="text_From">From</string>
     <string name="text_To">to</string>
     <string name="title_PlaceDetails">Sight seeing details</string>
@@ -105,11 +105,11 @@
     <string name="title_HotelDetails">Hotel details</string>
     <string name="title_EntertainmentDetails">Entertainment details</string>
     <string name="title_TransportDetails">Transport details</string>
-    <string name="title_ListOfPlaceToVisit">List of place to visit</string>
-    <string name="title_ListOfRestaurant">List of restaurant</string>
-    <string name="title_ListOfHotel">List of hotel</string>
-    <string name="title_ListOfEntertainment">List of entertainment</string>
-    <string name="title_ListOfTransport">List of transport</string>
+    <string name="title_ListOfPlaceToVisit">all place to visit</string>
+    <string name="title_ListOfRestaurant">all restaurant</string>
+    <string name="title_ListOfHotel">all hotel</string>
+    <string name="title_ListOfEntertainment">all entertainment</string>
+    <string name="title_ListOfTransport">all transport</string>
     <string name="text_Liked">Liked</string>
     <string name="text_UnLiked">UnLiked</string>
     <string name="text_CannotUnlike">Can\'t unlike</string>
@@ -206,4 +206,6 @@
     <string name="text_EditFailed">Edit failed</string>
     <string name="text_ChangeSuccessful">Change successful</string>
     <string name="text_Edit">Edit</string>
+    <string name="title_ListOfEnterpriseService">All your service</string>
+    <string name="text_Profile">Profile</string>
 </resources>
