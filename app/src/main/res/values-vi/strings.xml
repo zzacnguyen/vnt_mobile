@@ -190,4 +190,5 @@
     <string name="text_Edit">Sửa</string>
     <string name="text_Profile">Thông tin cá nhân</string>
     <string name="title_ListOfEnterpriseService">Dịch vụ của bạn</string>
+    <string name="text_Seen">Đã xem</string>
 </resources>

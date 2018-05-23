@@ -8,7 +8,7 @@
         android:id="@+id/cardView_SuKien"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF1EDED"
+        android:background="#EDF2FA"
         android:orientation="vertical">
 
         <LinearLayout
@@ -36,28 +36,41 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
+                    android:textStyle=""
                     android:text="Tên sự kiện"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textView_EventDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:paddingLeft="5dp"
                     android:text="Ngày tổ chức"
                     android:textColor="@color/colorBlack"
-                    android:textSize="13sp" />
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/textView_isSeen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text=""
+                    android:paddingTop="5dp"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorGrey"/>
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="#c2c0c0"/>
 
     </LinearLayout>
 

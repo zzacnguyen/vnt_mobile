@@ -39,7 +39,7 @@ public class Config {
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "public/thumbnails/";
     public static final String URL_GET_PRIVILEGE = "get_quyen_dangky/";
-    public static final String URL_GET_EVENT_NUMBER = "counter-events";
+    public static final String URL_GET_EVENT_NUMBER = "counter-events/";
     public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
     public static final String URL_GET_EVENT_TYPE = "type-event";

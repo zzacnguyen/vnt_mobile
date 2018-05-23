@@ -86,8 +86,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewHolder.txtNgaySk.setText(events.get(position).getEventDate());
             viewHolder.imgHinhSk.setImageBitmap(events.get(position).getEventImage());
             viewHolder.cardView.setTag(events.get(position).getServiceId());
-            if (events.get(position).isSeen())
+            if (events.get(position).isSeen()){
                 viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+                viewHolder.txtSeen.setText(context.getResources().getString(R.string.text_Seen));
+            }
 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,7 +127,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //"Normal item" Viewholder
     static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenSk, txtNgaySk;
+        TextView txtTenSk, txtNgaySk, txtSeen;
         ImageView imgHinhSk;
         View cardView;
 
@@ -135,6 +137,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             txtTenSk = itemView.findViewById(R.id.textView_EventName);
             imgHinhSk = itemView.findViewById(R.id.image_ViewSuKien);
             txtNgaySk = itemView.findViewById(R.id.textView_EventDate);
+            txtSeen = itemView.findViewById(R.id.textView_isSeen);
             cardView = itemView.findViewById(R.id.cardView_SuKien);
         }
     }
