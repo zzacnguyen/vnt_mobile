@@ -4,15 +4,19 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
@@ -31,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static Fragment childFragment = null;
     BottomNavigationView bottomNavigationView;
+    int badgeNumber = 0;
 
-    private void BottomNavigation() {
+    public void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -86,6 +91,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(getIntent());
 
         BottomNavigation();
+
+        //region Badge Number
+
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        View v = bottomNavigationMenuView.getChildAt(2);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        View badge = LayoutInflater.from(getApplicationContext())
+                .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+
+        TextView txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
+
+
+        if (badgeNumber != 0){
+            txtBadge.setText(badgeNumber); //Set số hiển thị
+            itemView.addView(badge); //Hiển thị ra ngoài
+        }
+        
+        //endregion
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentHome()).commit();
