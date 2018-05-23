@@ -136,34 +136,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:weightSum="20"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="14"
-                android:gravity="fill"
-                android:textSize="14sp"
-                android:text="@string/text_ServiceVenue" />
-
-            <EditText
-                android:id="@+id/editText_ServiceVenue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="6"
-                android:background="@color/colorWhite"
-                android:ems="10"
-                android:padding="5dp"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <Button

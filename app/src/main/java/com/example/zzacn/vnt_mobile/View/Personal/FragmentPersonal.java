@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddEvent;
 import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripSchedule;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,7 +31,7 @@ public class FragmentPersonal extends Fragment {
     Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout addPlace, regEnterprise, Logout, Login, tripSchedule, addEvent, editProfile;
+    LinearLayout upgradeMember, Logout, Login, tripSchedule, editProfile;
     SessionManager sessionManager;
 
     @Nullable
@@ -42,68 +41,47 @@ public class FragmentPersonal extends Fragment {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
 
         btnTripSchedule = view.findViewById(R.id.buttonTripSchedule);
-        btnAddPlace = view.findViewById(R.id.buttonAddPlace);
         btnUpgradeMember = view.findViewById(R.id.buttonRegEnterprise);
         btnGeneral = view.findViewById(R.id.buttonGeneral);
         btnLogin = view.findViewById(R.id.buttonLogin);
         btnLogout = view.findViewById(R.id.buttonLogout);
-        btnAddEvent = view.findViewById(R.id.buttonAddEvent);
         txtUserName = view.findViewById(R.id.txtUserName);
         txtUserType = view.findViewById(R.id.txtUserType);
         Cavatar = view.findViewById(R.id.avatar);
-        addPlace = view.findViewById(R.id.AddPlace);
-        regEnterprise = view.findViewById(R.id.RegEnterprise);
-        tripSchedule = view.findViewById(R.id.TripSchedule);
+        upgradeMember = view.findViewById(R.id.RegEnterprise);
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
-        addEvent = view.findViewById(R.id.AddEvent);
         editProfile = view.findViewById(R.id.EditProfile);
 
         if (userId == 0) {
-            addPlace.setVisibility(View.GONE);
             tripSchedule.setVisibility(View.GONE);
-            regEnterprise.setVisibility(View.GONE);
+            upgradeMember.setVisibility(View.GONE);
+            editProfile.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
-            addEvent.setVisibility(View.GONE);
         } else {
+            upgradeMember.setVisibility(View.VISIBLE);
+            editProfile.setVisibility(View.VISIBLE);
             Cavatar.setImageBitmap(avatar);
             txtUserName.setText(userName);
             editProfile.setVisibility(View.VISIBLE);
             switch (userType) {
                 case "1": // cá nhân
                     txtUserType.setText(getResources().getString(R.string.text_Personal));
-                    regEnterprise.setVisibility(View.VISIBLE);
                     break;
                 case "2": // doanh nghiệp
                     txtUserType.setText(getResources().getString(R.string.text_Enterprise));
-                    addPlace.setVisibility(View.VISIBLE);
-                    addEvent.setVisibility(View.VISIBLE);
                     break;
                 case "3": // hướng dẫn viên
                     txtUserType.setText(getResources().getString(R.string.text_TourGuide));
-                    tripSchedule.setVisibility(View.VISIBLE);
                     break;
                 case "4": // cộng tác viên
                     txtUserType.setText(getResources().getString(R.string.text_Partner));
-                    addPlace.setVisibility(View.VISIBLE);
-                    addEvent.setVisibility(View.VISIBLE);
-                    regEnterprise.setVisibility(View.VISIBLE);
                     break;
                 case "5": // mod
                     txtUserType.setText(getResources().getString(R.string.text_Moderator));
-                    tripSchedule.setVisibility(View.VISIBLE);
-                    addPlace.setVisibility(View.VISIBLE);
-                    addEvent.setVisibility(View.VISIBLE);
                     break;
                 case "6": // admin
                     txtUserType.setText(getResources().getString(R.string.text_Admin));
-                    tripSchedule.setVisibility(View.VISIBLE);
-                    addPlace.setVisibility(View.VISIBLE);
-                    addEvent.setVisibility(View.VISIBLE);
-                    break;
-                default: // mặc định cá nhân
-                    txtUserType.setText(getResources().getString(R.string.text_Personal));
-                    regEnterprise.setVisibility(View.VISIBLE);
                     break;
             }
 
@@ -114,44 +92,21 @@ public class FragmentPersonal extends Fragment {
         btnTripSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iTripSchedule = new Intent(getContext(), ActivityTripSchedule.class);
-                startActivity(iTripSchedule);
-            }
-        });
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getActivity().startActivityForResult(new Intent(getContext(), ActivityLogin.class), 11);
-//            }
-//        });
-        btnAddPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iThemDiaDiem = new Intent(getContext(), ActivityAddPlace.class);
-                startActivity(iThemDiaDiem);
-            }
-        });
-
-        btnAddEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ActivityAddEvent.class));
+                startActivity(new Intent(getContext(), ActivityTripSchedule.class));
             }
         });
 
         btnUpgradeMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iDangKyDoanhNghiep = new Intent(getContext(), ActivityUpgradeMember.class);
-                startActivity(iDangKyDoanhNghiep);
+                startActivity(new Intent(getContext(), ActivityUpgradeMember.class));
             }
         });
 
         btnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent iGeneral = new Intent(getContext(), ActivityGeneral.class);
-                startActivity(iGeneral);
+                startActivity(new Intent(getContext(), ActivityGeneral.class));
             }
         });
 

@@ -18,16 +18,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.BottomNavigationViewHelper;
+import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Favorite.FavoriteFragment;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
-import com.example.zzacn.vnt_mobile.View.Personal.FragmentProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
+
+import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public static Fragment childFragment = null;
     BottomNavigationView bottomNavigationView;
     int badgeNumber = 0;
+    SessionManager sessionManager;
 
     public void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
@@ -90,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
         isStoragePermissionGranted();
         startActivity(getIntent());
 
+        sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
+
         BottomNavigation();
 
         //region Badge Number
@@ -97,23 +105,59 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(2);
-        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+        final BottomNavigationItemView itemView = (BottomNavigationItemView) v;
 
-        View badge = LayoutInflater.from(getApplicationContext())
+        final View badge = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
 
-        TextView txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
-
-
-        if (badgeNumber != 0){
-            txtBadge.setText(badgeNumber); //Set số hiển thị
-            itemView.addView(badge); //Hiển thị ra ngoài
+        final TextView txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
+        try {
+            badgeNumber = Integer.parseInt(new HttpRequestAdapter.httpGet()
+                    .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get());
+            if (badgeNumber != 0) {
+                txtBadge.setText(String.valueOf(badgeNumber)); //Set số hiển thị
+                itemView.addView(badge); //Hiển thị ra ngoài
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
-        
+
         //endregion
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new FragmentHome()).commit();
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+
+                while (!isInterrupted()) try {
+                    Thread.sleep(120000);  //1000ms = 1 sec
+
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                badgeNumber = Integer.parseInt(new HttpRequestAdapter.httpGet()
+                                        .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get());
+                                if (badgeNumber != 0) {
+                                    txtBadge.setText(String.valueOf(badgeNumber)); //Set số hiển thị
+                                    itemView.addView(badge); //Hiển thị ra ngoài
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        t.start();
     }
 
     @Override
@@ -132,37 +176,37 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btnAllPlace:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
-                bundle.putInt("type",4);
+                bundle.putInt("type", 4);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllEat:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
-                bundle.putInt("type",1);
+                bundle.putInt("type", 1);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllHotel:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
-                bundle.putInt("type",2);
+                bundle.putInt("type", 2);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllEntertain:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
-                bundle.putInt("type",5);
+                bundle.putInt("type", 5);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllVehicle:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
-                bundle.putInt("type",3);
+                bundle.putInt("type", 3);
                 childFragment.setArguments(bundle);
                 break;
 
             case R.id.btnAllService: //Danh sách các địa điểm dịch vụ của doanh nghiệp đó
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId);
-                bundle.putInt("type",0);
+                bundle.putInt("type", 0);
                 childFragment.setArguments(bundle);
                 break;
 

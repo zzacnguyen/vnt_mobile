@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +21,13 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.ActivityAddPlace;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class FragmentHome extends Fragment {
@@ -37,6 +38,7 @@ public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     View view, viewLine;
     LinearLayout linearEnterpriseService;
+    FloatingActionButton fabAddService;
 
     @Nullable
     @Override
@@ -44,6 +46,7 @@ public class FragmentHome extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         btnSearch = view.findViewById(R.id.button_Search);
+        fabAddService = view.findViewById(R.id.fabAddService);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +56,12 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.checkLogin();
+        fabAddService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ActivityAddPlace.class));
+            }
+        });
 
         if (getUserVisibleHint()) {
             load(view);
@@ -101,6 +108,10 @@ public class FragmentHome extends Fragment {
             viewLine.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
             loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
+            fabAddService.setVisibility(View.VISIBLE);
+        }
+        if (userType != null && userType.equals("4")) {
+            fabAddService.setVisibility(View.VISIBLE);
         }
 
         // load place

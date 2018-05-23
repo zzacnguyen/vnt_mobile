@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.3/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -28,6 +28,7 @@ public class Config {
     public static final ArrayList<String> URL_GET_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("service/service-id=", "&user-id="));
     public static final String URL_GET_ALL_ENTERPRISE_SERVICE = "get-serives-enterprise/";
+    public static final String URL_GET_ALL_SERVICE_VENUE = "get-list-serives-venue/";
     public static final String URL_GET_ALL_VEHICLES = "transport";
     public static final String URL_GET_ALL_EVENTS = "events";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "entertainments";
@@ -108,6 +109,10 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_SERVICE_LIST =
             new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
                     "sightseeing_name", "eat_name", "image_id", "image_details_1"));
+
+    public static final ArrayList<String> GET_KEY_JSON_SERVICE_VENUE =
+            new ArrayList<>(Arrays.asList("hotel_name", "entertainments_name", "transport_name",
+                    "sightseeing_name", "eat_name"));
 
     public static final ArrayList<String> GET_KEY_JSON_LOAD =
             new ArrayList<>(Arrays.asList("data", "next_page_url", "total"));

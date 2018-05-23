@@ -1,9 +1,11 @@
 package com.example.zzacn.vnt_mobile.View.Notification;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.ModelEvent;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.Personal.Event.ActivityAddEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +30,14 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class FragmentNotification extends Fragment {
 
     ArrayList<String> finalArr = new ArrayList<>();
+    FloatingActionButton fabAddEvent;
 
     @Nullable
     @Override
@@ -42,10 +47,23 @@ public class FragmentNotification extends Fragment {
 
         getNotify(Config.URL_HOST + Config.URL_GET_ALL_EVENTS + "/" + userId, view);
 
+        fabAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ActivityAddEvent.class));
+            }
+        });
+
         return view;
     }
 
     private void getNotify(String url, View view) {
+
+        fabAddEvent = view.findViewById(R.id.fabAddEvent);
+
+        if (userType != null && (userType.equals("2")||userType.equals("4"))) {
+            fabAddEvent.setVisibility(View.VISIBLE);
+        }
 
         final RecyclerView recyclerView;
         recyclerView = view.findViewById(R.id.RecyclerView_EventList);
