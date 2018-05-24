@@ -230,6 +230,32 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/hotelStar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_star_24dp"
+                        android:tint="@color/bgToolbar" />
+
+                    <EditText
+                        android:id="@+id/editText_HotelStar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/colorWhite"
+                        android:hint="@string/hint_NumberOfStar"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="3dp">

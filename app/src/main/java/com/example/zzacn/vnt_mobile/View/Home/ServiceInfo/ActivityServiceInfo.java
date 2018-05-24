@@ -43,10 +43,10 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     ImageButton btnBack;
     TextView txtServiceName, txtServiceAbout, txtPrice, txtTime, txtAddress, txtPhoneNumber, txtWebsite,
-            toolbarTitle, fbEvent, txtMark, txtCountLike, txtTranslate;
+            toolbarTitle, fbEvent, txtMark, txtCountLike, txtTranslate, txtHotelStar;
     ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
     Toolbar toolbar;
-    LinearLayout info;
+    LinearLayout info, hotelStar;
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
@@ -238,6 +238,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         txtMark = findViewById(R.id.textViewRatingMark);
         txtCountLike = findViewById(R.id.textViewLikeCount);
         rbStar = findViewById(R.id.ratingBarStars);
+        txtHotelStar = findViewById(R.id.textViewHotelStar);
+        hotelStar = findViewById(R.id.hotelStar);
 
         imgThumbInfo1.setOnClickListener(this);
         imgThumbInfo2.setOnClickListener(this);
