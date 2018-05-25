@@ -41,7 +41,7 @@ public class Config {
     public static final String URL_GET_LINK_DETAIL_2 = "get-detail-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
     public static final String URL_GET_THUMB = "public/thumbnails/";
-    public static final String URL_GET_PRIVILEGE = "get_quyen_dangky/";
+    public static final String URL_GET_PRIVILEGE = "get-privilege-registrable/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events/";
     public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
@@ -54,7 +54,7 @@ public class Config {
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_POST_AVATAR = "upload-image-user/";
     public static final String URL_POST_CONTACT_INFO = "edit-user-mobile/";
-    public static final String URL_POST_UPGRADE_MEMBER = "savequyendangky/";
+    public static final String URL_POST_UPGRADE_MEMBER = "upgrade-member/";
     public static final String URL_POST_SEEN_EVENT = "seenevents";
 
     public static final String FOLDER = "/vietnamtour";

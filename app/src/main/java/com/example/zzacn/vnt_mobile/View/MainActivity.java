@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
         txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
         try {
-            badgeNumber = Integer.parseInt(new HttpRequestAdapter.httpGet()
-                    .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get());
+            String rs = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get();
+            badgeNumber = Integer.parseInt(!rs.equals("") ? rs : "0");
             if (badgeNumber != 0) {
                 txtBadge.setText(String.valueOf(badgeNumber)); //Set số hiển thị
                 itemView.addView(badge); //Hiển thị ra ngoài
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                                         .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get());
                                 if (badgeNumber != 0) {
                                     txtBadge.setText(String.valueOf(badgeNumber)); //Set số hiển thị
+                                    itemView.removeView(badge);
                                     itemView.addView(badge); //Hiển thị ra ngoài
                                 }
                             } catch (InterruptedException | ExecutionException e) {
