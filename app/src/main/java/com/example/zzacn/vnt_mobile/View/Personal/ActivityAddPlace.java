@@ -208,7 +208,9 @@ public class ActivityAddPlace extends AppCompatActivity {
         } else if (etAddress.getText().toString().equals("")) {
             etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
         } else if (etPlacePhone.getText().toString().equals("")) {
-            etPlacePhone.setError(getResources().getString(R.string.text_EnterYourPhoneNumber));
+            etPlacePhone.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
+        } else if (!etPlacePhone.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
+            etPlacePhone.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
         } else if (etPlaceAbout.getText().toString().equals("")) {
             etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
         } else if (idWard == 0) {
@@ -237,7 +239,6 @@ public class ActivityAddPlace extends AppCompatActivity {
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
             }
-            System.out.println(stringIdPlace);
             if (stringIdPlace.equals("\"status:500\"")) {
                 Toast.makeText(ActivityAddPlace.this, getResources()
                         .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();

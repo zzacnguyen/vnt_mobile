@@ -110,19 +110,31 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(etLowestPrice.getText().toString())
+                // region bắt lỗi nhập
+                if (!etLowestPrice.getText().toString().trim().matches("^[0-9]*$")) {
+                    etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceMustBeANumber));
+                } else if (!etHighestPrice.getText().toString().trim().matches("^[0-9]*$")) {
+                    etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceMustBeANumber));
+                } else if (Integer.parseInt(etLowestPrice.getText().toString())
                         > Integer.parseInt(etHighestPrice.getText().toString())) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
                 } else if (etServiceName.getText().toString().equals("")) {
                     etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
+                } else if (etServicePhone.getText().toString().equals("")) {
+                    etServicePhone.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
+                } else if (!etServicePhone.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
+                    etServicePhone.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
                 } else if (etWebsite.getText().toString().equals("")) {
                     etWebsite.setError(getResources().getString(R.string.text_WebsiteIsNotAllowedToBeEmpty));
                 } else if (etNumberStar.getText().toString().equals("") && etNumberStar.getVisibility() != View.GONE) {
                     etNumberStar.setError(getResources().getString(R.string.text_NumberStarIsNotAllowedToBeEmpty));
+                } else if (!etNumberStar.getText().toString().trim().matches("^[0-9]*$")) {
+                    etNumberStar.setError(getResources().getString(R.string.text_NumberStarMustBeANumber));
                 } else if (etServiceAbout.getText().toString().equals("")) {
                     etServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
-                } else {
-
+                } // endregion
+                else {
+                    // region post text
                     String name = "";
                     switch (type) {
                         case 1: // loại hình ăn uống
@@ -173,8 +185,10 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();
                     }
-                    // lấy id dịch vụ trả về có dạng "id_service:..." bỏ dấu " và cắt chuỗi theo dấu : lấy số id phía sau
-                    idService = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : "";
+                    // endregion
+
+                    // region post image
+                    idService = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : ""; // lấy id dịch vụ trả về có dạng "id_service:..." bỏ dấu " và cắt chuỗi theo dấu : lấy số id phía sau
                     if (!idService.equals("")) { // nếu post thành công có id dịch vụ trả về
                         ByteArrayOutputStream ban = new ByteArrayOutputStream();
                         bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
@@ -197,11 +211,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                                     + Config.URL_POST_IMAGE + idService).get();
                             // nếu post thành công trả về "status:200"
                             if (response.equals("\"status:200\"")) {
-                                Intent data = new Intent();
-                                data.putExtra("mess", getResources().getString(R.string.text_Success));
-                                setResult(RESULT_OK, data);
-                                finishActivity(2);
-                                finish();
+                                Toast.makeText(ActivityAddService.this, getResources()
+                                        .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(ActivityAddService.this, getResources()
                                         .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
@@ -211,7 +222,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                         }
                     } else {
                         Toast.makeText(ActivityAddService.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
-                    }
+                    } // endregion
                 }
             }
         });

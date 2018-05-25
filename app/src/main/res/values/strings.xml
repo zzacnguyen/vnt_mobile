@@ -209,4 +209,10 @@
     <string name="title_ListOfEnterpriseService">All your service</string>
     <string name="text_Profile">Profile</string>
     <string name="text_Seen">Seen</string>
+    <string name="text_NumberStarMustBeANumber">NumberStar must be a number</string>
+    <string name="text_PhoneNumberIsNotAllowedToBeEmpty">Phone number is not allowed to be empty</string>
+    <string name="text_InvalidPhoneNumber">Invalid phone number</string>
+    <string name="text_EditSuccessfully">Edit successfully</string>
+    <string name="text_LowestPriceMustBeANumber">Lowest price must be a number</string>
+    <string name="text_HighestPriceMustBeANumber">Highest price must be a number</string>
 </resources>

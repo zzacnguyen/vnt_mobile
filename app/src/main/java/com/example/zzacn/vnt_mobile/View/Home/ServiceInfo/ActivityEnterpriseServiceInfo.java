@@ -19,13 +19,23 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.Object.ServiceInfo;
 import com.example.zzacn.vnt_mobile.R;
 
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
@@ -36,15 +46,15 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     String[] imgDetail;
     Button btnShowReview;
     TextView txtServiceName, txtServiceAbout, toolbarTitle, fbEvent, txtMark, btnCancel, btnDone;
-    EditText etAddress, etPhoneNumber, etWebsite, etLowestPrice, etHighestPrice, etTimeOpen, etTimeClose;
+    EditText etAddress, etPhoneNumber, etWebsite, etLowestPrice, etHighestPrice, etTimeOpen, etTimeClose, etHotelStar;
     ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
     Toolbar toolbar;
-    LinearLayout info;
+    LinearLayout info, linearHotelStar;
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
+    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     private ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
-
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -77,19 +87,132 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     enableWidget();
                     btnDone.setText(getResources().getString(R.string.text_Done));
                 } else {
-//                    try {
-//                        String rs = new HttpRequestAdapter.httpPut(new JSONObject()).execute(Config.URL_HOST).get();
-//                        if (rs.equals("status:200")) {
-//                            finish();
-//                        } else {
-//                            Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (InterruptedException | ExecutionException e) {
-//                        e.printStackTrace();
-//                    }
+                    // region bắt lỗi nhập
+                    if (!etLowestPrice.getText().toString().trim().matches("^[0-9]*$")) {
+                        etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceMustBeANumber));
+                    } else if (!etHighestPrice.getText().toString().trim().matches("^[0-9]*$")) {
+                        etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceMustBeANumber));
+                    } else if (Integer.parseInt(etLowestPrice.getText().toString())
+                            > Integer.parseInt(etHighestPrice.getText().toString())) {
+                        etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
+                    } else if (txtServiceName.getText().toString().equals("")) {
+                        txtServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
+                    } else if (etPhoneNumber.getText().toString().equals("")) {
+                        etPhoneNumber.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
+                    } else if (!etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
+                        etPhoneNumber.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
+                    } else if (etWebsite.getText().toString().equals("")) {
+                        etWebsite.setError(getResources().getString(R.string.text_WebsiteIsNotAllowedToBeEmpty));
+                    } else if (etHotelStar.getText().toString().equals("")
+                            && etHotelStar.getVisibility() != View.GONE) {
+                        etHotelStar.setError(getResources().getString(R.string.text_NumberStarIsNotAllowedToBeEmpty));
+                    } else if (!etHotelStar.getText().toString().trim().matches("^[0-9]*$")) {
+                        etHotelStar.setError(getResources().getString(R.string.text_NumberStarMustBeANumber));
+                    } else if (txtServiceAbout.getText().toString().equals("")) {
+                        txtServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
+                    } // endregion
+                    else {
+
+                        boolean isPostTextSuccessfully = false, isPostImageSuccessfully = false;
+
+                        // region post text
+                        String name = "";
+                        switch (serviceType) {
+                            case 1: // loại hình ăn uống
+                                name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                break;
+                            case 2: // khách sạn
+                                name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + txtServiceName.getText().toString() + "\","
+                                        + Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + etHotelStar.getText().toString() + "\"";
+                                break;
+                            case 3: // phương tiện di chuyển
+                                name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                break;
+                            case 4: // tham quan
+                                name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                break;
+                            case 5: // vui chơi giải trí
+                                name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                break;
+                            default:
+                                break;
+                        }
+                        try {
+                            JSONObject jsonPost = new JSONObject("{"
+                                    // mô tả
+                                    + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + txtServiceAbout.getText() + "\","
+                                    // giờ mở cửa
+                                    + Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + etTimeOpen.getText() + "\","
+                                    // giờ đóng cửa
+                                    + Config.POST_KEY_JSON_SERVICE.get(2) + ":\"" + etTimeClose.getText() + "\","
+                                    // giá cao nhất
+                                    + Config.POST_KEY_JSON_SERVICE.get(3) + ":\"" + etHighestPrice.getText() + "\","
+                                    // giá thấp nhất
+                                    + Config.POST_KEY_JSON_SERVICE.get(4) + ":\"" + etLowestPrice.getText() + "\","
+                                    // sdt
+                                    + Config.POST_KEY_JSON_SERVICE.get(5) + ":\"" + etPhoneNumber.getText() + "\","
+                                    // loại hình
+                                    + Config.POST_KEY_JSON_SERVICE.get(6) + ":\"" + serviceType + "\","
+                                    // user id
+                                    + Config.POST_KEY_JSON_SERVICE.get(7) + ":\"" + userId + "\","
+                                    // website
+                                    + Config.POST_KEY_JSON_SERVICE.get(8) + ":\"" + etWebsite.getText().toString() + "\","
+                                    // tên dịch vụ
+                                    + name + "}");
+
+                            // url : localhost/doan3_canthotour/edit-services/services-id={id_service}&user-id={id_user}
+                            String rs = new HttpRequestAdapter.httpPut(jsonPost).execute(Config.URL_HOST
+                                    + Config.URL_PUT_SERVICE_INFO.get(0) + idService + Config.URL_PUT_SERVICE_INFO.get(1) + userId).get();
+
+                            if (rs.equals("\"status:200\"")) {
+                                isPostTextSuccessfully = true;
+                            }
+                        } catch (InterruptedException | ExecutionException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // endregion
+
+                        // region post image
+                        ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                        bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+
+                        ByteArrayOutputStream de1 = new ByteArrayOutputStream();
+                        bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
+                        ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
+
+                        ByteArrayOutputStream de2 = new ByteArrayOutputStream();
+                        bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
+                        ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
+
+                        reqEntity.addPart("banner", contentBanner);
+                        reqEntity.addPart("details1", contentDetails1);
+                        reqEntity.addPart("details2", contentDetails2);
+                        try {
+                            // post hình lên
+                            String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
+                                    + Config.URL_POST_IMAGE + idService).get();
+                            // nếu post thành công trả về "status:200"
+                            if (response.equals("\"status:200\"")) {
+                                isPostImageSuccessfully = true;
+                            }
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        // endregion
+
+                        if (isPostTextSuccessfully && isPostImageSuccessfully) {
+                            Toast.makeText(this, getResources().getString(R.string.text_EditSuccessfully), Toast.LENGTH_SHORT).show();
+                            disbleWidget();
+                            btnDone.setText(getResources().getString(R.string.text_Edit));
+                        } else {
+                            Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
                 break;
         }
+
     }
 
     @Override
@@ -162,6 +285,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         etAddress = findViewById(R.id.editText_ServiceAddress);
         etPhoneNumber = findViewById(R.id.editText_ServicePhone);
         etWebsite = findViewById(R.id.editText_ServiceWebsite);
+        etHotelStar = findViewById(R.id.editText_HotelStar);
         imgThumbInfo1 = findViewById(R.id.image_Info1);
         imgThumbInfo2 = findViewById(R.id.image_Info2);
         imgBanner = findViewById(R.id.imgBanner);
@@ -169,6 +293,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         toolbarTitle = findViewById(R.id.toolbarTitle);
         fbEvent = findViewById(R.id.fb_event);
         info = findViewById(R.id.info);
+        linearHotelStar = findViewById(R.id.hotelStar);
         txtMark = findViewById(R.id.textViewRatingMark);
         rbStar = findViewById(R.id.ratingBarStars);
         btnShowReview = findViewById(R.id.btnOpenListReview);
@@ -203,6 +328,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                 toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
             } else if (serviceInfo.getHotelName() != null) {
                 txtServiceName.setText(serviceInfo.getHotelName());
+                linearHotelStar.setVisibility(View.VISIBLE);
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 serviceType = 2;

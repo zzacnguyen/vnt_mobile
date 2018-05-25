@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityTripSchedule;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -31,7 +30,7 @@ public class FragmentPersonal extends Fragment {
     Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout upgradeMember, Logout, Login, tripSchedule, editProfile;
+    LinearLayout linearUpgradeMember, Logout, Login, tripSchedule, editProfile;
     SessionManager sessionManager;
 
     @Nullable
@@ -40,7 +39,6 @@ public class FragmentPersonal extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        btnTripSchedule = view.findViewById(R.id.buttonTripSchedule);
         btnUpgradeMember = view.findViewById(R.id.buttonRegEnterprise);
         btnGeneral = view.findViewById(R.id.buttonGeneral);
         btnLogin = view.findViewById(R.id.buttonLogin);
@@ -48,53 +46,49 @@ public class FragmentPersonal extends Fragment {
         txtUserName = view.findViewById(R.id.txtUserName);
         txtUserType = view.findViewById(R.id.txtUserType);
         Cavatar = view.findViewById(R.id.avatar);
-        upgradeMember = view.findViewById(R.id.RegEnterprise);
+        linearUpgradeMember = view.findViewById(R.id.RegEnterprise);
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
         editProfile = view.findViewById(R.id.EditProfile);
 
         if (userId == 0) {
-            tripSchedule.setVisibility(View.GONE);
-            upgradeMember.setVisibility(View.GONE);
+            linearUpgradeMember.setVisibility(View.GONE);
             editProfile.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
         } else {
-            upgradeMember.setVisibility(View.VISIBLE);
             editProfile.setVisibility(View.VISIBLE);
             Cavatar.setImageBitmap(avatar);
             txtUserName.setText(userName);
-            editProfile.setVisibility(View.VISIBLE);
             switch (userType) {
                 case "1": // cá nhân
                     txtUserType.setText(getResources().getString(R.string.text_Personal));
+                    linearUpgradeMember.setVisibility(View.VISIBLE);
                     break;
                 case "2": // doanh nghiệp
                     txtUserType.setText(getResources().getString(R.string.text_Enterprise));
+                    linearUpgradeMember.setVisibility(View.VISIBLE);
                     break;
                 case "3": // hướng dẫn viên
                     txtUserType.setText(getResources().getString(R.string.text_TourGuide));
+                    linearUpgradeMember.setVisibility(View.VISIBLE);
                     break;
                 case "4": // cộng tác viên
                     txtUserType.setText(getResources().getString(R.string.text_Partner));
+                    linearUpgradeMember.setVisibility(View.VISIBLE);
                     break;
                 case "5": // mod
                     txtUserType.setText(getResources().getString(R.string.text_Moderator));
+                    linearUpgradeMember.setVisibility(View.GONE);
                     break;
                 case "6": // admin
                     txtUserType.setText(getResources().getString(R.string.text_Admin));
+                    linearUpgradeMember.setVisibility(View.GONE);
                     break;
             }
 
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);
         }
-
-        btnTripSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ActivityTripSchedule.class));
-            }
-        });
 
         btnUpgradeMember.setOnClickListener(new View.OnClickListener() {
             @Override

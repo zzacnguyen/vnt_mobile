@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     int badgeNumber = 0;
     SessionManager sessionManager;
+    View badge;
+    BottomNavigationItemView itemView;
+    TextView txtBadge;
 
     public void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.nav_notification:
                         i = 2;
+                        itemView.removeView(badge);
                         selectedFragment = new FragmentNotification();
                         break;
 
@@ -105,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(2);
-        final BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+        itemView = (BottomNavigationItemView) v;
 
-        final View badge = LayoutInflater.from(getApplicationContext())
+        badge = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
 
-        final TextView txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
+        txtBadge = badge.findViewById(R.id.textView_BadgeNumber);
         try {
             badgeNumber = Integer.parseInt(new HttpRequestAdapter.httpGet()
                     .execute(Config.URL_HOST + Config.URL_GET_EVENT_NUMBER + userId).get());
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 while (!isInterrupted()) try {
-                    Thread.sleep(120000);  //1000ms = 1 sec
+                    Thread.sleep(60000);  //1000ms = 1 sec
 
                     runOnUiThread(new Runnable() {
 

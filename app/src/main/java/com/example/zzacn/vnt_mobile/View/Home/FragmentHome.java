@@ -19,9 +19,9 @@ import com.example.zzacn.vnt_mobile.Adapter.EnterpriseServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
-import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Personal.ActivityAddPlace;
+import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityAddTripSchedule;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
@@ -34,11 +34,10 @@ public class FragmentHome extends Fragment {
 
     Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
-    SessionManager sessionManager;
     RecyclerView recyclerView;
     View view, viewLine;
     LinearLayout linearEnterpriseService;
-    FloatingActionButton fabAddService;
+    FloatingActionButton fabAdd;
 
     @Nullable
     @Override
@@ -46,7 +45,7 @@ public class FragmentHome extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         btnSearch = view.findViewById(R.id.button_Search);
-        fabAddService = view.findViewById(R.id.fabAddService);
+        fabAdd = view.findViewById(R.id.fabAdd);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +55,17 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        fabAddService.setOnClickListener(new View.OnClickListener() {
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ActivityAddPlace.class));
+                // nếu người dùng là doanh nghiệp hoặc ctv thì mở activity thêm địa điểm
+                if (userType.equals("2") || userType.equals("4")) {
+                    startActivity(new Intent(getContext(), ActivityAddPlace.class));
+                }
+                // nếu người dùng là hdv thì mở activity thêm lịch trình
+                else {
+                    startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
+                }
             }
         });
 
@@ -108,10 +114,11 @@ public class FragmentHome extends Fragment {
             viewLine.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
             loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
-            fabAddService.setVisibility(View.VISIBLE);
+            fabAdd.setVisibility(View.VISIBLE);
         }
-        if (userType != null && userType.equals("4")) {
-            fabAddService.setVisibility(View.VISIBLE);
+        // hiện nút thêm nếu là người dùng ctv hoăc hdv
+        if (userType != null && (userType.equals("4") || userType.equals("3"))) {
+            fabAdd.setVisibility(View.VISIBLE);
         }
 
         // load place

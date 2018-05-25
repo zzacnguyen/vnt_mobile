@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.20/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.85/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -27,6 +27,8 @@ public class Config {
     public static final String URL_GET_ALL_HOTELS = "hotels";
     public static final ArrayList<String> URL_GET_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("service/service-id=", "&user-id="));
+    public static final ArrayList<String> URL_PUT_SERVICE_INFO =
+            new ArrayList<>(Arrays.asList("edit-services/services-id=", "&user-id="));
     public static final String URL_GET_ALL_ENTERPRISE_SERVICE = "get-serives-enterprise/";
     public static final String URL_GET_ALL_SERVICE_VENUE = "get-list-serives-venue/";
     public static final String URL_GET_ALL_VEHICLES = "transport";
@@ -50,6 +52,7 @@ public class Config {
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_SERVICE = "add-services/";
     public static final String URL_POST_IMAGE = "upload-image/";
+    public static final String URL_POST_AVATAR = "upload-image-user/";
     public static final String URL_POST_CONTACT_INFO = "edit-user-mobile/";
     public static final String URL_POST_UPGRADE_MEMBER = "savequyendangky/";
     public static final String URL_POST_SEEN_EVENT = "seenevents";

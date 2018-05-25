@@ -24,9 +24,12 @@ import com.example.zzacn.vnt_mobile.R;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -36,11 +39,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.app.Activity.RESULT_OK;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 public class FragmentProfile extends Fragment implements View.OnClickListener {
 
-    public Bitmap bitmap;
+    public Bitmap bitmapAvatar;
+    boolean isChangeAvatar = false;
     EditText etFullName, etPhoneNumber, etWebsite, etEmail,
             etLanguage, etCountry;
     CircleImageView imgAvatar;
@@ -135,6 +140,9 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
 
             case R.id.textView_Done:
 
+                boolean isPostText = false, isPostImage = false;
+
+                // region Post Text
                 try {
                     JSONObject jsonEditProfile = new JSONObject("{"
                             + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
@@ -148,17 +156,44 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                             .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
 
                     if (sttPostProfile.equals("1")) {
-                        Toast.makeText(getContext(), getResources().getString(R.string.text_ChangeSuccessful),
-                                Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().popBackStack();
-                    } else {
-                        Toast.makeText(getContext(), getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
+                        isPostText = true;
                     }
 
                 } catch (JSONException | InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
+                // endregion
 
+                // region post avatar
+                if (isChangeAvatar) {
+                    ByteArrayOutputStream de2 = new ByteArrayOutputStream();
+                    bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, de2);
+                    ContentBody contentAvatar = new ByteArrayBody(de2.toByteArray(), "c.jpg");
+
+                    reqEntity.addPart("avatar", contentAvatar);
+                    try {
+                        // post hình lên
+                        String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
+                                + Config.URL_POST_AVATAR + userId).get();
+                        // nếu post thành công trả về "status:200"
+                        if (response.equals("\"status:200\"")) {
+                            isPostImage = true;
+                        }
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    isPostImage = true;
+                }
+                // endregion
+
+                if (isPostText && isPostImage) {
+                    Toast.makeText(getContext(), getResources().getString(R.string.text_EditSuccessfully),
+                            Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+                }
 
                 break;
         }
@@ -178,8 +213,11 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-                imgAvatar.setImageBitmap(bitmap);
+                bitmapAvatar = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                imgAvatar.setImageBitmap(bitmapAvatar);
+                if (avatar != bitmapAvatar) {
+                    isChangeAvatar = true;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

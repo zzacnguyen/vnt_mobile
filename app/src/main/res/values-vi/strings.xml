@@ -164,7 +164,7 @@
     <string name="text_ChangeReviewCompleted">Thay đổi đánh giá thành công</string>
     <string name="text_TourGuide">Hướng dẫn viên</string>
     <string name="text_Partner">Cộng tác viên</string>
-    <string name="text_Moderator">Mod</string>
+    <string name="text_Moderator">Kiểm duyệt viên</string>
     <string name="text_Admin">Quản trị viên</string>
     <string name="text_FieldIsEmpty">Không được để trống</string>
     <string name="text_ReviewFailure">Đánh giá thất bại</string>
@@ -191,4 +191,10 @@
     <string name="text_Profile">Thông tin cá nhân</string>
     <string name="title_ListOfEnterpriseService">Dịch vụ của bạn</string>
     <string name="text_Seen">Đã xem</string>
+    <string name="text_NumberStarMustBeANumber">Số sao phải là số</string>
+    <string name="text_PhoneNumberIsNotAllowedToBeEmpty">Số điện thoại không được để trống</string>
+    <string name="text_InvalidPhoneNumber">Số điện thoại không hợp lệ</string>
+    <string name="text_EditSuccessfully">Chỉnh sửa thành công</string>
+    <string name="text_LowestPriceMustBeANumber">Giá thấp nhất phải là số</string>
+    <string name="text_HighestPriceMustBeANumber">Giá cao nhất phải là số</string>
 </resources>
