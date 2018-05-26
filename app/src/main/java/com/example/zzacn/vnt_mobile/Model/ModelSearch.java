@@ -18,11 +18,6 @@ import java.util.concurrent.ExecutionException;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
-
-/**
- * Created by sieut on 4/26/2018.
- */
-
 public class ModelSearch {
     public ArrayList<NearLocation> getNearLocationList(String url, int type, Activity activity) {
 
@@ -69,7 +64,7 @@ public class ModelSearch {
 
                     //Set hình ảnh
                     service.setNearLocationImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                            arrayList.get(2), arrayList.get(3)));
+                            Config.FOLDER_THUMB1, arrayList.get(3)));
                     //Set mã dịch vụ
                     service.setNearLocationId(Integer.parseInt(arrayList.get(0)));
                     //Set tên dịch vụ
@@ -105,7 +100,7 @@ public class ModelSearch {
 
                     //Set hình ảnh
                     service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
-                            arrayList.get(6), arrayList.get(7)));
+                            Config.FOLDER_THUMB1, arrayList.get(7)));
                     //Set mã dịch vụ
                     service.setId(Integer.parseInt(arrayList.get(0)));
                     //Set tên dịch vụ tìm kiếm
@@ -130,7 +125,7 @@ public class ModelSearch {
                     }
                     //Set hình ảnh
                     service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                            arrayList.get(2), arrayList.get(3)));
+                            Config.FOLDER_THUMB1, arrayList.get(3)));
                     //Set mã dịch vụ
                     service.setId(Integer.parseInt(arrayList.get(0)));
                     //Set tên dịch vụ yêu thích
@@ -140,7 +135,7 @@ public class ModelSearch {
                     arrayList.clear();
                 }
             }
-        } catch (JSONException e) {
+        } catch (JSONException | IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 

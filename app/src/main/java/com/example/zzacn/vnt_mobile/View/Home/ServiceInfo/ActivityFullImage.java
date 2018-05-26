@@ -22,6 +22,7 @@ public class ActivityFullImage extends AppCompatActivity {
         imgFullView = findViewById(R.id.imageFullView);
 
         String[] imgDetail = getIntent().getStringArrayExtra("img");
-        imgFullView.setImageBitmap(setImage(Config.URL_HOST + imgDetail[0], imgDetail[1], imgDetail[2]));
+        String folder = getIntent().getStringExtra("folder");
+        imgFullView.setImageBitmap(setImage(Config.URL_HOST + imgDetail[0], folder, imgDetail[2]));
     }
 }

@@ -25,43 +25,52 @@ import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
+import static com.example.zzacn.vnt_mobile.View.MainActivity.isStoragePermissionGranted;
 
 public class ModelService {
 
     public static Bitmap setImage(String url, String folderName, String fileName) {
         Bitmap bitmap = null;
-        // nếu có trả về tên hình + id hình để đặt tên cho file + folder
-        if (!folderName.equals(Config.NULL) && !fileName.equals(Config.NULL)) {
-            File path = new File(Environment.getExternalStorageDirectory().toString() + Config.FOLDER + "/" + folderName);
-            path.mkdirs();
-            File file = new File(path, fileName);
-            if (file.exists()) {
-                // nếu file đã tồn tại thì load lên
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                bitmap = BitmapFactory.decodeFile(file.toString(), options);
-                if (bitmap == null) {
-                    if (file.delete()) {
-                        try {
-                            bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
-                            FileOutputStream out = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                        } catch (InterruptedException | ExecutionException | FileNotFoundException e) {
-                            e.printStackTrace();
+        if (isStoragePermissionGranted) {
+            // nếu có trả về tên hình + id hình để đặt tên cho file + folder
+            if (!folderName.equals(Config.NULL) && !fileName.equals(Config.NULL)) {
+                File path = new File(Environment.getExternalStorageDirectory().toString() + Config.FOLDER + "/" + folderName);
+                path.mkdirs();
+                File file = new File(path, fileName);
+                if (file.exists()) {
+                    // nếu file đã tồn tại thì load lên
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                    bitmap = BitmapFactory.decodeFile(file.toString(), options);
+                    if (bitmap == null) {
+                        if (file.delete()) {
+                            try {
+                                bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
+                                FileOutputStream out = new FileOutputStream(file);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            } catch (InterruptedException | ExecutionException | FileNotFoundException | NullPointerException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+                } else {
+                    // nếu file không tồn tại thì tải hình về và lưu hình vào bộ nhớ
+                    try {
+                        bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
+                        FileOutputStream out = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        out.flush();
+                        out.close();
+                    } catch (InterruptedException | ExecutionException | IOException | NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                // nếu file không tồn tại thì tải hình về và lưu hình vào bộ nhớ
-                try {
-                    bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
-                    FileOutputStream out = new FileOutputStream(file);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                    out.flush();
-                    out.close();
-                } catch (InterruptedException | ExecutionException | IOException e) {
-                    e.printStackTrace();
-                }
+            }
+        } else {
+            try {
+                bitmap = new HttpRequestAdapter.httpGetImage().execute(url).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
         }
         return bitmap;
@@ -184,25 +193,19 @@ public class ModelService {
                 e.printStackTrace();
             }
 
-            // set id hình
+            // set hình 1
             if (urlImageThumb1 != null) {
-                serviceInfo.setIdImage(Integer.parseInt(urlImageThumb1[1]));
-
-                // set tên hình
-                serviceInfo.setImageName(urlImageThumb1[2]);
-
-                // set hình 1
                 serviceInfo.setThumbInfo1(setImage(Config.URL_HOST + urlImageThumb1[0],
-                        urlImageThumb1[1], urlImageThumb1[2]));
+                        Config.FOLDER_THUMB1, urlImageThumb1[2]));
             }
             // set hình 2
             if (urlImageThumb2 != null) {
                 serviceInfo.setThumbInfo2(setImage(Config.URL_HOST + urlImageThumb2[0],
-                        urlImageThumb2[1], urlImageThumb2[2]));
+                        Config.FOLDER_THUMB2, urlImageThumb2[2]));
             }
             // set hình banner
             if (urlImageBanner != null) {
-                serviceInfo.setBanner(setImage(Config.URL_HOST + urlImageBanner[0], urlImageBanner[1], urlImageBanner[2]));
+                serviceInfo.setBanner(setImage(Config.URL_HOST + urlImageBanner[0], Config.FOLDER_BANNER, urlImageBanner[2]));
             }
 
         } catch (InterruptedException | ExecutionException | JSONException e) {
@@ -231,6 +234,7 @@ public class ModelService {
                 arrayList.clear();
                 arrayList = parseJson(jsonObject, formatJson);
 
+                // nếu load dịch vụ của doanh nghiệp
                 if (arrayList.size() > 4) {
                     //Set mã dịch vụ
                     service.setId(Integer.parseInt(arrayList.get(0)));
@@ -260,12 +264,13 @@ public class ModelService {
                     }
                     //Set hình ảnh
                     service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(10),
-                            arrayList.get(9), arrayList.get(10)));
+                            Config.FOLDER_THUMB1, arrayList.get(10)));
 
                     services.add(service);
                 } else {
+                    // nếu load dịch vụ thường
                     service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                            arrayList.get(2), arrayList.get(3)));
+                            Config.FOLDER_THUMB1, arrayList.get(3)));
                     service.setId(Integer.parseInt(arrayList.get(0)));
                     service.setName(arrayList.get(1));
 
@@ -292,7 +297,7 @@ public class ModelService {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 arrayList = parseJson(jsonObject, formatJson);
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
-                        arrayList.get(2), arrayList.get(3)));
+                        Config.FOLDER_THUMB1, arrayList.get(3)));
                 service.setId(Integer.parseInt(arrayList.get(0)));
                 service.setName(arrayList.get(1));
 

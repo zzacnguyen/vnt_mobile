@@ -66,6 +66,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             .replaceAll("\"", "")
                             .split("\\+");
                     iDetail.putExtra("img", imgDetail);
+                    iDetail.putExtra("folder", Config.FOLDER_DETAIL1);
                     startActivity(iDetail);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -79,6 +80,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                             .replaceAll("\"", "")
                             .split("\\+");
                     iDetail.putExtra("img", imgDetail);
+                    iDetail.putExtra("folder", Config.FOLDER_DETAIL2);
                     startActivity(iDetail);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();

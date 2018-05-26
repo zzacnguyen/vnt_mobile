@@ -31,7 +31,7 @@ public class ModelFavorite {
 
                 //Set hình ảnh
                 service.setImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(7),
-                        arrayList.get(6), arrayList.get(7)));
+                        Config.FOLDER_THUMB1, arrayList.get(7)));
                 //Set mã dịch vụ
                 service.setId(Integer.parseInt(arrayList.get(0)));
                 //Set tên dịch vụ yêu thích

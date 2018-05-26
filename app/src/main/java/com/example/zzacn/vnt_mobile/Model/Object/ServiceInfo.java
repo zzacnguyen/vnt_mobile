@@ -2,15 +2,11 @@ package com.example.zzacn.vnt_mobile.Model.Object;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by zzacn on 5/8/2018.
- */
-
 public class ServiceInfo {
-    Bitmap banner, thumbInfo1, thumbInfo2;
+    private Bitmap banner, thumbInfo1, thumbInfo2;
     private float stars, reviewMark;
-    private int id, idImage, countLike;
-    private String eatName, hotelName, placeName, vehicleName, entertainName, serviceAbout, imageName, timeClose, timeOpen,
+    private int id, countLike;
+    private String eatName, hotelName, placeName, vehicleName, entertainName, serviceAbout, timeClose, timeOpen,
             highestPrice, lowestPrice, address, phoneNumber, longitude, latitude, website, eventType, idLike, idRating;
     private boolean isLike, isRating;
 
@@ -84,22 +80,6 @@ public class ServiceInfo {
 
     public void setIdRating(String idRating) {
         this.idRating = idRating;
-    }
-
-    public int getIdImage() {
-        return idImage;
-    }
-
-    public void setIdImage(int idImage) {
-        this.idImage = idImage;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
     }
 
     public Bitmap getBanner() {

@@ -6,7 +6,7 @@ import java.util.Collections;
 
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.85/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.4/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -59,6 +59,11 @@ public class Config {
 
     public static final String FOLDER = "/vietnamtour";
     public static final String FOLDER_AVATAR = "avatar";
+    public static final String FOLDER_BANNER = "banner";
+    public static final String FOLDER_THUMB1 = "thumb1";
+    public static final String FOLDER_THUMB2 = "thumb2";
+    public static final String FOLDER_DETAIL1= "detail1";
+    public static final String FOLDER_DETAIL2 = "detail2";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";

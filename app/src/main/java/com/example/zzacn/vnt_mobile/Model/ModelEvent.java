@@ -14,11 +14,6 @@ import java.util.ArrayList;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJson;
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 
-
-/**
- * Created by sieut on 4/26/2018.
- */
-
 public class ModelEvent {
 
     public ArrayList<Event> getEventList(Context context, String getJson) { //Get danh sách thông báo sự kiện
@@ -42,7 +37,7 @@ public class ModelEvent {
                 event.setEventDate(context.getResources().getString(R.string.text_From) + " " + arrayList.get(2) +
                         " " + context.getResources().getString(R.string.text_To) + " " + arrayList.get(3));
                 event.setEventImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(5),
-                        arrayList.get(4), arrayList.get(5)));
+                        Config.FOLDER_THUMB1, arrayList.get(5)));
 
                 // kiểm tra đã xem
                 event.setSeen(arrayList.get(6).equals("1"));

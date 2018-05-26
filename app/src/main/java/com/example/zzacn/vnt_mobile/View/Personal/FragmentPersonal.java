@@ -27,10 +27,10 @@ public class FragmentPersonal extends Fragment {
     public static int userId;
     public static String userName, userType;
     public static Bitmap avatar;
-    Button btnAddPlace, btnUpgradeMember, btnGeneral, btnLogin, btnLogout, btnTripSchedule, btnAddEvent;
+    Button btnUpgradeMember, btnGeneral, btnLogin, btnLogout;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout linearUpgradeMember, Logout, Login, tripSchedule, editProfile;
+    LinearLayout linearUpgradeMember, Logout, Login, editProfile;
     SessionManager sessionManager;
 
     @Nullable
@@ -57,7 +57,9 @@ public class FragmentPersonal extends Fragment {
             Logout.setVisibility(View.GONE);
         } else {
             editProfile.setVisibility(View.VISIBLE);
-            Cavatar.setImageBitmap(avatar);
+            if (avatar != null) {
+                Cavatar.setImageBitmap(avatar);
+            }
             txtUserName.setText(userName);
             switch (userType) {
                 case "1": // cá nhân

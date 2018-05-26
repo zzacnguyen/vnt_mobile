@@ -38,6 +38,7 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 public class MainActivity extends AppCompatActivity {
 
     public static Fragment childFragment = null;
+    public static boolean isStoragePermissionGranted;
     BottomNavigationView bottomNavigationView;
     int badgeNumber = 0;
     SessionManager sessionManager;
@@ -97,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         isStoragePermissionGranted();
-        startActivity(getIntent());
 
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
@@ -234,8 +234,22 @@ public class MainActivity extends AppCompatActivity {
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            } else {
+                isStoragePermissionGranted = true;
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentHome()).commit();
+            isStoragePermissionGranted = true;
+        } else {
+            isStoragePermissionGranted = false;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void replaceFragment(Fragment fragment) {

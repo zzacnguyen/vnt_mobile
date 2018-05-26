@@ -185,7 +185,7 @@ public class ActivityAdvancedSearch extends AppCompatActivity {
                     });
                 }
             }
-        } catch (JSONException | InterruptedException | ExecutionException e) {
+        } catch (JSONException | InterruptedException | ExecutionException | IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
     }
