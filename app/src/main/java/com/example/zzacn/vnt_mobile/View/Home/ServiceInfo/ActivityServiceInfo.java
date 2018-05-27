@@ -30,6 +30,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,8 +43,9 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     String[] imgDetail;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     ImageButton btnBack;
-    TextView tvServiceName, tvServiceAbout, tvPrice, tvTime, tvAddress, tvPhoneNumber, tvWebsite,
+    TextView tvServiceName, tvPrice, tvTime, tvAddress, tvPhoneNumber, tvWebsite,
             toolbarTitle, fbEvent, tvMark, tvCountLike, txtTranslate, tvHotelStar;
+    ExpandableTextView tvServiceAbout;
     ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
     Toolbar toolbar;
     LinearLayout info, hotelStar;

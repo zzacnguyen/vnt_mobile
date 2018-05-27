@@ -490,14 +490,38 @@
 
                 </LinearLayout>
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/textView_ServiceAbout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        android:id="@+id/textView_ServiceAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:maxCollapsedLines="4"
+                        app:animDuration="200">
+
+                        <TextView
+                            android:id="@+id/expandable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:layout_gravity="right|bottom"
+                            android:background="@android:color/transparent"/>
+
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+                </ScrollView>
+
+
 
             </LinearLayout>
         </LinearLayout>
