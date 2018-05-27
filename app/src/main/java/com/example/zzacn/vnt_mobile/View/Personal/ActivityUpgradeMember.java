@@ -1,7 +1,10 @@
 package com.example.zzacn.vnt_mobile.View.Personal;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -38,7 +42,7 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userNa
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 
-public class ActivityUpgradeMember extends AppCompatActivity {
+public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener{
 
     ImageView btnBack;
     int privilege;
@@ -47,6 +51,10 @@ public class ActivityUpgradeMember extends AppCompatActivity {
     EditText etFullName, etPhoneNumber, etWebsite, etEmail, etLanguage, etCountry;
     Spinner spnrUserType;
     CircleImageView Cavatar;
+    private int REQUEST_CODE = 1;
+    Bitmap bitmapAvatar;
+    Boolean isChangeAvatar = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,36 +146,25 @@ public class ActivityUpgradeMember extends AppCompatActivity {
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(this);
 
-        // post avatar
-        tvChangeAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-                ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                avatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
-                ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
-                reqEntity.addPart("banner", contentAvatar);
-                try {
-                    // post hình lên
-                    String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
-                            + Config.URL_POST_IMAGE + userId).get();
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        // Mở thư viện
+        tvChangeAvatar.setOnClickListener(this);
 
         // post thông tin người dùng + nâng cấp quyền
-        btnUpgrade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnUpgrade.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_Back:
+                finish();
+                break;
+            case R.id.txtUpdateAvatar:
+                PickImageFromGallery(REQUEST_CODE);
+                break;
+            case R.id.btn_Upgrade:
                 try {
                     boolean isPostContactSuccess = false, isPostPrivilegeSuccess = false;
 
@@ -199,7 +196,50 @@ public class ActivityUpgradeMember extends AppCompatActivity {
                 } catch (JSONException | ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-        });
+
+                if (isChangeAvatar){
+                    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                    ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                    avatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                    ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+                    reqEntity.addPart("banner", contentAvatar);
+                    try {
+                        // post hình lên
+                        String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
+                                + Config.URL_POST_IMAGE + userId).get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
     }
+
+    private void PickImageFromGallery(int requestCode) { //Chọn 1 tấm hình từ thư viện
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            try {
+                bitmapAvatar = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                Cavatar.setImageBitmap(bitmapAvatar);
+                if (avatar != bitmapAvatar) {
+                    isChangeAvatar = true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
