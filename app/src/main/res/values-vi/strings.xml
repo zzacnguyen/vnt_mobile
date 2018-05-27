@@ -197,4 +197,5 @@
     <string name="text_EditSuccessfully">Chỉnh sửa thành công</string>
     <string name="text_LowestPriceMustBeANumber">Giá thấp nhất phải là số</string>
     <string name="text_HighestPriceMustBeANumber">Giá cao nhất phải là số</string>
+    <string name="Toast_TheInformationIsNotEnpty">Không được để trống thông tin</string>
 </resources>

@@ -154,7 +154,7 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
             case R.id.button_CreateEvent:
                 String stt = null;
                 // get date
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-đd");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date eventStart = null, eventEnd = null;
                 try {
                     eventStart = new SimpleDateFormat("dd/MM/yyyy").parse(etEventStart.getText().toString());
@@ -168,7 +168,7 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
                 try {
                     JSONObject jsonPost = new JSONObject("{"
                             // event name
-                            + Config.POST_KEY_JSON_EVENT.get(0) + ":\"" + etEventName.getText() + "\","
+                            + Config.POST_KEY_JSON_EVENT.get(0) + ":\"" + etEventName.getText().toString() + "\","
                             // event start
                             + Config.POST_KEY_JSON_EVENT.get(1) + ":\"" + start + "\","
                             // event end
@@ -179,7 +179,7 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
                             + Config.POST_KEY_JSON_EVENT.get(4) + ":\"" + serviceId + "\"}");
                     stt = new HttpRequestAdapter.httpPost(jsonPost)
                             .execute(Config.URL_HOST + Config.URL_POST_EVENT).get();
-                } catch (JSONException | InterruptedException | ExecutionException e) {
+                    } catch (JSONException | InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
 

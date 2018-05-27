@@ -116,6 +116,8 @@ public class FragmentPersonal extends Fragment {
                 userType = null;
                 avatar = null;
                 sessionManager.logoutUser();
+
+                getActivity().getSupportFragmentManager().popBackStack();
                 reload();
             }
         });

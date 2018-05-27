@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
-public class ActivityAddTripSchedule extends AppCompatActivity implements View.OnFocusChangeListener {
+public class ActivityAddTripSchedule extends AppCompatActivity {
 
     ImageButton btnBack;
     Button btnCreate;
@@ -46,10 +46,6 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
         etEndDate = findViewById(R.id.editText_EndDatePicker);
         btnCreate = findViewById(R.id.button_CreateTripSchedule);
         etStartDate = findViewById(R.id.editText_StartDatePicker);
-
-        etTripName.setOnFocusChangeListener(this);
-        etStartDate.setOnFocusChangeListener(this);
-        etEndDate.setOnFocusChangeListener(this);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,17 +83,26 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (checkInfo) {
-                    try {
-                        JSONObject jsonPost = new JSONObject("{"
-                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
-                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(1) + ":\"" + sdf.format(startDate) + "\","
-                                + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(2) + ":\"" + sdf.format(endDate) + "\"}");
-                        stt = new HttpRequestAdapter.httpPost(jsonPost)
-                                .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE + userId).get();
-                    } catch (JSONException | InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
+
+                if (etTripName.getText() != null && etStartDate.getText() != null && etEndDate.getText() != null) {
+                    if (endDate.before(startDate)) {
+                        Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.text_CheckDate), Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            JSONObject jsonPost = new JSONObject("{"
+                                    + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(0) + ":\"" + etTripName.getText().toString() + "\","
+                                    + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(1) + ":\"" + sdf.format(startDate) + "\","
+                                    + Config.POST_KEY_JSON_TRIP_SCHEDULE.get(2) + ":\"" + sdf.format(endDate) + "\"}");
+                            stt = new HttpRequestAdapter.httpPost(jsonPost)
+                                    .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE + userId).get();
+
+                            Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     }
+                } else {
+                    Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.Toast_TheInformationIsNotEnpty), Toast.LENGTH_SHORT).show();
                 }
 
                 // nếu status != null và = OK
@@ -114,8 +119,8 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
     @Override
     public void finish() {
         Intent data = new Intent();
-        data.putExtra("mess",getResources().getString(R.string.text_AddNewSuccess));
-        setResult(RESULT_OK,data);
+        data.putExtra("mess", getResources().getString(R.string.text_AddNewSuccess));
+        setResult(RESULT_OK, data);
         finishActivity(1);
         super.finish();
     }
@@ -138,45 +143,5 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
         datePickerDialog.show();
     }
 
-    @Override
-    public void onFocusChange(View view, boolean b) {
-        switch (view.getId()) {
-            case R.id.editText_TripName:
-                if (!b) {
-                    String str = ((EditText) view).getText().toString();
-                    if (str.trim().equals("")) {
-                        etTripName.setError(getResources().getString(R.string.text_FieldIsEmpty));
-                        checkInfo = false;
-                    } else {
-                        checkInfo = true;
-                    }
-                }
-                break;
-
-            case R.id.editText_StartDatePicker:
-                if (!b) {
-                    String str = ((EditText) view).getText().toString();
-                    if (str.trim().equals("")) {
-                        etStartDate.setError(getResources().getString(R.string.text_FieldIsEmpty));
-                        checkInfo = false;
-                    } else {
-                        checkInfo = true;
-                    }
-                }
-                break;
-
-            case R.id.editText_EndDatePicker:
-                if (!b) {
-                    String str = ((EditText) view).getText().toString();
-                    if (str.trim().equals("")) {
-                        etEndDate.setError(getResources().getString(R.string.text_FieldIsEmpty));
-                        checkInfo = false;
-                    } else {
-
-                        checkInfo = true;
-                    }
-                }
-                break;
-        }
-    }
 }
+

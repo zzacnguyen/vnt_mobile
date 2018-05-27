@@ -215,4 +215,5 @@
     <string name="text_EditSuccessfully">Edit successfully</string>
     <string name="text_LowestPriceMustBeANumber">Lowest price must be a number</string>
     <string name="text_HighestPriceMustBeANumber">Highest price must be a number</string>
+    <string name="Toast_TheInformationIsNotEnpty">The information is not empty</string>
 </resources>
