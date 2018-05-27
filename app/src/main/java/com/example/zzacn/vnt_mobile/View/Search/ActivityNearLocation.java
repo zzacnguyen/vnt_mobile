@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 
 public class ActivityNearLocation extends AppCompatActivity {
-    TextView txtPlaceName, txtRadius;
+    TextView tvPlaceName, tvRadius;
     ImageView imgPlacePhoto;
     ImageView btnSetRadius, btnBack;
     String radius;
@@ -38,10 +38,10 @@ public class ActivityNearLocation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearlocation);
 
-        txtPlaceName = findViewById(R.id.textView_NearName);
-        txtRadius = findViewById(R.id.textView_Radius);
+        tvPlaceName = findViewById(R.id.textView_NearName);
+        tvRadius = findViewById(R.id.textView_Radius);
         imgPlacePhoto = findViewById(R.id.imageview_ViewNear);
-        btnSetRadius = findViewById(R.id.btnSetRadius);
+        btnSetRadius = findViewById(R.id.button_SetRadius);
         btnBack = findViewById(R.id.button_Back);
         final SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_DISTANCE, MODE_PRIVATE);
         editor = sharedPreferences.edit();

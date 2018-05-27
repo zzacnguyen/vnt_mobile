@@ -41,15 +41,15 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedsearch);
-        etSearch = findViewById(R.id.etSearch);
-        btnCancel = findViewById(R.id.btnCancel);
+        etSearch = findViewById(R.id.editText_Search);
+        btnCancel = findViewById(R.id.button_Cancel);
         linearPlace = findViewById(R.id.checkPlace);
         linearEat = findViewById(R.id.checkEat);
         linearHotel = findViewById(R.id.checkHotel);
         linearEntertaiment = findViewById(R.id.checkEntertainment);
         linearVehicle = findViewById(R.id.checkVehicle);
         linearAll = findViewById(R.id.checkAll);
-        txtSearchHistory = findViewById(R.id.textViewSearchHistory);
+        txtSearchHistory = findViewById(R.id.textView_SearchHistory);
 
         linearEat.setOnClickListener(new View.OnClickListener() {
             @Override

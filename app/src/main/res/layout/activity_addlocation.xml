@@ -25,7 +25,7 @@
                 android:weightSum="5">
 
                 <Button
-                    android:id="@+id/btnCancelLocation"
+                    android:id="@+id/button_CancelLocation"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -98,7 +98,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnPlacePicker"
+                        android:id="@+id/button_PlacePicker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -140,7 +140,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/txtLatitude"
+                            android:id="@+id/textView_Latitude"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/white_grey_border_bottom"
@@ -173,7 +173,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/txtLongitude"
+                            android:id="@+id/textView_Longitude"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/white_grey_border_bottom"
@@ -211,7 +211,7 @@
                 android:padding="10dp">
 
                 <EditText
-                    android:id="@+id/etPlaceName"
+                    android:id="@+id/editText_PlaceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
@@ -299,7 +299,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/etAddress"
+                    android:id="@+id/editText_Address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -310,7 +310,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/etPlacePhone"
+                    android:id="@+id/editText_PlacePhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -322,7 +322,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/etPlaceAbout"
+                    android:id="@+id/editText_PlaceAbout"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"

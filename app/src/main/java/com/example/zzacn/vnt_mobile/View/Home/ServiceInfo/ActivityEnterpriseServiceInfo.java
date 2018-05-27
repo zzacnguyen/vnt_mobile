@@ -45,7 +45,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
             RESULT_INFO2 = 113;
     String[] imgDetail;
     Button btnShowReview;
-    TextView txtServiceName, txtServiceAbout, toolbarTitle, fbEvent, txtMark, btnCancel, btnDone;
+    TextView tvServiceName, tvServiceAbout, toolbarTitle, fbEvent, txtMark, btnCancel, btnDone;
     EditText etAddress, etPhoneNumber, etWebsite, etLowestPrice, etHighestPrice, etTimeOpen, etTimeClose, etHotelStar;
     ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
     Toolbar toolbar;
@@ -61,14 +61,14 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.imgBanner:
+            case R.id.imageView_Banner:
                 PickImageFromGallery(RESULT_BANNER);
                 break;
-            case R.id.image_Info1:
+            case R.id.imageView_Detail1:
                 PickImageFromGallery(RESULT_INFO1);
                 break;
 
-            case R.id.image_Info2:
+            case R.id.imageView_Detail2:
                 PickImageFromGallery(RESULT_INFO2);
                 break;
 
@@ -95,8 +95,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     } else if (Integer.parseInt(etLowestPrice.getText().toString())
                             > Integer.parseInt(etHighestPrice.getText().toString())) {
                         etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
-                    } else if (txtServiceName.getText().toString().equals("")) {
-                        txtServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
+                    } else if (tvServiceName.getText().toString().equals("")) {
+                        tvServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
                     } else if (etPhoneNumber.getText().toString().equals("")) {
                         etPhoneNumber.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
                     } else if (!etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
@@ -108,8 +108,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                         etHotelStar.setError(getResources().getString(R.string.text_NumberStarIsNotAllowedToBeEmpty));
                     } else if (!etHotelStar.getText().toString().trim().matches("^[0-9]*$")) {
                         etHotelStar.setError(getResources().getString(R.string.text_NumberStarMustBeANumber));
-                    } else if (txtServiceAbout.getText().toString().equals("")) {
-                        txtServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
+                    } else if (tvServiceAbout.getText().toString().equals("")) {
+                        tvServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
                     } // endregion
                     else {
 
@@ -119,20 +119,20 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                         String name = "";
                         switch (serviceType) {
                             case 1: // loại hình ăn uống
-                                name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                name = Config.POST_KEY_JSON_SERVICE_EAT.get(0) + ":\"" + tvServiceName.getText().toString() + "\"";
                                 break;
                             case 2: // khách sạn
-                                name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + txtServiceName.getText().toString() + "\","
+                                name = Config.POST_KEY_JSON_SERVICE_HOTEL.get(0) + ":\"" + tvServiceName.getText().toString() + "\","
                                         + Config.POST_KEY_JSON_SERVICE_HOTEL.get(1) + ":\"" + etHotelStar.getText().toString() + "\"";
                                 break;
                             case 3: // phương tiện di chuyển
-                                name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                name = Config.POST_KEY_JSON_SERVICE_TRANSPORT.get(0) + ":\"" + tvServiceName.getText().toString() + "\"";
                                 break;
                             case 4: // tham quan
-                                name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                name = Config.POST_KEY_JSON_SERVICE_SIGHTSEEING.get(0) + ":\"" + tvServiceName.getText().toString() + "\"";
                                 break;
                             case 5: // vui chơi giải trí
-                                name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + txtServiceName.getText().toString() + "\"";
+                                name = Config.POST_KEY_JSON_SERVICE_ENTERTAINMENTS.get(0) + ":\"" + tvServiceName.getText().toString() + "\"";
                                 break;
                             default:
                                 break;
@@ -140,7 +140,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                         try {
                             JSONObject jsonPost = new JSONObject("{"
                                     // mô tả
-                                    + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + txtServiceAbout.getText() + "\","
+                                    + Config.POST_KEY_JSON_SERVICE.get(0) + ":\"" + tvServiceAbout.getText() + "\","
                                     // giờ mở cửa
                                     + Config.POST_KEY_JSON_SERVICE.get(1) + ":\"" + etTimeOpen.getText() + "\","
                                     // giờ đóng cửa
@@ -276,8 +276,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     public void getServiceInfo() {
         idService = getIntent().getIntExtra("id", 0);
         String url = Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId;
-        txtServiceName = findViewById(R.id.tvServiceName);
-        txtServiceAbout = findViewById(R.id.tvServiceAbout);
+        tvServiceName = findViewById(R.id.textView_ServiceName);
+        tvServiceAbout = findViewById(R.id.textView_ServiceAbout);
         etLowestPrice = findViewById(R.id.editText_ServiceLowestPrice);
         etHighestPrice = findViewById(R.id.editText_ServiceHighestPrice);
         etTimeOpen = findViewById(R.id.editText_TimeOpen);
@@ -286,16 +286,16 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
         etPhoneNumber = findViewById(R.id.editText_ServicePhone);
         etWebsite = findViewById(R.id.editText_ServiceWebsite);
         etHotelStar = findViewById(R.id.editText_HotelStar);
-        imgThumbInfo1 = findViewById(R.id.image_Info1);
-        imgThumbInfo2 = findViewById(R.id.image_Info2);
-        imgBanner = findViewById(R.id.imgBanner);
+        imgThumbInfo1 = findViewById(R.id.imageView_Detail1);
+        imgThumbInfo2 = findViewById(R.id.imageView_Detail2);
+        imgBanner = findViewById(R.id.imageView_Banner);
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = findViewById(R.id.toolbarTitle);
-        fbEvent = findViewById(R.id.fb_event);
-        info = findViewById(R.id.info);
+        fbEvent = findViewById(R.id.FloatingBar_Event);
+        info = findViewById(R.id.Linear_Info);
         linearHotelStar = findViewById(R.id.hotelStar);
-        txtMark = findViewById(R.id.textViewRatingMark);
-        rbStar = findViewById(R.id.ratingBarStars);
+        txtMark = findViewById(R.id.textView_RatingMark);
+        rbStar = findViewById(R.id.ratingBar_Stars);
         btnShowReview = findViewById(R.id.btnOpenListReview);
         btnCancel = findViewById(R.id.textView_Cancel);
         btnDone = findViewById(R.id.textView_Done);
@@ -321,32 +321,32 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
 
             // region get tên và set màu cho từng dịch vụ
             if (serviceInfo.getEatName() != null) {
-                txtServiceName.setText(serviceInfo.getEatName());
+                tvServiceName.setText(serviceInfo.getEatName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
                 info.setBackgroundColor(getResources().getColor(R.color.tbEat));
                 serviceType = 1;
                 toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
             } else if (serviceInfo.getHotelName() != null) {
-                txtServiceName.setText(serviceInfo.getHotelName());
+                tvServiceName.setText(serviceInfo.getHotelName());
                 linearHotelStar.setVisibility(View.VISIBLE);
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 serviceType = 2;
                 toolbarTitle.setText(getResources().getString(R.string.title_HotelDetails));
             } else if (serviceInfo.getPlaceName() != null) {
-                txtServiceName.setText(serviceInfo.getPlaceName());
+                tvServiceName.setText(serviceInfo.getPlaceName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
                 info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
                 serviceType = 4;
                 toolbarTitle.setText(getResources().getString(R.string.title_PlaceDetails));
             } else if (serviceInfo.getVehicleName() != null) {
-                txtServiceName.setText(serviceInfo.getVehicleName());
+                tvServiceName.setText(serviceInfo.getVehicleName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
                 info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
                 serviceType = 3;
                 toolbarTitle.setText(getResources().getString(R.string.title_TransportDetails));
             } else {
-                txtServiceName.setText(serviceInfo.getEntertainName());
+                tvServiceName.setText(serviceInfo.getEntertainName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                 info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                 serviceType = 5;
@@ -363,7 +363,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
             }
 
             // set text mô tả dịch vụ
-            txtServiceAbout.setText(serviceInfo.getServiceAbout());
+            tvServiceAbout.setText(serviceInfo.getServiceAbout());
             // set giá thấp nhất
             etLowestPrice.setText(serviceInfo.getLowestPrice());
             // set giá cao nhất
@@ -401,8 +401,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
 
     private void enableWidget() {
         // mở khóa nhập
-        txtServiceName.setInputType(InputType.TYPE_CLASS_TEXT);
-        txtServiceAbout.setInputType(InputType.TYPE_CLASS_TEXT);
+        tvServiceName.setInputType(InputType.TYPE_CLASS_TEXT);
+        tvServiceAbout.setInputType(InputType.TYPE_CLASS_TEXT);
         etLowestPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
         etHighestPrice.setInputType(InputType.TYPE_CLASS_NUMBER);
         etTimeOpen.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
@@ -417,8 +417,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
 
     private void disbleWidget() {
         // khóa nhập
-        txtServiceName.setInputType(InputType.TYPE_NULL);
-        txtServiceAbout.setInputType(InputType.TYPE_NULL);
+        tvServiceName.setInputType(InputType.TYPE_NULL);
+        tvServiceAbout.setInputType(InputType.TYPE_NULL);
         etLowestPrice.setInputType(InputType.TYPE_NULL);
         etHighestPrice.setInputType(InputType.TYPE_NULL);
         etTimeOpen.setInputType(InputType.TYPE_NULL);

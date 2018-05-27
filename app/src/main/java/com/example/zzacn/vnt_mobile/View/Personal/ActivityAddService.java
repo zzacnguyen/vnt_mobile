@@ -76,7 +76,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         btnSend = findViewById(R.id.btnConfirmService);
         btnCancel = findViewById(R.id.btnCancelService);
         etServiceName = findViewById(R.id.etServiceName);
-        etWebsite = findViewById(R.id.etWebsite);
+        etWebsite = findViewById(R.id.editText_Website);
         etServicePhone = findViewById(R.id.etServicePhone);
         etServiceAbout = findViewById(R.id.etServiceAbout);
         etLowestPrice = findViewById(R.id.etLowestPrice);

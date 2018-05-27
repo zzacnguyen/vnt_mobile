@@ -99,11 +99,11 @@ public class FragmentHome extends Fragment {
     }
 
     void load(View view) {
-        btnPlace = view.findViewById(R.id.btnAllPlace);
-        btnEat = view.findViewById(R.id.btnAllEat);
-        btnHoTel = view.findViewById(R.id.btnAllHotel);
-        btnEntertain = view.findViewById(R.id.btnAllEntertain);
-        btnVehicle = view.findViewById(R.id.btnAllVehicle);
+        btnPlace = view.findViewById(R.id.button_AllPlace);
+        btnEat = view.findViewById(R.id.button_AllEat);
+        btnHoTel = view.findViewById(R.id.button_AllHotel);
+        btnEntertain = view.findViewById(R.id.button_AllEntertain);
+        btnVehicle = view.findViewById(R.id.button_AllVehicle);
         viewLine = view.findViewById(R.id.viewLine);
         linearEnterpriseService = view.findViewById(R.id.linearEnterpriseService);
 

@@ -23,7 +23,7 @@
                 app:layout_collapseMode="parallax">
 
                 <ImageView
-                    android:id="@+id/imgBanner"
+                    android:id="@+id/imageView_Banner"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:scaleType="centerCrop" />
@@ -38,7 +38,7 @@
                 app:layout_collapseMode="pin">
 
                 <TextView
-                    android:id="@+id/tvTripName"
+                    android:id="@+id/textView_TripName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -85,7 +85,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/tvStartDate"
+                    android:id="@+id/textView_StartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
@@ -94,7 +94,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tvEndDate"
+                    android:id="@+id/textView_EndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"

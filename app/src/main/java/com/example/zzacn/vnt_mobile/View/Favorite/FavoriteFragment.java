@@ -34,7 +34,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FavoriteFragment extends Fragment {
     ArrayList<String> finalArr = new ArrayList<>();
-    TextView txtServiceName;
+    TextView tvServiceName;
     ImageView imgServiceImage;
     RecyclerView recyclerView;
 
@@ -44,8 +44,8 @@ public class FavoriteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
-        txtServiceName = view.findViewById(R.id.textViewFavorite);
-        imgServiceImage = view.findViewById(R.id.imageViewFavorite);
+        tvServiceName = view.findViewById(R.id.textView_Favorite);
+        imgServiceImage = view.findViewById(R.id.imageView_Favorite);
 
         recyclerView = view.findViewById(R.id.RecyclerView_FavoriteList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter

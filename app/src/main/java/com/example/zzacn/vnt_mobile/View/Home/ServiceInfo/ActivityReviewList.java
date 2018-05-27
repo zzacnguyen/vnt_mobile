@@ -28,16 +28,16 @@ import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 
 public class ActivityReviewList extends AppCompatActivity {
     ArrayList<String> finalArr = new ArrayList<>();
-    ImageView btnnBack;
+    ImageView btnBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviewlist);
 
-        btnnBack = findViewById(R.id.button_Back);
+        btnBack = findViewById(R.id.button_Back);
 
-        btnnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

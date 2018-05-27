@@ -24,7 +24,6 @@ import com.example.zzacn.vnt_mobile.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -44,9 +43,9 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
     }
 
     void getTripScheduleInfo() {
-        tvTripName = findViewById(R.id.tvTripName);
-        tvStartDate = findViewById(R.id.tvStartDate);
-        tvEndDate = findViewById(R.id.tvEndDate);
+        tvTripName = findViewById(R.id.textView_TripName);
+        tvStartDate = findViewById(R.id.textView_StartDate);
+        tvEndDate = findViewById(R.id.textView_EndDate);
         fabAddService = findViewById(R.id.fabAddServiceTripSchedule);
 
         schedules = (TripSchedule) getIntent().getSerializableExtra("schedules");

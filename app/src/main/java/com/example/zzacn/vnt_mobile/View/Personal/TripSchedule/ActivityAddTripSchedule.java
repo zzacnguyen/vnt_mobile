@@ -41,11 +41,11 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtripschedule);
 
-        btnBack = findViewById(R.id.btnBack);
-        etTripName = findViewById(R.id.etTripName);
-        etEndDate = findViewById(R.id.etEndDatePicker);
-        btnCreate = findViewById(R.id.btnCreateTripSchedule);
-        etStartDate = findViewById(R.id.etStartDatePicker);
+        btnBack = findViewById(R.id.button_Back);
+        etTripName = findViewById(R.id.editText_TripName);
+        etEndDate = findViewById(R.id.editText_EndDatePicker);
+        btnCreate = findViewById(R.id.button_CreateTripSchedule);
+        etStartDate = findViewById(R.id.editText_StartDatePicker);
 
         etTripName.setOnFocusChangeListener(this);
         etStartDate.setOnFocusChangeListener(this);
@@ -141,7 +141,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
     @Override
     public void onFocusChange(View view, boolean b) {
         switch (view.getId()) {
-            case R.id.etTripName:
+            case R.id.editText_TripName:
                 if (!b) {
                     String str = ((EditText) view).getText().toString();
                     if (str.trim().equals("")) {
@@ -153,7 +153,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 }
                 break;
 
-            case R.id.etStartDatePicker:
+            case R.id.editText_StartDatePicker:
                 if (!b) {
                     String str = ((EditText) view).getText().toString();
                     if (str.trim().equals("")) {
@@ -165,7 +165,7 @@ public class ActivityAddTripSchedule extends AppCompatActivity implements View.O
                 }
                 break;
 
-            case R.id.etEndDatePicker:
+            case R.id.editText_EndDatePicker:
                 if (!b) {
                     String str = ((EditText) view).getText().toString();
                     if (str.trim().equals("")) {

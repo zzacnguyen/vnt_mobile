@@ -20,7 +20,6 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Home.FragmentHome;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 
 import org.json.JSONException;
@@ -49,10 +48,10 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        etUserId = view.findViewById(R.id.etUserName);
-        etPassword = view.findViewById(R.id.etPassword);
-        btnLogin = view.findViewById(R.id.btnLogin);
-        btnReg = view.findViewById(R.id.btnRegister);
+        etUserId = view.findViewById(R.id.editText_UserName);
+        etPassword = view.findViewById(R.id.editText_Password);
+        btnLogin = view.findViewById(R.id.button_Login);
+        btnReg = view.findViewById(R.id.button_Register);
         btnBack = view.findViewById(R.id.button_Back);
 
         sessionManager = new SessionManager(getApplicationContext());

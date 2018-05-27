@@ -31,7 +31,7 @@
                     android:weightSum="5">
 
                     <Button
-                        android:id="@+id/btnCancelLocation"
+                        android:id="@+id/button_CancelLocation"
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
@@ -168,7 +168,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnAllPlace"
+                        android:id="@+id/button_AllPlace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -216,7 +216,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnAllEat"
+                        android:id="@+id/button_AllEat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -264,7 +264,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnAllHotel"
+                        android:id="@+id/button_AllHotel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -313,7 +313,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnAllEntertain"
+                        android:id="@+id/button_AllEntertain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
@@ -362,7 +362,7 @@
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/btnAllVehicle"
+                        android:id="@+id/button_AllVehicle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"

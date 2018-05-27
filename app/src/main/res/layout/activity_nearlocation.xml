@@ -42,7 +42,7 @@
                 android:textSize="19sp" />
 
             <ImageView
-                android:id="@+id/btnSetRadius"
+                android:id="@+id/button_SetRadius"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:background="@null"

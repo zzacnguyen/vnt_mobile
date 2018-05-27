@@ -39,10 +39,10 @@ public class ActivityLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUserId = findViewById(R.id.etUserName);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnReg = findViewById(R.id.btnRegister);
+        etUserId = findViewById(R.id.editText_UserName);
+        etPassword = findViewById(R.id.editText_Password);
+        btnLogin = findViewById(R.id.button_Login);
+        btnReg = findViewById(R.id.button_Register);
         btnBack = findViewById(R.id.button_Back);
 
         sessionManager = new SessionManager(getApplicationContext());

@@ -34,7 +34,7 @@
             android:orientation="horizontal">
 
             <RatingBar
-                android:id="@+id/ratingBarStars"
+                android:id="@+id/ratingBar_Stars"
                 style="?attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

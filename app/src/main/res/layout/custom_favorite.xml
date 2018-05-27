@@ -13,14 +13,14 @@
         android:background="@drawable/white_grey_border_bottom">
 
         <ImageView
-            android:id="@+id/imageViewFavorite"
+            android:id="@+id/imageView_Favorite"
             android:src="@drawable/default_avatar"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/textViewFavorite"
+            android:id="@+id/textView_Favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"

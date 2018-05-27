@@ -179,31 +179,31 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         switch (view.getId()) {
-            case R.id.btnAllPlace:
+            case R.id.button_AllPlace:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_PLACES);
                 bundle.putInt("type", 4);
                 childFragment.setArguments(bundle);
                 break;
 
-            case R.id.btnAllEat:
+            case R.id.button_AllEat:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_EATS);
                 bundle.putInt("type", 1);
                 childFragment.setArguments(bundle);
                 break;
 
-            case R.id.btnAllHotel:
+            case R.id.button_AllHotel:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_HOTELS);
                 bundle.putInt("type", 2);
                 childFragment.setArguments(bundle);
                 break;
 
-            case R.id.btnAllEntertain:
+            case R.id.button_AllEntertain:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_ENTERTAINMENTS);
                 bundle.putInt("type", 5);
                 childFragment.setArguments(bundle);
                 break;
 
-            case R.id.btnAllVehicle:
+            case R.id.button_AllVehicle:
                 bundle.putString("url", Config.URL_HOST + Config.URL_GET_ALL_VEHICLES);
                 bundle.putInt("type", 3);
                 childFragment.setArguments(bundle);

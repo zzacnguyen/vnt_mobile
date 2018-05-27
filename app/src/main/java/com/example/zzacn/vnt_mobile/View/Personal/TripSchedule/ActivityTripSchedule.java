@@ -41,7 +41,7 @@ public class ActivityTripSchedule extends AppCompatActivity {
         setContentView(R.layout.activity_trip_schedule_list);
 
         fabAddTripSchedule = findViewById(R.id.fabAddTripSchedule);
-        btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.button_Back);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -44,8 +44,8 @@ public class FragmentPersonal extends Fragment {
         btnGeneral = view.findViewById(R.id.buttonGeneral);
         btnLogin = view.findViewById(R.id.buttonLogin);
         btnLogout = view.findViewById(R.id.buttonLogout);
-        txtUserName = view.findViewById(R.id.txtUserName);
-        txtUserType = view.findViewById(R.id.txtUserType);
+        txtUserName = view.findViewById(R.id.textView_UserName);
+        txtUserType = view.findViewById(R.id.textView_UserType);
         Cavatar = view.findViewById(R.id.avatar);
         linearUpgradeMember = view.findViewById(R.id.RegEnterprise);
         Logout = view.findViewById(R.id.Logout);

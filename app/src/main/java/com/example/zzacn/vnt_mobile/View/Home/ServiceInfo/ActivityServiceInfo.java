@@ -42,8 +42,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     String[] imgDetail;
     Button btnShare, btnLike, btnNear, btnReview, btnShowReview;
     ImageButton btnBack;
-    TextView txtServiceName, txtServiceAbout, txtPrice, txtTime, txtAddress, txtPhoneNumber, txtWebsite,
-            toolbarTitle, fbEvent, txtMark, txtCountLike, txtTranslate, txtHotelStar;
+    TextView tvServiceName, tvServiceAbout, tvPrice, tvTime, tvAddress, tvPhoneNumber, tvWebsite,
+            toolbarTitle, fbEvent, tvMark, tvCountLike, txtTranslate, tvHotelStar;
     ImageView imgThumbInfo1, imgThumbInfo2, imgBanner;
     Toolbar toolbar;
     LinearLayout info, hotelStar;
@@ -59,7 +59,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         Intent iDetail = new Intent(ActivityServiceInfo.this, ActivityFullImage.class);
 
         switch (view.getId()) {
-            case R.id.image_Info1:
+            case R.id.imageView_Detail1:
                 try {
                     imgDetail = new HttpRequestAdapter.httpGet()
                             .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_1 + idService).get()
@@ -73,7 +73,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 }
                 break;
 
-            case R.id.image_Info2:
+            case R.id.imageView_Detail2:
                 try {
                     imgDetail = new HttpRequestAdapter.httpGet()
                             .execute(Config.URL_HOST + Config.URL_GET_LINK_DETAIL_2 + idService).get()
@@ -152,7 +152,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                                 Toast.LENGTH_SHORT).show();
                         btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_36dp, 0, 0);
                         btnLike.setText(getResources().getString(R.string.text_UnLike));
-                        txtCountLike.setText(Integer.parseInt(txtCountLike.getText().toString()) + 1 + "");
+                        tvCountLike.setText(Integer.parseInt(tvCountLike.getText().toString()) + 1 + "");
 
                         try {
                             JSONObject jsonObject = new JSONObject("{"
@@ -165,7 +165,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                         }
                     } else {
                         Toast.makeText(ActivityServiceInfo.this, getResources().getString(R.string.text_UnLiked), Toast.LENGTH_SHORT).show();
-                        txtCountLike.setText(Integer.parseInt(txtCountLike.getText().toString()) - 1 + "");
+                        tvCountLike.setText(Integer.parseInt(tvCountLike.getText().toString()) - 1 + "");
                         btnLike.setText(getResources().getString(R.string.text_Like));
                         btnLike.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_36dp, 0, 0);
 
@@ -223,24 +223,24 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     public void getServiceInfo(String lang) {
         String url = Config.URL_GET_SERVICE_INFO.get(0) + idService + Config.URL_GET_SERVICE_INFO.get(1) + userId;
-        txtServiceName = findViewById(R.id.textViewServiceName);
-        txtServiceAbout = findViewById(R.id.textViewServiceAbout);
-        txtPrice = findViewById(R.id.textViewCost);
-        txtTime = findViewById(R.id.textViewTime);
-        txtAddress = findViewById(R.id.textViewServiceAddress);
-        txtPhoneNumber = findViewById(R.id.textViewServicePhone);
-        txtWebsite = findViewById(R.id.textViewWebsite);
-        imgThumbInfo1 = findViewById(R.id.image_Info1);
-        imgThumbInfo2 = findViewById(R.id.image_Info2);
-        imgBanner = findViewById(R.id.imgBanner);
+        tvServiceName = findViewById(R.id.textView_ServiceName);
+        tvServiceAbout = findViewById(R.id.textView_ServiceAbout);
+        tvPrice = findViewById(R.id.textView_Cost);
+        tvTime = findViewById(R.id.textView_Time);
+        tvAddress = findViewById(R.id.textView_ServiceAddress);
+        tvPhoneNumber = findViewById(R.id.textView_ServicePhone);
+        tvWebsite = findViewById(R.id.textView_Website);
+        tvMark = findViewById(R.id.textView_RatingMark);
+        tvCountLike = findViewById(R.id.textView_LikeCount);
+        imgThumbInfo1 = findViewById(R.id.imageView_Detail1);
+        imgThumbInfo2 = findViewById(R.id.imageView_Detail2);
+        imgBanner = findViewById(R.id.imageView_Banner);
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = findViewById(R.id.toolbarTitle);
-        fbEvent = findViewById(R.id.fb_event);
-        info = findViewById(R.id.info);
-        txtMark = findViewById(R.id.textViewRatingMark);
-        txtCountLike = findViewById(R.id.textViewLikeCount);
-        rbStar = findViewById(R.id.ratingBarStars);
-        txtHotelStar = findViewById(R.id.textViewHotelStar);
+        fbEvent = findViewById(R.id.FloatingBar_Event);
+        info = findViewById(R.id.Linear_Info);
+        rbStar = findViewById(R.id.ratingBar_Stars);
+        tvHotelStar = findViewById(R.id.textView_HotelStar);
         hotelStar = findViewById(R.id.hotelStar);
 
         imgThumbInfo1.setOnClickListener(this);
@@ -258,31 +258,31 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
 
             // region get tên và set màu cho từng dịch vụ
             if (serviceInfo.getEatName() != null) {
-                txtServiceName.setText(serviceInfo.getEatName());
+                tvServiceName.setText(serviceInfo.getEatName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbEat));
                 info.setBackgroundColor(getResources().getColor(R.color.tbEat));
                 serviceType = 1;
                 toolbarTitle.setText(getResources().getString(R.string.title_RestaurantDetails));
             } else if (serviceInfo.getHotelName() != null) {
-                txtServiceName.setText(serviceInfo.getHotelName());
+                tvServiceName.setText(serviceInfo.getHotelName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 info.setBackgroundColor(getResources().getColor(R.color.tbHotel));
                 serviceType = 2;
                 toolbarTitle.setText(getResources().getString(R.string.title_HotelDetails));
             } else if (serviceInfo.getPlaceName() != null) {
-                txtServiceName.setText(serviceInfo.getPlaceName());
+                tvServiceName.setText(serviceInfo.getPlaceName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbPlace));
                 info.setBackgroundColor(getResources().getColor(R.color.tbPlace));
                 serviceType = 4;
                 toolbarTitle.setText(getResources().getString(R.string.title_PlaceDetails));
             } else if (serviceInfo.getVehicleName() != null) {
-                txtServiceName.setText(serviceInfo.getVehicleName());
+                tvServiceName.setText(serviceInfo.getVehicleName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
                 info.setBackgroundColor(getResources().getColor(R.color.tbVehicle));
                 serviceType = 3;
                 toolbarTitle.setText(getResources().getString(R.string.title_TransportDetails));
             } else {
-                txtServiceName.setText(serviceInfo.getEntertainName());
+                tvServiceName.setText(serviceInfo.getEntertainName());
                 toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                 info.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                 serviceType = 5;
@@ -315,36 +315,36 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
             }
 
             // set text mô tả dịch vụ
-            txtServiceAbout.setText(serviceInfo.getServiceAbout());
+            tvServiceAbout.setText(serviceInfo.getServiceAbout());
 
             // nếu giá thấp nhất và giá cao nhất = 0 thì settext updating
             if (serviceInfo.getLowestPrice().equals("0") && serviceInfo.getHighestPrice().equals("0")) {
-                txtPrice.setText(getResources().getString(R.string.text_Updating));
+                tvPrice.setText(getResources().getString(R.string.text_Updating));
             } else {
-                txtPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getLowestPrice() + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getHighestPrice());
+                tvPrice.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getLowestPrice() + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getHighestPrice());
             }
 
             // nếu giờ mở cửa và giờ đóng cửa = đang cập nhật thì settext updating
             if (serviceInfo.getTimeOpen().equals("Đang cập nhật") && serviceInfo.getTimeClose().equals("Đang cập nhật")) {
-                txtTime.setText(getResources().getString(R.string.text_Updating));
+                tvTime.setText(getResources().getString(R.string.text_Updating));
             } else {
-                txtTime.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getTimeOpen()
+                tvTime.setText(getResources().getString(R.string.text_From) + " " + serviceInfo.getTimeOpen()
                         + " " + getResources().getString(R.string.text_To) + " " + serviceInfo.getTimeClose());
             }
             // set số lượt like
-            txtCountLike.setText(serviceInfo.getCountLike() + "");
+            tvCountLike.setText(serviceInfo.getCountLike() + "");
             // set địa chỉ
-            txtAddress.setText(serviceInfo.getAddress());
+            tvAddress.setText(serviceInfo.getAddress());
             // set số điện thoại
-            txtPhoneNumber.setText(serviceInfo.getPhoneNumber());
+            tvPhoneNumber.setText(serviceInfo.getPhoneNumber());
             // set website
-            txtWebsite.setText(serviceInfo.getWebsite());
+            tvWebsite.setText(serviceInfo.getWebsite());
             // set hình
             imgBanner.setImageBitmap(serviceInfo.getBanner());
             imgThumbInfo1.setImageBitmap(serviceInfo.getThumbInfo1());
             imgThumbInfo2.setImageBitmap(serviceInfo.getThumbInfo2());
             // set số sao
-            txtMark.setText(String.format("%.1f", serviceInfo.getReviewMark()));
+            tvMark.setText(String.format("%.1f", serviceInfo.getReviewMark()));
             // set số ngôi sao
             rbStar.setRating(serviceInfo.getStars());
 

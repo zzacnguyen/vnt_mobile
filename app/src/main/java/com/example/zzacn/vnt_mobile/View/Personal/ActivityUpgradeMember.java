@@ -61,19 +61,19 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrademember);
 
-        btnBack = findViewById(R.id.btn_Back);
+        btnBack = findViewById(R.id.button_Back);
         Cavatar = findViewById(R.id.avatar);
-        tvUserName = findViewById(R.id.txtUserName);
-        tvUserType = findViewById(R.id.txtUserType);
-        tvChangeAvatar = findViewById(R.id.txtUpdateAvatar);
-        btnUpgrade = findViewById(R.id.btn_Upgrade);
-        spnrUserType = findViewById(R.id.spnrUserType);
-        etFullName = findViewById(R.id.etFullName);
-        etPhoneNumber = findViewById(R.id.etPhoneNumber);
-        etWebsite = findViewById(R.id.etWebsite);
-        etEmail = findViewById(R.id.etEmail);
-        etLanguage = findViewById(R.id.etLanguage);
-        etCountry = findViewById(R.id.etCountry);
+        tvUserName = findViewById(R.id.textView_UserName);
+        tvUserType = findViewById(R.id.textView_UserType);
+        tvChangeAvatar = findViewById(R.id.textView_UpdateAvatar);
+        btnUpgrade = findViewById(R.id.button_Upgrade);
+        spnrUserType = findViewById(R.id.spinner_UserType);
+        etFullName = findViewById(R.id.editText_FullName);
+        etPhoneNumber = findViewById(R.id.editText_PhoneNumber);
+        etWebsite = findViewById(R.id.editText_Website);
+        etEmail = findViewById(R.id.editText_Email);
+        etLanguage = findViewById(R.id.editText_Language);
+        etCountry = findViewById(R.id.editText_Country);
 
         tvUserName.setText(userName);
         Cavatar.setImageBitmap(avatar);
@@ -158,13 +158,13 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_Back:
+            case R.id.button_Back:
                 finish();
                 break;
-            case R.id.txtUpdateAvatar:
+            case R.id.textView_UpdateAvatar:
                 PickImageFromGallery(REQUEST_CODE);
                 break;
-            case R.id.btn_Upgrade:
+            case R.id.button_Upgrade:
                 try {
                     boolean isPostContactSuccess = false, isPostPrivilegeSuccess = false;
 

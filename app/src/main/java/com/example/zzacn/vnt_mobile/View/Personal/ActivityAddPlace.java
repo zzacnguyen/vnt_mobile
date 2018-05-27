@@ -37,13 +37,13 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 public class ActivityAddPlace extends AppCompatActivity {
 
     private final int REQUEST_CODE_PLACEPICKER = 1;
-    TextView txtLat, txtLong, btnCancel;
+    TextView tvLat, tvLong, btnCancel;
     EditText etAddress, etPlaceName, etPlacePhone, etPlaceAbout;
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String stringIdPlace;
 
-    Spinner spinnerDistrict, spinnerProvince, spinnerWard;
+    Spinner spnrDistrict, spnrProvince, spnrWard;
     ArrayAdapter<String> arrayListProvince, arrayListDistrict, arrayListWard;
     int idWard = 0;
     ArrayList<String> arrayIdProvince = new ArrayList<>(),
@@ -55,14 +55,14 @@ public class ActivityAddPlace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addlocation);
 
-        txtLat = findViewById(R.id.txtLatitude);
-        txtLong = findViewById(R.id.txtLongitude);
-        etAddress = findViewById(R.id.etAddress);
-        etPlaceName = findViewById(R.id.etPlaceName);
-        etPlacePhone = findViewById(R.id.etPlacePhone);
-        etPlaceAbout = findViewById(R.id.etPlaceAbout);
-        btnPlacePicker = findViewById(R.id.btnPlacePicker);
-        btnCancel = findViewById(R.id.btnCancelLocation);
+        tvLat = findViewById(R.id.textView_Latitude);
+        tvLong = findViewById(R.id.textView_Longitude);
+        etAddress = findViewById(R.id.editText_Address);
+        etPlaceName = findViewById(R.id.editText_PlaceName);
+        etPlacePhone = findViewById(R.id.editText_PlacePhone);
+        etPlaceAbout = findViewById(R.id.editText_PlaceAbout);
+        btnPlacePicker = findViewById(R.id.button_PlacePicker);
+        btnCancel = findViewById(R.id.button_CancelLocation);
         linearPlace = findViewById(R.id.linearPlace);
         linearEat = findViewById(R.id.linearEat);
         linearHotel = findViewById(R.id.linearHotel);
@@ -70,9 +70,9 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearVehicle = findViewById(R.id.linearVehicle);
 
         //region SPINNER Province
-        spinnerProvince = findViewById(R.id.spinnerProvince);
-        spinnerDistrict = findViewById(R.id.spinnerDistrict);
-        spinnerWard = findViewById(R.id.spinnerWard);
+        spnrProvince = findViewById(R.id.spinnerProvince);
+        spnrDistrict = findViewById(R.id.spinnerDistrict);
+        spnrWard = findViewById(R.id.spinnerWard);
 
         // load tỉnh thành vào spinner
         ArrayList<String> arrayProvince = new ArrayList<>();
@@ -85,9 +85,9 @@ public class ActivityAddPlace extends AppCompatActivity {
         }
         arrayListProvince = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayProvince);
         arrayListProvince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerProvince.setAdapter(arrayListProvince);
+        spnrProvince.setAdapter(arrayListProvince);
 
-        spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnrProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // load quận huyện vào spinner
@@ -102,7 +102,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                 }
                 arrayListDistrict = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayDistrict);
                 arrayListDistrict.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerDistrict.setAdapter(arrayListDistrict);
+                spnrDistrict.setAdapter(arrayListDistrict);
             }
 
             @Override
@@ -111,7 +111,7 @@ public class ActivityAddPlace extends AppCompatActivity {
             }
         });
 
-        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnrDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // load xã phường vào spinner
@@ -126,7 +126,7 @@ public class ActivityAddPlace extends AppCompatActivity {
                 }
                 arrayListWard = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayWard);
                 arrayListWard.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerWard.setAdapter(arrayListWard);
+                spnrWard.setAdapter(arrayListWard);
             }
 
             @Override
@@ -134,7 +134,7 @@ public class ActivityAddPlace extends AppCompatActivity {
 
             }
         });
-        spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spnrWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 idWard = Integer.parseInt(arrayIdWard.get(i));
@@ -227,9 +227,9 @@ public class ActivityAddPlace extends AppCompatActivity {
                         // sdt
                         + Config.POST_KEY_JSON_PLACE.get(3) + ":\"" + etPlacePhone.getText().toString() + "\","
                         // vĩ độ
-                        + Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + txtLat.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(4) + ":\"" + tvLat.getText().toString() + "\","
                         // kinh độ
-                        + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + txtLong.getText().toString() + "\","
+                        + Config.POST_KEY_JSON_PLACE.get(5) + ":\"" + tvLong.getText().toString() + "\","
                         // mã xã phường
                         + Config.POST_KEY_JSON_PLACE.get(6) + ":\"" + idWard + "\","
                         // id người dùng
@@ -288,8 +288,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         Double longitude = placeSelected.getLatLng().longitude;
         String placeName = placeSelected.getName().toString();
 
-        txtLat.setText(String.valueOf(latitude).substring(0, 9));
-        txtLong.setText(String.valueOf(longitude).substring(0, 10));
+        tvLat.setText(String.valueOf(latitude).substring(0, 9));
+        tvLong.setText(String.valueOf(longitude).substring(0, 10));
         etAddress.setText(placeSelected.getAddress().toString());
         if (!placeName.contains("\'")) {
             etPlaceName.setText(placeSelected.getName().toString());

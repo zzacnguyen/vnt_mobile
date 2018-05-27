@@ -74,7 +74,7 @@ public class EnterpriseServiceAdapter extends RecyclerView.Adapter<EnterpriseSer
             imgImageService = itemView.findViewById(R.id.imageview_ServicePhoto);
             tvTotalLike = itemView.findViewById(R.id.tvTotalLike);
             tvTotalRate = itemView.findViewById(R.id.tvTotalRate);
-            ratingBar = itemView.findViewById(R.id.ratingBarStars);
+            ratingBar = itemView.findViewById(R.id.ratingBar_Stars);
             cardView = itemView.findViewById(R.id.cardViewEnterprise);
         }
     }

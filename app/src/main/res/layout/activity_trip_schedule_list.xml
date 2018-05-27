@@ -19,7 +19,7 @@
             app:layout_collapseMode="pin">
 
             <ImageButton
-                android:id="@+id/btnBack"
+                android:id="@+id/button_Back"
                 android:layout_width="23dp"
                 android:layout_height="13dp"
                 android:background="@null"

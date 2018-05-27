@@ -26,10 +26,10 @@ public class ActivityRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        etUserName = findViewById(R.id.etUserName);
-        etPassword = findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etPasswordConfirm);
-        btnReg = findViewById(R.id.btnRegister);
+        etUserName = findViewById(R.id.editText_UserName);
+        etPassword = findViewById(R.id.editText_Password);
+        etConfirmPassword = findViewById(R.id.editText_PasswordConfirm);
+        btnReg = findViewById(R.id.button_Register);
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
