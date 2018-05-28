@@ -11,16 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.R;
-import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
+import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityEnterpriseServiceInfo;
 
 import java.util.ArrayList;
 
-public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListOfEnterpriseServiceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     private OnLoadMoreListener onLoadMoreListener;
@@ -30,7 +31,7 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public ListOfServiceAdapter(RecyclerView recyclerView, ArrayList<Service> service, Context context) {
+    public ListOfEnterpriseServiceAdapter(RecyclerView recyclerView, ArrayList<Service> service, Context context) {
         this.context = context;
         this.services = service;
 
@@ -63,7 +64,7 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.custom_location_list, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.custom_enterprise_service_list, parent, false);
             return new ViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false);
@@ -77,13 +78,16 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtName.setText(services.get(position).getName());
-            viewHolder.imgImage.setImageBitmap(services.get(position).getImage());
+            viewHolder.imgImageService.setImageBitmap(services.get(position).getImage());
+            viewHolder.ratingBar.setRating(services.get(position).getAverageScore());
+            viewHolder.tvTotalLike.setText(String.valueOf(services.get(position).getTotalLike()));
+            viewHolder.tvTotalRate.setText(String.valueOf(services.get(position).getTotalRate()));
             viewHolder.cardView.setTag(services.get(position).getId());
 
-            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
                 @Override
                 public void onClick(View view) {
-                    Intent iServiceInfo = new Intent(context, ActivityServiceInfo.class);
+                    Intent iServiceInfo = new Intent(context, ActivityEnterpriseServiceInfo.class);
                     iServiceInfo.putExtra("id", (int) view.getTag());
                     iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(iServiceInfo);
@@ -104,6 +108,26 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         isLoading = false;
     }
 
+    //"Normal item" Viewholder
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
+        TextView txtName, tvTotalLike, tvTotalRate;
+        ImageView imgImageService;
+        RatingBar ratingBar;
+        CardView cardView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+
+            txtName = itemView.findViewById(R.id.textview_ServiceName);
+            imgImageService = itemView.findViewById(R.id.imageview_ServicePhoto);
+            tvTotalLike = itemView.findViewById(R.id.tvTotalLike);
+            tvTotalRate = itemView.findViewById(R.id.tvTotalRate);
+            ratingBar = itemView.findViewById(R.id.ratingBar_Stars);
+            cardView = itemView.findViewById(R.id.cardViewEnterprise);
+        }
+    }
+
     // "Loading item" ViewHolder
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         ProgressBar progressBar;
@@ -111,23 +135,6 @@ public class ListOfServiceAdapter extends RecyclerView.Adapter<RecyclerView.View
         LoadingViewHolder(View view) {
             super(view);
             progressBar = view.findViewById(R.id.progressBar);
-        }
-    }
-
-    //"Normal item" Viewholder
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtName;
-        ImageView imgImage;
-        CardView cardView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-
-            txtName = itemView.findViewById(R.id.textview_ServiceName);
-            imgImage = itemView.findViewById(R.id.image_ServicePhoto);
-            cardView = itemView.findViewById(R.id.cardView_List);
-
         }
     }
 }

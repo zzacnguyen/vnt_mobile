@@ -16,7 +16,7 @@ import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
-import com.example.zzacn.vnt_mobile.Model.ModelFavorite;
+import com.example.zzacn.vnt_mobile.Model.ModelTripSchedule;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.Object.TripSchedule;
 import com.example.zzacn.vnt_mobile.R;
@@ -55,7 +55,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(ActivityTripScheduleInfo.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        getServiceList(String.valueOf(schedules.getTripID()));
+        getScheduleList(String.valueOf(schedules.getTripID()));
         tvTripName.setText(schedules.getTripName());
         tvStartDate.setText(schedules.getTripStartDate());
         tvEndDate.setText(schedules.getTripEndDate());
@@ -65,12 +65,12 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityTripScheduleInfo.this, ActivityAddServiceToTripSchedule.class);
                 intent.putExtra("id", schedules.getTripID());
-                startActivityForResult(intent,11);
+                startActivityForResult(intent, 11);
             }
         });
     }
 
-    private void getServiceList(String id) {
+    private void getScheduleList(String id) {
         String url = Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE_INFO + id;
         // dùng chung hàm get danh sách yêu thích vì giống nhau chỉ khác file
         try {
@@ -79,11 +79,11 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayList<Service> favoriteList = new ModelFavorite().getFavoriteList(finalArr.get(0));
-        final ArrayList<Service> finalListService = favoriteList;
+        ArrayList<Service> scheduleList = new ModelTripSchedule().getServiceInSchedule(finalArr.get(0));
+        final ArrayList<Service> finalListService = scheduleList;
 
         final ListOfServiceAdapter listOfServiceAdapter =
-                new ListOfServiceAdapter(recyclerView, favoriteList, getApplicationContext());
+                new ListOfServiceAdapter(recyclerView, scheduleList, getApplicationContext());
         recyclerView.setAdapter(listOfServiceAdapter);
         listOfServiceAdapter.notifyDataSetChanged();
 
@@ -112,8 +112,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            ArrayList<Service> serviceArrayList = new ModelFavorite().
-                                    getFavoriteList(finalArr.get(0));
+                            ArrayList<Service> serviceArrayList = new ModelTripSchedule().getServiceInSchedule(finalArr.get(0));
                             finalListService.addAll(serviceArrayList);
 
 
@@ -128,7 +127,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 11){
+        if (resultCode == Activity.RESULT_OK && requestCode == 11) {
             startActivity(getIntent());
         }
         super.onActivityResult(requestCode, resultCode, data);

@@ -11,14 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.zzacn.vnt_mobile.Adapter.EnterpriseServiceAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.ScheduleAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
+import com.example.zzacn.vnt_mobile.Model.ModelTripSchedule;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Personal.ActivityAddPlace;
 import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityAddTripSchedule;
@@ -32,11 +33,10 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userTy
 
 public class FragmentHome extends Fragment {
 
-    Button btnPlace, btnEat, btnHoTel, btnEntertain, btnVehicle;
     ImageView btnSearch;
     RecyclerView recyclerView;
-    View view, viewLine;
-    LinearLayout linearEnterpriseService;
+    View view, viewLineYourService, viewLineYourSchedule;
+    LinearLayout linearEnterpriseService, linearSchedule;
     FloatingActionButton fabAdd;
 
     @Nullable
@@ -89,35 +89,40 @@ public class FragmentHome extends Fragment {
                     new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
             recyclerView.setAdapter(enterpriseServiceAdapter);
             enterpriseServiceAdapter.notifyDataSetChanged();
+        } else if (url.equals(Config.URL_GET_TRIP_SCHEDULE + userId)) {
+            ScheduleAdapter scheduleAdapter = new ScheduleAdapter(
+                    new ModelTripSchedule().getScheduleInMain(Config.URL_HOST + url), getContext());
+            recyclerView.setAdapter(scheduleAdapter);
+            scheduleAdapter.notifyDataSetChanged();
         } else {
             ServiceAdapter serviceAdapter = new ServiceAdapter(
                     new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
             recyclerView.setAdapter(serviceAdapter);
             serviceAdapter.notifyDataSetChanged();
         }
-
     }
 
     void load(View view) {
-        btnPlace = view.findViewById(R.id.button_AllPlace);
-        btnEat = view.findViewById(R.id.button_AllEat);
-        btnHoTel = view.findViewById(R.id.button_AllHotel);
-        btnEntertain = view.findViewById(R.id.button_AllEntertain);
-        btnVehicle = view.findViewById(R.id.button_AllVehicle);
-        viewLine = view.findViewById(R.id.viewLine);
+        viewLineYourService = view.findViewById(R.id.viewLineYourService);
+        viewLineYourSchedule = view.findViewById(R.id.viewLineYourSchedule);
         linearEnterpriseService = view.findViewById(R.id.linearEnterpriseService);
+        linearSchedule = view.findViewById(R.id.linearSchedule);
 
         // region load service
-        // load enterprise's service nếu người dùng là doanh nghiệp
+        // load enterprise's service nếu người dùng là doanh nghiệp + hiện nút thêm địa điểm
         if (userType != null && userType.equals("2")) {
             linearEnterpriseService.setVisibility(View.VISIBLE);
-            viewLine.setVisibility(View.VISIBLE);
+            viewLineYourService.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
             loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
             fabAdd.setVisibility(View.VISIBLE);
         }
-        // hiện nút thêm nếu là người dùng ctv hoăc hdv
-        if (userType != null && (userType.equals("4") || userType.equals("3"))) {
+        // load lịch trình nếu là người dùng hdv + hiện nút thêm lịch trình
+        if (userType != null && (userType.equals("3"))) {
+            linearSchedule.setVisibility(View.VISIBLE);
+            viewLineYourSchedule.setVisibility(View.VISIBLE);
+            recyclerView = view.findViewById(R.id.RecyclerView_Schedule);
+            loadService(Config.URL_GET_TRIP_SCHEDULE + userId, new ArrayList<String>());
             fabAdd.setVisibility(View.VISIBLE);
         }
 

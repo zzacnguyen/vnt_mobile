@@ -215,6 +215,12 @@ public class MainActivity extends AppCompatActivity {
                 childFragment.setArguments(bundle);
                 break;
 
+            case R.id.btnAllSchedule: //Danh sách lịch trình
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_TRIP_SCHEDULE + userId);
+                bundle.putInt("type", 6);
+                childFragment.setArguments(bundle);
+                break;
+
             case R.id.buttonLogin:
                 childFragment = new FragmentLogin();
                 break;

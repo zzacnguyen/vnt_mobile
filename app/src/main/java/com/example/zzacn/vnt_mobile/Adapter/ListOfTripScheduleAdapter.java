@@ -85,10 +85,10 @@ public class ListOfTripScheduleAdapter extends RecyclerView.Adapter<RecyclerView
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {  //Bắt sự kiện click vào 1 item cardview
                 @Override
                 public void onClick(View view) {
-                    Intent iServiceInfo = new Intent(context, ActivityTripScheduleInfo.class);
-                    iServiceInfo.putExtra("schedules", tripSchedule);
-                    iServiceInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(iServiceInfo);
+                    Intent iScheduleInfo = new Intent(context, ActivityTripScheduleInfo.class);
+                    iScheduleInfo.putExtra("schedules", tripSchedule);
+                    iScheduleInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(iScheduleInfo);
                 }
             });
 
