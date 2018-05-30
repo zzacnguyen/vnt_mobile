@@ -202,4 +202,5 @@
     <string name="text_AddProfileFailed">Thêm thông tin thất bại</string>
     <string name="text_ChangeAvatarFailed">Thay đổi hình đại diện thất bại</string>
     <string name="text_UpgradePrivilegeFailed">Nâng cấp quyền thất bại</string>
+    <string name="Toast_UsernameOrPasswordIsEmpty">Tài khoản hoặc mật khẩu bỏ trống, vui lòng nhập lại</string>
 </resources>

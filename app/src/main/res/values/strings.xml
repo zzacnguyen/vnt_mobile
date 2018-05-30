@@ -220,4 +220,5 @@
     <string name="text_AddProfileFailed">Add profile failed</string>
     <string name="text_UpgradePrivilegeFailed">Upgrade privilege failed</string>
     <string name="text_ChangeAvatarFailed">Change avatar failed</string>
+    <string name="Toast_UsernameOrPasswordIsEmpty">Username or password is empty. Please try again</string>
 </resources>
