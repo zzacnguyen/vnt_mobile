@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -26,6 +27,7 @@ import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.BuildConfig;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.MainActivity;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -49,6 +51,7 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
     private static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+    Bitmap bmBanner, bmInfo1, bmInfo2;
     //REQUEST Code
     final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
@@ -188,18 +191,22 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     // endregion
 
                     // region post image
+                    bmBanner = ((BitmapDrawable) imgBanner.getDrawable()).getBitmap();
+                    bmInfo1 = ((BitmapDrawable) imgInfo1.getDrawable()).getBitmap();
+                    bmInfo2 = ((BitmapDrawable) imgInfo2.getDrawable()).getBitmap();
+
                     idService = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : ""; // lấy id dịch vụ trả về có dạng "id_service:..." bỏ dấu " và cắt chuỗi theo dấu : lấy số id phía sau
                     if (!idService.equals("")) { // nếu post thành công có id dịch vụ trả về
                         ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                        bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        bmBanner.compress(Bitmap.CompressFormat.JPEG, 80, ban);
                         ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
 
                         ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                        bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
+                        bmInfo1.compress(Bitmap.CompressFormat.JPEG, 80, de1);
                         ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
 
                         ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                        bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
+                        bmInfo2.compress(Bitmap.CompressFormat.JPEG, 80, de2);
                         ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
                         reqEntity.addPart("banner", contentBanner);
@@ -223,6 +230,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     } else {
                         Toast.makeText(ActivityAddService.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
                     } // endregion
+
+                    startActivity(new Intent(ActivityAddService.this, MainActivity.class));
                 }
             }
         });
@@ -247,7 +256,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgBanner.setImageBitmap(bitmap);
-                        bitmapArrayList.add(bitmap);
+//                        bitmapArrayList.add(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -261,7 +270,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgInfo1.setImageBitmap(bitmap);
-                        bitmapArrayList.add(bitmap);
+//                        bitmapArrayList.add(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -276,7 +285,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgInfo2.setImageBitmap(bitmap);
-                        bitmapArrayList.add(bitmap);
+//                        bitmapArrayList.add(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
