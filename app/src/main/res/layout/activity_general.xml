@@ -178,7 +178,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="@string/text_AboutCanThoTour"
+                    android:text="@string/text_AboutVietnamTour"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textSize="14sp"

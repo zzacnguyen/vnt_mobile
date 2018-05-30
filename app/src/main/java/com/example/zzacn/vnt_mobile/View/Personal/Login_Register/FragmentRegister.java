@@ -1,12 +1,16 @@
 package com.example.zzacn.vnt_mobile.View.Personal.Login_Register;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -17,22 +21,22 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class ActivityRegister extends AppCompatActivity {
+public class FragmentRegister extends Fragment {
 
     EditText etUserName, etPassword, etConfirmPassword, etCountry, etLanguage;
     Button btnReg;
     ImageView btnBack;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        etUserName = findViewById(R.id.editText_UserName);
-        etPassword = findViewById(R.id.editText_Password);
-        etConfirmPassword = findViewById(R.id.editText_PasswordConfirm);
-        btnReg = findViewById(R.id.button_Register);
-        btnBack = findViewById(R.id.button_Back);
+        etUserName = view.findViewById(R.id.editText_UserName);
+        etPassword = view.findViewById(R.id.editText_Password);
+        etConfirmPassword = view.findViewById(R.id.editText_PasswordConfirm);
+        btnReg = view.findViewById(R.id.button_Register);
+        btnBack = view.findViewById(R.id.button_Back);
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +73,8 @@ public class ActivityRegister extends AppCompatActivity {
                 }
                 // nếu status != null và = OK
                 if (stt != null && stt.equals(Config.GET_KEY_JSON_LOGIN.get(4))) {
-                    finishActivity(2);
-                    finish();
+                    Toast.makeText(getContext(), getResources().getString(R.string.text_RegisterSuccess), Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().popBackStack();
                 } else {
                     // nếu lỗi != null và = 3 => tài khoản trùng
                     if (error != null && error.equals("3")) {
@@ -83,17 +87,10 @@ public class ActivityRegister extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
-    }
 
-    @Override
-    public void finish() {
-        Intent data = new Intent();
-        // trả thông báo về cho form đăng nhập
-        data.putExtra("mess", getResources().getString(R.string.text_RegisterSuccess));
-        setResult(RESULT_OK, data);
-        super.finish();
+        return view;
     }
 }

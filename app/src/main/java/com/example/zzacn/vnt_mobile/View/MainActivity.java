@@ -30,6 +30,7 @@ import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentProfile;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
+import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentRegister;
 
 import java.util.concurrent.ExecutionException;
 
@@ -227,6 +228,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button_EditProfile:
                 childFragment = new FragmentProfile();
+                break;
+
+            case R.id.buttonRegister:
+                childFragment = new FragmentRegister();
                 break;
         }
 
