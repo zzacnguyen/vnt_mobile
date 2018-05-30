@@ -86,7 +86,7 @@ public class Config {
 
     public static final ArrayList<String> GET_KEY_JSON_CONTACT_INFO =
             new ArrayList<>(Arrays.asList("contact_name", "contact_phone", "contact_website",
-                    "contact_email_address", "contact_language", "contact_country", "contact_avatar"));
+                    "contact_email_address", "contact_language", "contact_country"));
 
     public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,13 +37,14 @@ import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 
-public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener{
+public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener {
 
     ImageView btnBack;
     int privilege;
@@ -51,10 +53,9 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
     EditText etFullName, etPhoneNumber, etWebsite, etEmail, etLanguage, etCountry;
     Spinner spnrUserType;
     CircleImageView Cavatar;
-    private int REQUEST_CODE = 1;
     Bitmap bitmapAvatar;
     Boolean isChangeAvatar = false;
-
+    private int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +77,9 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         etCountry = findViewById(R.id.editText_Country);
 
         tvUserName.setText(userName);
-        Cavatar.setImageBitmap(avatar);
+        if (avatar != null) {
+            Cavatar.setImageBitmap(avatar);
+        }
         switch (userType) {
             case "1": // cá nhân
                 tvUserType.setText(getResources().getString(R.string.text_Personal));
@@ -97,6 +100,9 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                 tvUserType.setText(getResources().getString(R.string.text_Admin));
                 break;
         }
+
+        // load thông tin người dùng lên nếu có
+        loadProfile();
 
         // load các loại người dùng có thể nâng cấp vào spinner
         final ArrayList<String> arrayNumberPrivileges = new ArrayList<>(), arrayNamePrivileges = new ArrayList<>();
@@ -155,9 +161,34 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         btnUpgrade.setOnClickListener(this);
     }
 
+    void loadProfile() {
+        etFullName.setInputType(InputType.TYPE_NULL);
+        etPhoneNumber.setInputType(InputType.TYPE_NULL);
+        etEmail.setInputType(InputType.TYPE_NULL);
+        etWebsite.setInputType(InputType.TYPE_NULL);
+        etCountry.setInputType(InputType.TYPE_NULL);
+        etLanguage.setInputType(InputType.TYPE_NULL);
+        ArrayList<String> arrayContact;
+        try {
+            String rs = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_CONTACT_INFO + userId).get();
+            arrayContact = parseJsonNoId(new JSONObject(rs), Config.GET_KEY_JSON_CONTACT_INFO);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+            arrayContact = null;
+        }
+        if (arrayContact != null) {
+            etFullName.setText(arrayContact.get(0));
+            etPhoneNumber.setText(arrayContact.get(1));
+            etWebsite.setText(arrayContact.get(2));
+            etEmail.setText(arrayContact.get(3));
+            etLanguage.setText(arrayContact.get(4));
+            etCountry.setText(arrayContact.get(5));
+        }
+    }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.button_Back:
                 finish();
                 break;
@@ -166,8 +197,9 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                 break;
             case R.id.button_Upgrade:
                 try {
-                    boolean isPostContactSuccess = false, isPostPrivilegeSuccess = false;
+                    boolean isPostContactSuccess = false, isPostPrivilegeSuccess = false, isPostImage = false;
 
+                    // region post thông tin người dùng
                     JSONObject jsonContactInfo = new JSONObject("{"
                             + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
                             + Config.POST_KEY_JSON_CONTACT_INFO.get(1) + ":\"" + etPhoneNumber.getText() + "\","
@@ -179,37 +211,54 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                             .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
                     if (sttPostContact.equals("1"))
                         isPostContactSuccess = true;
+                    // endregion
 
+                    // region post nâng quyền
                     JSONObject jsonPrivilege = new JSONObject("{\"quyen\":\"" + privilege + "\"}");
                     String sttPostPrivilege = new HttpRequestAdapter.httpPost(jsonPrivilege)
                             .execute(Config.URL_HOST + Config.URL_POST_UPGRADE_MEMBER + userId).get();
                     if (sttPostPrivilege.equals("1"))
                         isPostPrivilegeSuccess = true;
+                    // endregion
 
-                    if (isPostContactSuccess && isPostPrivilegeSuccess) {
+                    // region post avatar
+                    if (isChangeAvatar) {
+                        MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                        ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                        avatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+                        reqEntity.addPart("avatar", contentAvatar);
+                        try {
+                            // post hình lên
+                            String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
+                                    + Config.URL_POST_IMAGE + userId).get();
+                            // nếu post thành công trả về "status:200"
+                            if (response.equals("\"status:200\"")) {
+                                isPostImage = true;
+                            }
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    // endregion
+
+                    if (isPostContactSuccess && isPostPrivilegeSuccess && isPostImage) {
                         finish();
                     } else {
-                        Toast.makeText(ActivityUpgradeMember.this,
-                                getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
+                        if (!isPostContactSuccess) {
+                            Toast.makeText(ActivityUpgradeMember.this,
+                                    getResources().getString(R.string.text_AddProfileFailed), Toast.LENGTH_SHORT).show();
+                        } else if (!isPostPrivilegeSuccess) {
+                            Toast.makeText(ActivityUpgradeMember.this,
+                                    getResources().getString(R.string.text_UpgradePrivilegeFailed), Toast.LENGTH_SHORT).show();
+                        } else if (!isPostImage) {
+                            Toast.makeText(ActivityUpgradeMember.this,
+                                    getResources().getString(R.string.text_ChangeAvatarFailed), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 } catch (JSONException | ExecutionException | InterruptedException e) {
                     e.printStackTrace();
-                }
-
-                if (isChangeAvatar){
-                    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-                    ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                    avatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
-                    ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
-                    reqEntity.addPart("banner", contentAvatar);
-                    try {
-                        // post hình lên
-                        String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
-                                + Config.URL_POST_IMAGE + userId).get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }
                 }
                 break;
         }

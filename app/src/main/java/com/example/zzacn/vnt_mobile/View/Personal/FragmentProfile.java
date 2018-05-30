@@ -38,7 +38,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
-import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
@@ -52,7 +51,6 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
     TextView btnChangeAvatar, btnCancel, btnDone, toolbar;
     Button btnEditProfile;
     LinearLayout linearButtonEdit;
-    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     private int REQUEST_CODE = 1;
 
     @Nullable
@@ -122,8 +120,6 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
             etEmail.setText(arrayContact.get(3));
             etLanguage.setText(arrayContact.get(4));
             etCountry.setText(arrayContact.get(5));
-            if (!arrayContact.get(6).equals(Config.NULL))
-                imgAvatar.setImageBitmap(setImage("", "", ""));
         }
     }
 
@@ -166,6 +162,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
 
                 // region post avatar
                 if (isChangeAvatar) {
+                    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                     ByteArrayOutputStream de2 = new ByteArrayOutputStream();
                     bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, de2);
                     ContentBody contentAvatar = new ByteArrayBody(de2.toByteArray(), "c.jpg");
@@ -192,7 +189,13 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                             Toast.LENGTH_SHORT).show();
                     getActivity().getSupportFragmentManager().popBackStack();
                 } else {
-                    Toast.makeText(getContext(), getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+                    if (!isPostText) {
+                        Toast.makeText(getContext(),
+                                getResources().getString(R.string.text_AddProfileFailed), Toast.LENGTH_SHORT).show();
+                    } else if (!isPostImage) {
+                        Toast.makeText(getContext(),
+                                getResources().getString(R.string.text_ChangeAvatarFailed), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 break;

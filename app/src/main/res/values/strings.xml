@@ -217,4 +217,7 @@
     <string name="text_HighestPriceMustBeANumber">Highest price must be a number</string>
     <string name="Toast_TheInformationIsNotEnpty">The information is not empty</string>
     <string name="text_YourTrip">Your trip schedule</string>
+    <string name="text_AddProfileFailed">Add profile failed</string>
+    <string name="text_UpgradePrivilegeFailed">Upgrade privilege failed</string>
+    <string name="text_ChangeAvatarFailed">Change avatar failed</string>
 </resources>
