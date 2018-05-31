@@ -34,7 +34,7 @@ public class FragmentPersonal extends Fragment {
     Button btnUpgradeMember, btnGeneral, btnLogin, btnLogout;
     TextView txtUserName, txtUserType;
     CircleImageView Cavatar;
-    LinearLayout linearUpgradeMember, Logout, Login, editProfile;
+    LinearLayout linearUpgradeMember, Logout, Login, editProfile, Register;
     SessionManager sessionManager;
 
     @Nullable
@@ -53,6 +53,7 @@ public class FragmentPersonal extends Fragment {
         linearUpgradeMember = view.findViewById(R.id.RegEnterprise);
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
+        Register = view.findViewById(R.id.Register);
         editProfile = view.findViewById(R.id.EditProfile);
 
         if (userId == 0) {
@@ -84,6 +85,7 @@ public class FragmentPersonal extends Fragment {
 
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);
+            Register.setVisibility(View.GONE);
         }
 
         btnUpgradeMember.setOnClickListener(new View.OnClickListener() {

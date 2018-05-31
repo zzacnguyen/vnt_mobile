@@ -160,6 +160,34 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/Register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_grey_border_bottom"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:onClick="addFragment"
+                    android:id="@+id/buttonRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_signup_24dp"
+                    android:text="@string/text_SignUp"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_right_24dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/RegEnterprise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

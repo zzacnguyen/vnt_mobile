@@ -62,6 +62,8 @@ public class ActivityLogin extends AppCompatActivity {
                     etUserId.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
                 } else if (etPassword.getText().toString().equals("")) {
                     etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
+                }else if(etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")){
+                    Toast.makeText(ActivityLogin.this, getResources().getString(R.string.Toast_UsernameOrPasswordIsEmpty), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_LOGIN_REGISTER.get(0) + ":\""

@@ -165,22 +165,29 @@ public class ActivityAddEvent extends AppCompatActivity implements View.OnClickL
                 start = sdf.format(eventStart);
                 end = sdf.format(eventEnd);
 
-                try {
-                    JSONObject jsonPost = new JSONObject("{"
-                            // event name
-                            + Config.POST_KEY_JSON_EVENT.get(0) + ":\"" + etEventName.getText().toString() + "\","
-                            // event start
-                            + Config.POST_KEY_JSON_EVENT.get(1) + ":\"" + start + "\","
-                            // event end
-                            + Config.POST_KEY_JSON_EVENT.get(2) + ":\"" + end + "\","
-                            //  type id
-                            + Config.POST_KEY_JSON_EVENT.get(3) + ":\"" + eventTypeId + "\","
-                            // service id
-                            + Config.POST_KEY_JSON_EVENT.get(4) + ":\"" + serviceId + "\"}");
-                    stt = new HttpRequestAdapter.httpPost(jsonPost)
-                            .execute(Config.URL_HOST + Config.URL_POST_EVENT).get();
+                if(etEventName.getText().toString().equals("") || etEventStart.getText().toString().equals("") || 
+                        etEventEnd.getText().toString().equals("")){
+                    Toast.makeText(ActivityAddEvent.this, getResources().getString(R.string.Toast_TheInformationIsNotEnpty), Toast.LENGTH_SHORT).show();
+                }else if (eventEnd.before(eventStart)){
+                    Toast.makeText(ActivityAddEvent.this, getResources().getString(R.string.text_CheckDate), Toast.LENGTH_SHORT).show();
+                }else{
+                    try {
+                        JSONObject jsonPost = new JSONObject("{"
+                                // event name
+                                + Config.POST_KEY_JSON_EVENT.get(0) + ":\"" + etEventName.getText().toString() + "\","
+                                // event start
+                                + Config.POST_KEY_JSON_EVENT.get(1) + ":\"" + start + "\","
+                                // event end
+                                + Config.POST_KEY_JSON_EVENT.get(2) + ":\"" + end + "\","
+                                //  type id
+                                + Config.POST_KEY_JSON_EVENT.get(3) + ":\"" + eventTypeId + "\","
+                                // service id
+                                + Config.POST_KEY_JSON_EVENT.get(4) + ":\"" + serviceId + "\"}");
+                        stt = new HttpRequestAdapter.httpPost(jsonPost)
+                                .execute(Config.URL_HOST + Config.URL_POST_EVENT).get();
                     } catch (JSONException | InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                        e.printStackTrace();
+                    }
                 }
 
                 //Nếu status != null và = OK
