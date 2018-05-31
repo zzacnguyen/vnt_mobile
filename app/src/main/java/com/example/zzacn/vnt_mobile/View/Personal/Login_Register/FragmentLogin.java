@@ -89,14 +89,13 @@ public class FragmentLogin extends Fragment {
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);
-                            userType = arrayUser.get(3);
                             if (!arrayUser.get(2).equals(Config.NULL)) {
                                 avatar = setImage("", Config.FOLDER_AVATAR, arrayUser.get(2));
                             } else {
                                 avatar = null;
                             }
 
-                            sessionManager.createLoginSession(userId + "", userName, userType, avatar);
+                            sessionManager.createLoginSession(userId + "", userName, arrayUser.get(3), avatar);
 
                             FragmentPersonal fragmentPersonal = new FragmentPersonal();
                             FragmentManager fragmentManager = getFragmentManager();

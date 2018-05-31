@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -26,7 +28,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class FragmentPersonal extends Fragment {
 
     public static int userId;
-    public static String userName, userType;
+    public static String userName;
+    public static ArrayList<String> userType = new ArrayList<>();
     public static Bitmap avatar;
     Button btnUpgradeMember, btnGeneral, btnLogin, btnLogout;
     TextView txtUserName, txtUserType;
@@ -62,32 +65,22 @@ public class FragmentPersonal extends Fragment {
                 Cavatar.setImageBitmap(avatar);
             }
             txtUserName.setText(userName);
-            switch (userType) {
-                case "1": // cá nhân
-                    txtUserType.setText(getResources().getString(R.string.text_Personal));
-                    linearUpgradeMember.setVisibility(View.VISIBLE);
+            StringBuilder stringUserType = new StringBuilder();
+            for (int i = 0; i < userType.size(); i++) {
+                if (userType.get(i).equals("2")) {
+                    stringUserType.append(getResources().getString(R.string.text_Enterprise));
+                } else if (userType.get(i).equals("3")) {
+                    stringUserType.append(getResources().getString(R.string.text_TourGuide));
+                } else {
+                    stringUserType = new StringBuilder(getResources().getString(R.string.text_Personal));
                     break;
-                case "2": // doanh nghiệp
-                    txtUserType.setText(getResources().getString(R.string.text_Enterprise));
-                    linearUpgradeMember.setVisibility(View.VISIBLE);
-                    break;
-                case "3": // hướng dẫn viên
-                    txtUserType.setText(getResources().getString(R.string.text_TourGuide));
-                    linearUpgradeMember.setVisibility(View.VISIBLE);
-                    break;
-                case "4": // cộng tác viên
-                    txtUserType.setText(getResources().getString(R.string.text_Partner));
-                    linearUpgradeMember.setVisibility(View.VISIBLE);
-                    break;
-                case "5": // mod
-                    txtUserType.setText(getResources().getString(R.string.text_Moderator));
-                    linearUpgradeMember.setVisibility(View.GONE);
-                    break;
-                case "6": // admin
-                    txtUserType.setText(getResources().getString(R.string.text_Admin));
-                    linearUpgradeMember.setVisibility(View.GONE);
-                    break;
+                }
+                if (i < userType.size() - 1) {
+                    stringUserType.append(", ");
+                }
             }
+            txtUserType.setText(stringUserType.toString());
+            linearUpgradeMember.setVisibility(View.VISIBLE);
 
             Logout.setVisibility(View.VISIBLE);
             Login.setVisibility(View.GONE);

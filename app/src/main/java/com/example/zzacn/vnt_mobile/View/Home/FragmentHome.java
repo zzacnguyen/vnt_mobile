@@ -58,13 +58,15 @@ public class FragmentHome extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // nếu người dùng là doanh nghiệp hoặc ctv thì mở activity thêm địa điểm
-                if (userType.equals("2") || userType.equals("4")) {
+                // nếu người dùng là doanh nghiệp thì mở activity thêm địa điểm
+                if (userType.contains("2")) {
                     startActivity(new Intent(getContext(), ActivityAddPlace.class));
                 }
                 // nếu người dùng là hdv thì mở activity thêm lịch trình
-                else {
+                else if (userType.contains("3")) {
                     startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
+                } else {
+                    // cả 2 người dùng thì mở thêm 2 fab
                 }
             }
         });
@@ -110,19 +112,39 @@ public class FragmentHome extends Fragment {
 
         // region load service
         // load enterprise's service nếu người dùng là doanh nghiệp + hiện nút thêm địa điểm
-        if (userType != null && userType.equals("2")) {
+        if (userType != null && userType.contains("2")) {
             linearEnterpriseService.setVisibility(View.VISIBLE);
             viewLineYourService.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
             loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
             fabAdd.setVisibility(View.VISIBLE);
         }
+
         // load lịch trình nếu là người dùng hdv + hiện nút thêm lịch trình
-        if (userType != null && (userType.equals("3"))) {
+        if (userType != null && userType.contains("3")) {
             linearSchedule.setVisibility(View.VISIBLE);
             viewLineYourSchedule.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_Schedule);
             loadService(Config.URL_GET_TRIP_SCHEDULE + userId, new ArrayList<String>());
+            fabAdd.setVisibility(View.VISIBLE);
+        }
+
+        // load lịch trình và địa điểm dịch vụ nếu là người dùng hdv và doanh nghiệp
+        // hiện thêm 2 nút thêm lịch trình và thêm địa điểm
+        if (userType != null && userType.contains("2") && userType.contains("3")) {
+            // load lịch trình
+            linearEnterpriseService.setVisibility(View.VISIBLE);
+            viewLineYourService.setVisibility(View.VISIBLE);
+            recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
+            loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
+
+            // load địa điểm của doanh nghiệp
+            linearSchedule.setVisibility(View.VISIBLE);
+            viewLineYourSchedule.setVisibility(View.VISIBLE);
+            recyclerView = view.findViewById(R.id.RecyclerView_Schedule);
+            loadService(Config.URL_GET_TRIP_SCHEDULE + userId, new ArrayList<String>());
+
+            // hiện fab
             fabAdd.setVisibility(View.VISIBLE);
         }
 

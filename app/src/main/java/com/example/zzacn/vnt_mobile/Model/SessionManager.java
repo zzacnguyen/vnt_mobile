@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
@@ -16,10 +17,6 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
-
-/**
- * Created by sieut on 4/14/2018.
- */
 
 public class SessionManager {
     // Id (make variable public to access from outside)
@@ -87,7 +84,13 @@ public class SessionManager {
             HashMap<String, String> user = getUserDetails();
             userId = Integer.parseInt(user.get(KEY_ID));
             userName = user.get(KEY_NAME);
-            userType = user.get(KEY_TYPE);
+            String rs = user.get(KEY_TYPE);
+            rs = rs.substring(1, rs.length() - 1);
+            if (rs.length() == 1) {
+                userType.add(rs);
+            } else {
+                userType.addAll(Arrays.asList(rs.split(",")));
+            }
             if (user.get(KEY_AVATAR) != null) {
                 byte[] imageAsBytes = Base64.decode(user.get(KEY_AVATAR).getBytes(), Base64.DEFAULT);
                 avatar = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
@@ -95,7 +98,6 @@ public class SessionManager {
                 avatar = null;
             }
         }
-
     }
 
     /**

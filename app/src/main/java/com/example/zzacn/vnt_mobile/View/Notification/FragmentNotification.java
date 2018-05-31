@@ -61,7 +61,7 @@ public class FragmentNotification extends Fragment {
 
         fabAddEvent = view.findViewById(R.id.fabAddEvent);
 
-        if (userType != null && (userType.equals("2")||userType.equals("4"))) {
+        if (userType != null && userType.contains("2")) {
             fabAddEvent.setVisibility(View.VISIBLE);
         }
 

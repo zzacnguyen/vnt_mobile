@@ -80,26 +80,21 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         if (avatar != null) {
             Cavatar.setImageBitmap(avatar);
         }
-        switch (userType) {
-            case "1": // cá nhân
-                tvUserType.setText(getResources().getString(R.string.text_Personal));
+        StringBuilder stringUserType = null;
+        for (int i = 0; i < userType.size(); i++) {
+            if (userType.get(i).equals("2")) {
+                stringUserType.append(getResources().getString(R.string.text_Enterprise));
+            } else if (userType.get(i).equals("3")) {
+                stringUserType.append(getResources().getString(R.string.text_TourGuide));
+            } else {
+                stringUserType = new StringBuilder(getResources().getString(R.string.text_Personal));
                 break;
-            case "2": // doanh nghiệp
-                tvUserType.setText(getResources().getString(R.string.text_Enterprise));
-                break;
-            case "3": // hướng dẫn viên
-                tvUserType.setText(getResources().getString(R.string.text_TourGuide));
-                break;
-            case "4": // cộng tác viên
-                tvUserType.setText(getResources().getString(R.string.text_Partner));
-                break;
-            case "5": // mod
-                tvUserType.setText(getResources().getString(R.string.text_Moderator));
-                break;
-            case "6": // admin
-                tvUserType.setText(getResources().getString(R.string.text_Admin));
-                break;
+            }
+            if (i < userType.size() - 1) {
+                stringUserType.append(", ");
+            }
         }
+        tvUserType.setText(stringUserType.toString());
 
         // load thông tin người dùng lên nếu có
         loadProfile();
@@ -256,7 +251,6 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                                     getResources().getString(R.string.text_ChangeAvatarFailed), Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 } catch (JSONException | ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -270,7 +264,6 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Chọn hình..."), requestCode);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
