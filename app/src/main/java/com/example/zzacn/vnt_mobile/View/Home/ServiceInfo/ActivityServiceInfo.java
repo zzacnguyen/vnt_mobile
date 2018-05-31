@@ -126,6 +126,15 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     shareDialog.show(linkContent);
                 }
+                try {
+                    String stt = new HttpRequestAdapter.httpPost(new JSONObject()).execute(Config.URL_HOST
+                            + Config.URL_POST_SHARE.get(0) + idService + Config.URL_POST_SHARE.get(1) + userId).get();
+                    if (stt.equals("\"status:200\"")) {
+                        Toast.makeText(this, getResources().getString(R.string.text_SuccessfulSharing), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case R.id.btnReview:
@@ -199,13 +208,6 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
 
-        //Gọi sự kiện click
-        btnBack.setOnClickListener(this);
-        btnNear.setOnClickListener(this);
-        btnShare.setOnClickListener(this);
-        btnShowReview.setOnClickListener(this);
-        btnLike.setOnClickListener(this);
-        btnReview.setOnClickListener(this);
         txtTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

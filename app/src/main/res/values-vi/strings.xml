@@ -203,4 +203,7 @@
     <string name="text_ChangeAvatarFailed">Thay đổi hình đại diện thất bại</string>
     <string name="text_UpgradePrivilegeFailed">Nâng cấp quyền thất bại</string>
     <string name="Toast_UsernameOrPasswordIsEmpty">Tài khoản hoặc mật khẩu bỏ trống, vui lòng nhập lại</string>
+    <string name="text_FullNameIsNotAllowedToBeEmpty">Họ tên không được để trống</string>
+    <string name="text_InvalidEmailAddress">Email không hợp lệ</string>
+    <string name="text_SuccessfulSharing">Chia sẻ thành công</string>
 </resources>

@@ -32,7 +32,6 @@ import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
-import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -71,7 +70,7 @@ public class FragmentLogin extends Fragment {
                     etUserId.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
                 } else if (etPassword.getText().toString().equals("")) {
                     etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
-                }else if(etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")){
+                } else if (etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")) {
                     Toast.makeText(getContext(), getResources().getString(R.string.Toast_UsernameOrPasswordIsEmpty), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
@@ -96,7 +95,6 @@ public class FragmentLogin extends Fragment {
                             } else {
                                 avatar = null;
                             }
-
                             sessionManager.createLoginSession(userId + "", userName, arrayUser.get(3), avatar);
 
                             FragmentPersonal fragmentPersonal = new FragmentPersonal();

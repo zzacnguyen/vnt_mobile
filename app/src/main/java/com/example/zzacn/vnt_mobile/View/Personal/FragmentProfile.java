@@ -139,24 +139,32 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 boolean isPostText = false, isPostImage = false;
 
                 // region Post Text
-                try {
-                    JSONObject jsonEditProfile = new JSONObject("{"
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(1) + ":\"" + etPhoneNumber.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(2) + ":\"" + etWebsite.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(3) + ":\"" + etEmail.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(4) + ":\"" + etLanguage.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText() + "\"}");
+                if (etFullName.getText().toString().equals("")) {
+                    etFullName.setError(getResources().getString(R.string.text_FullNameIsNotAllowedToBeEmpty));
+                } else if (etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
+                    etPhoneNumber.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
+                } else if (etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                    etEmail.setError(getResources().getString(R.string.text_InvalidEmailAddress));
+                } else {
+                    try {
+                        JSONObject jsonEditProfile = new JSONObject("{"
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(1) + ":\"" + etPhoneNumber.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(2) + ":\"" + etWebsite.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(3) + ":\"" + etEmail.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(4) + ":\"" + etLanguage.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText() + "\"}");
 
-                    String sttPostProfile = new HttpRequestAdapter.httpPost(jsonEditProfile)
-                            .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
+                        String sttPostProfile = new HttpRequestAdapter.httpPost(jsonEditProfile)
+                                .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
 
-                    if (sttPostProfile.equals("1")) {
-                        isPostText = true;
+                        if (sttPostProfile.equals("1")) {
+                            isPostText = true;
+                        }
+
+                    } catch (JSONException | InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
                     }
-
-                } catch (JSONException | InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
                 }
                 // endregion
 

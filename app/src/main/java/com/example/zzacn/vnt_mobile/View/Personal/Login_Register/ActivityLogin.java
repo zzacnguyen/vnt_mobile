@@ -25,7 +25,6 @@ import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
-import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -62,7 +61,7 @@ public class ActivityLogin extends AppCompatActivity {
                     etUserId.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
                 } else if (etPassword.getText().toString().equals("")) {
                     etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
-                }else if(etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")){
+                } else if (etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")) {
                     Toast.makeText(ActivityLogin.this, getResources().getString(R.string.Toast_UsernameOrPasswordIsEmpty), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
@@ -87,7 +86,6 @@ public class ActivityLogin extends AppCompatActivity {
                             } else {
                                 avatar = null;
                             }
-
                             sessionManager.createLoginSession(userId + "", userName, arrayUser.get(3), avatar);
 
                             if (getCallingActivity() != null) {
@@ -108,7 +106,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
-                startActivityForResult(intent,2);
+                startActivityForResult(intent, 2);
             }
         });
 

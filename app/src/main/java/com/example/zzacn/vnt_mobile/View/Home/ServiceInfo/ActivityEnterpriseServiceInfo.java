@@ -43,7 +43,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
             RESULT_INFO2 = 113;
-    String[] imgDetail;
+    boolean isChangeBanner = false, isChangeThumb1 = false, isChangeThumb2 = false;
     Button btnShowReview;
     TextView tvServiceName, tvServiceAbout, toolbarTitle, fbEvent, txtMark, btnCancel, btnDone;
     EditText etAddress, etPhoneNumber, etWebsite, etLowestPrice, etHighestPrice, etTimeOpen, etTimeClose, etHotelStar;
@@ -53,8 +53,8 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
     RatingBar rbStar;
     int idService, serviceType;
     String idLike, idRating, longitude, latitude;
-    MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     private ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+    private Bitmap banner, thumb1, thumb2;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -173,31 +173,34 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                         // endregion
 
                         // region post image
-                        ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                        bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
-                        ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+                        if (isChangeBanner && isChangeThumb1 && isChangeThumb2) {
+                            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                            ByteArrayOutputStream ban = new ByteArrayOutputStream();
+                            bitmapArrayList.get(0).compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                            ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
 
-                        ByteArrayOutputStream de1 = new ByteArrayOutputStream();
-                        bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
-                        ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
+                            ByteArrayOutputStream de1 = new ByteArrayOutputStream();
+                            bitmapArrayList.get(1).compress(Bitmap.CompressFormat.JPEG, 80, de1);
+                            ContentBody contentDetails1 = new ByteArrayBody(de1.toByteArray(), "b.jpg");
 
-                        ByteArrayOutputStream de2 = new ByteArrayOutputStream();
-                        bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
-                        ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
+                            ByteArrayOutputStream de2 = new ByteArrayOutputStream();
+                            bitmapArrayList.get(2).compress(Bitmap.CompressFormat.JPEG, 80, de2);
+                            ContentBody contentDetails2 = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
-                        reqEntity.addPart("banner", contentBanner);
-                        reqEntity.addPart("details1", contentDetails1);
-                        reqEntity.addPart("details2", contentDetails2);
-                        try {
-                            // post hình lên
-                            String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
-                                    + Config.URL_POST_IMAGE + idService).get();
-                            // nếu post thành công trả về "status:200"
-                            if (response.equals("\"status:200\"")) {
-                                isPostImageSuccessfully = true;
+                            reqEntity.addPart("banner", contentBanner);
+                            reqEntity.addPart("details1", contentDetails1);
+                            reqEntity.addPart("details2", contentDetails2);
+                            try {
+                                // post hình lên
+                                String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
+                                        + Config.URL_POST_IMAGE + idService).get();
+                                // nếu post thành công trả về "status:200"
+                                if (response.equals("\"status:200\"")) {
+                                    isPostImageSuccessfully = true;
+                                }
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
                             }
-                        } catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
                         }
                         // endregion
 
@@ -227,6 +230,9 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgBanner.setImageBitmap(bitmap);
+                        if (banner != bitmap) {
+                            isChangeBanner = true;
+                        }
                         bitmapArrayList.add(bitmap); //Add vào arraylist
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -241,6 +247,9 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgThumbInfo1.setImageBitmap(bitmap);
+                        if (thumb1 != bitmap) {
+                            isChangeThumb1 = true;
+                        }
                         bitmapArrayList.add(bitmap); //Add vào arraylist
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -256,6 +265,9 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         imgThumbInfo2.setImageBitmap(bitmap);
+                        if (thumb2 != bitmap) {
+                            isChangeThumb2 = true;
+                        }
                         bitmapArrayList.add(bitmap); //Add vào arraylist
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -379,9 +391,9 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
             // set website
             etWebsite.setText(serviceInfo.getWebsite());
             // set hình
-            imgBanner.setImageBitmap(serviceInfo.getBanner());
-            imgThumbInfo1.setImageBitmap(serviceInfo.getThumbInfo1());
-            imgThumbInfo2.setImageBitmap(serviceInfo.getThumbInfo2());
+            imgBanner.setImageBitmap(banner = serviceInfo.getBanner());
+            imgThumbInfo1.setImageBitmap(thumb1 = serviceInfo.getThumbInfo1());
+            imgThumbInfo2.setImageBitmap(thumb2 = serviceInfo.getThumbInfo2());
             // set số sao
             txtMark.setText(String.format("%.1f", serviceInfo.getReviewMark()));
             // set số ngôi sao

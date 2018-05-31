@@ -66,7 +66,6 @@
         <activity android:name=".View.Personal.Login_Register.ActivityLogin" />
         <activity android:name=".View.Personal.Login_Register.ActivityRegister" />
         <activity android:name=".View.Personal.ActivityGeneral" />
-        <activity android:name=".View.Personal.TripSchedule.ActivityTripSchedule" />
         <activity android:name=".View.Personal.TripSchedule.ActivityAddTripSchedule" />
         <activity android:name=".View.Personal.TripSchedule.ActivityTripScheduleInfo" />
         <activity android:name=".View.Personal.ActivityUpgradeMember" />

@@ -195,17 +195,25 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                     boolean isPostContactSuccess = false, isPostPrivilegeSuccess = false, isPostImage = false;
 
                     // region post thông tin người dùng
-                    JSONObject jsonContactInfo = new JSONObject("{"
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(1) + ":\"" + etPhoneNumber.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(2) + ":\"" + etWebsite.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(3) + ":\"" + etEmail.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(4) + ":\"" + etLanguage.getText() + "\","
-                            + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText() + "\"}");
-                    String sttPostContact = new HttpRequestAdapter.httpPost(jsonContactInfo)
-                            .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
-                    if (sttPostContact.equals("1"))
-                        isPostContactSuccess = true;
+                    if (etFullName.getText().toString().equals("")) {
+                        etFullName.setError(getResources().getString(R.string.text_FullNameIsNotAllowedToBeEmpty));
+                    } else if (etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
+                        etPhoneNumber.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
+                    } else if (etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                        etEmail.setError(getResources().getString(R.string.text_InvalidEmailAddress));
+                    } else {
+                        JSONObject jsonContactInfo = new JSONObject("{"
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(1) + ":\"" + etPhoneNumber.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(2) + ":\"" + etWebsite.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(3) + ":\"" + etEmail.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(4) + ":\"" + etLanguage.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText() + "\"}");
+                        String sttPostContact = new HttpRequestAdapter.httpPost(jsonContactInfo)
+                                .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
+                        if (sttPostContact.equals("1"))
+                            isPostContactSuccess = true;
+                    }
                     // endregion
 
                     // region post nâng quyền

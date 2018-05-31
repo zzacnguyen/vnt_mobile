@@ -15,13 +15,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -29,10 +36,11 @@ public class FragmentPersonal extends Fragment {
 
     public static int userId;
     public static String userName;
+    private static String userPoint;
     public static ArrayList<String> userType = new ArrayList<>();
     public static Bitmap avatar;
     Button btnUpgradeMember, btnGeneral, btnLogin, btnLogout;
-    TextView txtUserName, txtUserType;
+    TextView txtUserName, txtUserType, txtUserPoint;
     CircleImageView Cavatar;
     LinearLayout linearUpgradeMember, Logout, Login, editProfile, Register;
     SessionManager sessionManager;
@@ -49,12 +57,20 @@ public class FragmentPersonal extends Fragment {
         btnLogout = view.findViewById(R.id.buttonLogout);
         txtUserName = view.findViewById(R.id.textView_UserName);
         txtUserType = view.findViewById(R.id.textView_UserType);
+        txtUserPoint = view.findViewById(R.id.txtUserMark);
         Cavatar = view.findViewById(R.id.avatar);
         linearUpgradeMember = view.findViewById(R.id.RegEnterprise);
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
         Register = view.findViewById(R.id.Register);
         editProfile = view.findViewById(R.id.EditProfile);
+
+        try {
+            JSONObject jsonPoint = new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_POINT).get());
+            userPoint = parseJsonNoId(jsonPoint, Config.GET_KEY_JSON_POINT).get(0);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+        }
 
         if (userId == 0) {
             linearUpgradeMember.setVisibility(View.GONE);
@@ -81,6 +97,7 @@ public class FragmentPersonal extends Fragment {
                 }
             }
             txtUserType.setText(stringUserType.toString());
+            txtUserPoint.setText(userPoint);
             linearUpgradeMember.setVisibility(View.VISIBLE);
 
             Logout.setVisibility(View.VISIBLE);
@@ -110,6 +127,7 @@ public class FragmentPersonal extends Fragment {
                 userName = null;
                 userType = null;
                 avatar = null;
+                userPoint = null;
                 sessionManager.logoutUser();
 
                 getActivity().getSupportFragmentManager().popBackStack();

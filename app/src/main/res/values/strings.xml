@@ -221,4 +221,7 @@
     <string name="text_UpgradePrivilegeFailed">Upgrade privilege failed</string>
     <string name="text_ChangeAvatarFailed">Change avatar failed</string>
     <string name="Toast_UsernameOrPasswordIsEmpty">Username or password is empty. Please try again</string>
+    <string name="text_FullNameIsNotAllowedToBeEmpty">Full name is not allowed to be empty</string>
+    <string name="text_InvalidEmailAddress">Invalid email address</string>
+    <string name="text_SuccessfulSharing">Successful sharing</string>
 </resources>

@@ -19,17 +19,11 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userTy
 
 
 public class SessionManager {
-    // Id (make variable public to access from outside)
     private static final String KEY_ID = "id";
-    // User name (make variable public to access from outside)
     private static final String KEY_NAME = "username";
-    // Email type (make variable public to access from outside)
     private static final String KEY_TYPE = "level";
-    // Email avatar (make variable public to access from outside)
     private static final String KEY_AVATAR = "avatar";
-    // Sharedpref file name
     private static final String PREF_NAME = "Session";
-    // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
     // Shared Preferences
     private SharedPreferences pref;

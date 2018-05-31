@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.9/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.53/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -18,16 +18,13 @@ public class Config {
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
     public static final String URL_GET_HISTORY_SEARCH = "usersearch";
-    public static final String URL_POST_REVIEW = "rating-post";
-    public static final String URL_PUT_REVIEW = "rating-put/";
+    public static final String URL_GET_POINT = "point-for-user/";
     public static final String URL_GET_REVIEW = "rating-view";
     public static final String URL_GET_ALL_REVIEWS = "rating-service/";
     public static final String URL_GET_ALL_PLACES = "sightseeing";
     public static final String URL_GET_ALL_HOTELS = "hotels";
     public static final ArrayList<String> URL_GET_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("service/service-id=", "&user-id="));
-    public static final ArrayList<String> URL_PUT_SERVICE_INFO =
-            new ArrayList<>(Arrays.asList("edit-services/services-id=", "&user-id="));
     public static final String URL_GET_ALL_ENTERPRISE_SERVICE = "get-serives-enterprise/";
     public static final String URL_GET_ALL_SERVICE_VENUE = "get-list-serives-venue/";
     public static final String URL_GET_ALL_VEHICLES = "transport";
@@ -45,6 +42,12 @@ public class Config {
     public static final String URL_GET_TRIP_SCHEDULE_INFO = "list-schedule-details/";
     public static final String URL_GET_TRIP_SCHEDULE = "list-schedule/";
     public static final String URL_GET_EVENT_TYPE = "type-event";
+    public static final String URL_POST_REVIEW = "rating-post";
+    public static final ArrayList<String> URL_POST_SHARE =
+            new ArrayList<>(Arrays.asList("share/service=", "&user="));
+    public static final ArrayList<String> URL_PUT_SERVICE_INFO =
+            new ArrayList<>(Arrays.asList("edit-services/services-id=", "&user-id="));
+    public static final String URL_PUT_REVIEW = "rating-put/";
     public static final String URL_POST_TRIP_SCHEDULE = "post-schedule/user=";
     public static final String URL_POST_TRIP_SCHEDULE_DETAILS = "post-schedule-details/schedule=";
     public static final String URL_POST_EVENT = "events";
@@ -61,7 +64,7 @@ public class Config {
     public static final String FOLDER_BANNER = "banner";
     public static final String FOLDER_THUMB1 = "thumb1";
     public static final String FOLDER_THUMB2 = "thumb2";
-    public static final String FOLDER_DETAIL1= "detail1";
+    public static final String FOLDER_DETAIL1 = "detail1";
     public static final String FOLDER_DETAIL2 = "detail2";
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
@@ -130,6 +133,8 @@ public class Config {
             new ArrayList<>(Collections.singletonList("district_name"));
     public static final ArrayList<String> GET_KEY_JSON_WARD =
             new ArrayList<>(Collections.singletonList("ward_name"));
+    public static final ArrayList<String> GET_KEY_JSON_POINT =
+            new ArrayList<>(Collections.singletonList("point_total"));
 
     public static final ArrayList<String> GET_KEY_JSON_ALL_REVIEW =
             new ArrayList<>(Arrays.asList("username", "vr_rating", "vr_title", "vr_ratings_details", "date_rating"));
