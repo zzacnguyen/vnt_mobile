@@ -37,7 +37,8 @@ public class FragmentHome extends Fragment {
     RecyclerView recyclerView;
     View view, viewLineYourService, viewLineYourSchedule;
     LinearLayout linearEnterpriseService, linearSchedule;
-    FloatingActionButton fabAdd;
+    FloatingActionButton fabAdd, fabAddService, fabAddTrip;
+    Boolean showFab = false;
 
     @Nullable
     @Override
@@ -46,6 +47,10 @@ public class FragmentHome extends Fragment {
 
         btnSearch = view.findViewById(R.id.button_Search);
         fabAdd = view.findViewById(R.id.fabAdd);
+        fabAddService = view.findViewById(R.id.fab_AddService);
+        fabAddTrip = view.findViewById(R.id.fab_AddTrip);
+
+        HideFab();
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +72,28 @@ public class FragmentHome extends Fragment {
                     startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
                 } else {
                     // cả 2 người dùng thì mở thêm 2 fab
+                    if(showFab){
+                        ShowFab();
+                        showFab = true;
+                    }else{
+                        HideFab();
+                        showFab = false;
+                    }
                 }
+            }
+        });
+
+        fabAddService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ActivityAddPlace.class));
+            }
+        });
+
+        fabAddService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
             }
         });
 
@@ -174,5 +200,15 @@ public class FragmentHome extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         view = null;
+    }
+
+    private void HideFab(){
+        fabAddService.hide();
+        fabAddTrip.hide();
+    }
+
+    private void ShowFab(){
+        fabAddService.show();
+        fabAddTrip.show();
     }
 }

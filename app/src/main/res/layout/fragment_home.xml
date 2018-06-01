@@ -70,16 +70,38 @@
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_AddService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="125dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_tripschedule_24dp"
+        android:tint="@color/tbPlace"
+        app:backgroundTint="@color/colorWhite" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_AddTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="65dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_place_36dp"
+        android:tint="@color/tbPlace"
+        app:backgroundTint="@color/colorWhite" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_add_36dp"
-        android:tint="#fff"
+        android:tint="@color/tbPlace"
         android:visibility="gone"
-        app:backgroundTint="@color/colorGoogle" />
+        app:backgroundTint="@color/colorWhite" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
