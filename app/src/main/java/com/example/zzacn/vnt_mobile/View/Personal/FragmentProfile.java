@@ -8,7 +8,10 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,17 +43,18 @@ import static android.app.Activity.RESULT_OK;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 public class FragmentProfile extends Fragment implements View.OnClickListener {
 
     public Bitmap bitmapAvatar;
     boolean isChangeAvatar = false;
     EditText etFullName, etPhoneNumber, etWebsite, etEmail,
-            etLanguage, etCountry;
+            etLanguage, etCountry, etObjectiveDetail, etStrengthDetail;
     CircleImageView imgAvatar;
     TextView btnChangeAvatar, btnCancel, btnDone, toolbar;
     Button btnEditProfile;
-    LinearLayout linearButtonEdit;
+    LinearLayout linearButtonEdit, linearObjectiveDetail, linearStrengthDetail;
     private int REQUEST_CODE = 1;
 
     @Nullable
@@ -72,6 +76,15 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         toolbar = view.findViewById(R.id.toolbarTitle);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         linearButtonEdit = view.findViewById(R.id.linearButtonEdit);
+        etObjectiveDetail = view.findViewById(R.id.editText_ObjectiveDetail);
+        etStrengthDetail = view.findViewById(R.id.editText_StrengthDetail);
+        linearObjectiveDetail = view.findViewById(R.id.ObjectiveDetail);
+        linearStrengthDetail = view.findViewById(R.id.StrengthDetail);
+
+        if(userType.size() == 1 && userType.contains("3")){
+            linearStrengthDetail.setVisibility(View.VISIBLE);
+            linearObjectiveDetail.setVisibility(View.VISIBLE);
+        }
 
         loadProfile();
 
@@ -105,6 +118,9 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         etWebsite.setInputType(InputType.TYPE_NULL);
         etCountry.setInputType(InputType.TYPE_NULL);
         etLanguage.setInputType(InputType.TYPE_NULL);
+        etObjectiveDetail.setInputType(InputType.TYPE_NULL);
+        etStrengthDetail.setInputType(InputType.TYPE_NULL);
+
         ArrayList<String> arrayContact;
         try {
             String rs = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_CONTACT_INFO + userId).get();
@@ -192,7 +208,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 if (isPostText && isPostImage) {
                     Toast.makeText(getContext(), getResources().getString(R.string.text_EditSuccessfully),
                             Toast.LENGTH_SHORT).show();
-                    getActivity().getSupportFragmentManager().popBackStack();
+                    reload();
                 } else {
                     if (!isPostText) {
                         Toast.makeText(getContext(),
@@ -230,5 +246,13 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    void reload() {
+        FragmentPersonal fragmentPersonal = new FragmentPersonal();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragmentPersonal);
+        fragmentTransaction.commit();
     }
 }

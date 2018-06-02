@@ -5,14 +5,20 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,44 +42,49 @@ import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static com.example.zzacn.vnt_mobile.Helper.JsonHelper.parseJsonNoId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
-
-public class ActivityUpgradeMember extends AppCompatActivity implements View.OnClickListener {
+public class FragmentUpgradeMember extends Fragment implements View.OnClickListener {
 
     ImageView btnBack;
     int privilege;
     Button btnUpgrade;
     TextView tvUserName, tvUserType, tvChangeAvatar;
-    EditText etFullName, etPhoneNumber, etWebsite, etEmail, etLanguage, etCountry;
+    EditText etFullName, etPhoneNumber, etWebsite, etEmail, etLanguage, etCountry,
+            etObjectiveDetail, etStrengthDetail; // Mới thêm
+    LinearLayout lnTourGuide;
     Spinner spnrUserType;
     CircleImageView Cavatar;
     Bitmap bitmapAvatar;
     Boolean isChangeAvatar = false;
     private int REQUEST_CODE = 1;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_upgrademember);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_upgrademember, container, false);
 
-        btnBack = findViewById(R.id.button_Back);
-        Cavatar = findViewById(R.id.avatar);
-        tvUserName = findViewById(R.id.textView_UserName);
-        tvUserType = findViewById(R.id.textView_UserType);
-        tvChangeAvatar = findViewById(R.id.textView_UpdateAvatar);
-        btnUpgrade = findViewById(R.id.button_Upgrade);
-        spnrUserType = findViewById(R.id.spinner_UserType);
-        etFullName = findViewById(R.id.editText_FullName);
-        etPhoneNumber = findViewById(R.id.editText_PhoneNumber);
-        etWebsite = findViewById(R.id.editText_Website);
-        etEmail = findViewById(R.id.editText_Email);
-        etLanguage = findViewById(R.id.editText_Language);
-        etCountry = findViewById(R.id.editText_Country);
+        btnBack = view.findViewById(R.id.button_Back);
+        Cavatar = view.findViewById(R.id.avatar);
+        tvUserName = view.findViewById(R.id.textView_UserName);
+        tvUserType = view.findViewById(R.id.textView_UserType);
+        tvChangeAvatar = view.findViewById(R.id.textView_UpdateAvatar);
+        btnUpgrade = view.findViewById(R.id.button_Upgrade);
+        spnrUserType = view.findViewById(R.id.spinner_UserType);
+        etFullName = view.findViewById(R.id.editText_FullName);
+        etPhoneNumber = view.findViewById(R.id.editText_PhoneNumber);
+        etWebsite = view.findViewById(R.id.editText_Website);
+        etEmail = view.findViewById(R.id.editText_Email);
+        etLanguage = view.findViewById(R.id.editText_Language);
+        etCountry = view.findViewById(R.id.editText_Country);
+        etObjectiveDetail = view.findViewById(R.id.editText_ObjectiveDetail);
+        etStrengthDetail = view.findViewById(R.id.editText_StrengthDetail);
+        lnTourGuide = view.findViewById(R.id.TourGuide);
 
         tvUserName.setText(userName);
         if (avatar != null) {
@@ -129,7 +140,7 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         ArrayAdapter<String> arrayAdapterPrivileges =
-                new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrayNamePrivileges);
+                new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, arrayNamePrivileges);
 
         arrayAdapterPrivileges.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnrUserType.setAdapter(arrayAdapterPrivileges);
@@ -139,6 +150,12 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 privilege = Integer.parseInt(arrayNumberPrivileges.get(i));
+
+                if(privilege == 2){ //Mới thêm *******************************************************************************
+                    lnTourGuide.setVisibility(View.VISIBLE);
+                }else{
+                    lnTourGuide.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -154,6 +171,8 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
 
         // post thông tin người dùng + nâng cấp quyền
         btnUpgrade.setOnClickListener(this);
+
+        return view;
     }
 
     void loadProfile() {
@@ -179,7 +198,7 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_Back:
-                finish();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.textView_UpdateAvatar:
                 PickImageFromGallery(REQUEST_CODE);
@@ -243,16 +262,17 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                     // endregion
 
                     if (isPostContactSuccess && isPostPrivilegeSuccess && isPostImage) {
-                        finish();
+                        Toast.makeText(getContext(), getResources().getString(R.string.Toast_UpgradeSuccessfuly), Toast.LENGTH_SHORT).show();
+                        reload(); //Mới thêm *****************************************************************************
                     } else {
                         if (!isPostContactSuccess) {
-                            Toast.makeText(ActivityUpgradeMember.this,
+                            Toast.makeText(getContext(),
                                     getResources().getString(R.string.text_AddProfileFailed), Toast.LENGTH_SHORT).show();
                         } else if (!isPostPrivilegeSuccess) {
-                            Toast.makeText(ActivityUpgradeMember.this,
+                            Toast.makeText(getContext(),
                                     getResources().getString(R.string.text_UpgradePrivilegeFailed), Toast.LENGTH_SHORT).show();
                         } else if (!isPostImage) {
-                            Toast.makeText(ActivityUpgradeMember.this,
+                            Toast.makeText(getContext(),
                                     getResources().getString(R.string.text_ChangeAvatarFailed), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -277,7 +297,7 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
-                bitmapAvatar = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                bitmapAvatar = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 Cavatar.setImageBitmap(bitmapAvatar);
                 if (avatar != bitmapAvatar) {
                     isChangeAvatar = true;
@@ -288,5 +308,11 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         }
     }
 
-
+    void reload() { //Mới thêm **************************************************************************
+        FragmentPersonal fragmentPersonal = new FragmentPersonal();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragmentPersonal);
+        fragmentTransaction.commit();
+    }
 }

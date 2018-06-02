@@ -43,10 +43,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
                     android:gravity="center"
-                    android:textStyle="bold"
                     android:text="@string/text_Profile"
                     android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView_Done"
@@ -54,13 +54,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:enabled="false"
                     android:gravity="center"
                     android:text="@string/text_Done"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
-                    android:visibility="invisible"
-                    android:enabled="false"/>
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -106,14 +106,14 @@
                     android:textColor="@color/colorFacebook"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -141,7 +141,7 @@
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -155,8 +155,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="14"
                         android:gravity="fill"
-                        android:text="@string/text_YourPhone"
                         android:maxLength="12"
+                        android:text="@string/text_YourPhone"
                         android:textStyle="bold" />
 
                     <EditText
@@ -169,7 +169,7 @@
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -196,7 +196,7 @@
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -223,34 +223,7 @@
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="20">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="14"
-                        android:gravity="fill"
-                        android:text="@string/text_YourLanguage"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/editText_Language"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layout_weight="6"
-                        android:background="@drawable/white_grey_border_bottom"
-                        android:ems="10"
-                        android:padding="8dp"
-                        android:singleLine="true"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -277,7 +250,92 @@
                         android:ems="10"
                         android:padding="8dp"
                         android:singleLine="true"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="14"
+                        android:gravity="fill"
+                        android:text="@string/text_YourLanguage"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_Language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="6"
+                        android:background="@drawable/white_grey_border_bottom"
+                        android:ems="10"
+                        android:padding="8dp"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ObjectiveDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:visibility="gone"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="14"
+                        android:gravity="fill"
+                        android:text="@string/text_ObjectiveDetail"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_ObjectiveDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="6"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/StrengthDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:visibility="gone"
+                    android:weightSum="20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="14"
+                        android:gravity="fill"
+                        android:text="@string/text_StrengthsDetail"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editText_StrengthDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="6"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

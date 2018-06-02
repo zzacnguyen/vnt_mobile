@@ -29,6 +29,7 @@ import com.example.zzacn.vnt_mobile.View.Home.FragmentListService;
 import com.example.zzacn.vnt_mobile.View.Notification.FragmentNotification;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal;
 import com.example.zzacn.vnt_mobile.View.Personal.FragmentProfile;
+import com.example.zzacn.vnt_mobile.View.Personal.FragmentUpgradeMember;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentLogin;
 import com.example.zzacn.vnt_mobile.View.Personal.Login_Register.FragmentRegister;
 
@@ -228,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 childFragment.setArguments(bundle);
                 break;
 
-            case R.id.buttonLogin:
+            case R.id.button_Login:
                 childFragment = new FragmentLogin();
                 break;
 
@@ -238,6 +239,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.buttonRegister:
                 childFragment = new FragmentRegister();
+                break;
+
+            case R.id.button_UpgradeMember:
+                childFragment = new FragmentUpgradeMember();
                 break;
         }
 

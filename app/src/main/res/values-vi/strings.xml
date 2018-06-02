@@ -204,4 +204,7 @@
     <string name="text_FullNameIsNotAllowedToBeEmpty">Họ tên không được để trống</string>
     <string name="text_SuccessfulSharing">Chia sẻ thành công</string>
     <string name="text_EmailIsNotAllowedToBeEmpty">Email không được để trống</string>
+    <string name="text_ObjectiveDetail">Chuyên ngành:</string>
+    <string name="text_StrengthsDetail">Điểm mạnh:</string>
+    <string name="Toast_UpgradeSuccessfuly">Nâng cấp thành công</string>
 </resources>

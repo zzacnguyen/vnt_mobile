@@ -222,4 +222,7 @@
     <string name="text_FullNameIsNotAllowedToBeEmpty">Full name is not allowed to be empty</string>
     <string name="text_SuccessfulSharing">Successful sharing</string>
     <string name="text_EmailIsNotAllowedToBeEmpty">Email is not allowed to be empty</string>
+    <string name="text_ObjectiveDetail">Objective detail:</string>
+    <string name="text_StrengthsDetail">Strengths detail:</string>
+    <string name="Toast_UpgradeSuccessfuly">Upgrade successfully</string>
 </resources>

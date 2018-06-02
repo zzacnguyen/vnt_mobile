@@ -70,7 +70,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:padding="4dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -84,7 +85,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/txtUserMark"
+                        android:id="@+id/textView_UserMark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -141,7 +142,7 @@
 
                 <Button
                     android:onClick="addFragment"
-                    android:id="@+id/buttonLogin"
+                    android:id="@+id/button_Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -188,7 +189,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/RegEnterprise"
+                android:id="@+id/UpgradeMember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_grey_border_bottom"
@@ -197,7 +198,8 @@
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/buttonRegEnterprise"
+                    android:onClick="addFragment"
+                    android:id="@+id/button_UpgradeMember"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -229,7 +231,7 @@
                 android:padding="5dp">
 
                 <Button
-                    android:id="@+id/buttonGeneral"
+                    android:id="@+id/button_General"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -257,7 +259,7 @@
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/buttonLogout"
+                    android:id="@+id/button_Logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

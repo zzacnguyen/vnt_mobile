@@ -52,15 +52,15 @@ public class FragmentPersonal extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        btnUpgradeMember = view.findViewById(R.id.buttonRegEnterprise);
-        btnGeneral = view.findViewById(R.id.buttonGeneral);
-        btnLogin = view.findViewById(R.id.buttonLogin);
-        btnLogout = view.findViewById(R.id.buttonLogout);
+        btnUpgradeMember = view.findViewById(R.id.button_UpgradeMember);
+        btnGeneral = view.findViewById(R.id.button_General);
+        btnLogin = view.findViewById(R.id.button_Login);
+        btnLogout = view.findViewById(R.id.button_Logout);
         txtUserName = view.findViewById(R.id.textView_UserName);
         txtUserType = view.findViewById(R.id.textView_UserType);
-        txtUserPoint = view.findViewById(R.id.txtUserMark);
+        txtUserPoint = view.findViewById(R.id.textView_UserMark);
         Cavatar = view.findViewById(R.id.avatar);
-        linearUpgradeMember = view.findViewById(R.id.RegEnterprise);
+        linearUpgradeMember = view.findViewById(R.id.UpgradeMember);
         Logout = view.findViewById(R.id.Logout);
         Login = view.findViewById(R.id.Login);
         Register = view.findViewById(R.id.Register);
@@ -105,13 +105,6 @@ public class FragmentPersonal extends Fragment {
             Login.setVisibility(View.GONE);
             Register.setVisibility(View.GONE);
         }
-
-        btnUpgradeMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ActivityUpgradeMember.class));
-            }
-        });
 
         btnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
