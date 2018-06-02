@@ -114,12 +114,12 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
             arrayContact = null;
         }
         if (arrayContact != null) {
-            etFullName.setText(arrayContact.get(0));
-            etPhoneNumber.setText(arrayContact.get(1));
-            etWebsite.setText(arrayContact.get(2));
-            etEmail.setText(arrayContact.get(3));
-            etLanguage.setText(arrayContact.get(4));
-            etCountry.setText(arrayContact.get(5));
+            etFullName.setText(arrayContact.get(0).equals(Config.NULL) ? "" : arrayContact.get(0));
+            etPhoneNumber.setText(arrayContact.get(1).equals(Config.NULL) ? "" : arrayContact.get(1));
+            etWebsite.setText(arrayContact.get(2).equals(Config.NULL) ? "" : arrayContact.get(2));
+            etEmail.setText(arrayContact.get(3).equals(Config.NULL) ? "" : arrayContact.get(3));
+            etLanguage.setText(arrayContact.get(4).equals(Config.NULL) ? "" : arrayContact.get(4));
+            etCountry.setText(arrayContact.get(5).equals(Config.NULL) ? "" : arrayContact.get(5));
         }
     }
 
@@ -141,10 +141,6 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 // region Post Text
                 if (etFullName.getText().toString().equals("")) {
                     etFullName.setError(getResources().getString(R.string.text_FullNameIsNotAllowedToBeEmpty));
-                } else if (etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
-                    etPhoneNumber.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
-                } else if (etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
-                    etEmail.setError(getResources().getString(R.string.text_InvalidEmailAddress));
                 } else {
                     try {
                         JSONObject jsonEditProfile = new JSONObject("{"
@@ -173,6 +169,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                     MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                     ByteArrayOutputStream de2 = new ByteArrayOutputStream();
                     bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, de2);
+                    avatar = bitmapAvatar;
                     ContentBody contentAvatar = new ByteArrayBody(de2.toByteArray(), "c.jpg");
 
                     reqEntity.addPart("avatar", contentAvatar);

@@ -316,8 +316,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="@string/hint_PhoneNumber"
-                    android:inputType="number"
-                    android:maxLength="13"
+                    android:inputType="phone"
+                    android:maxLength="12"
                     android:padding="5dp"
                     android:textSize="16sp" />
 

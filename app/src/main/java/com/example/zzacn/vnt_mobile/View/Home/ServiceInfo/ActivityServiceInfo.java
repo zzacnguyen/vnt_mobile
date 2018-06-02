@@ -247,6 +247,11 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         tvHotelStar = findViewById(R.id.textView_HotelStar);
         hotelStar = findViewById(R.id.hotelStar);
 
+        btnLike.setOnClickListener(this);
+        btnNear.setOnClickListener(this);
+        btnShare.setOnClickListener(this);
+        btnReview.setOnClickListener(this);
+        btnShowReview.setOnClickListener(this);
         imgThumbInfo1.setOnClickListener(this);
         imgThumbInfo2.setOnClickListener(this);
 
@@ -375,6 +380,7 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
+            finish();
             startActivity(getIntent());
             if (data.hasExtra("mess"))
                 Toast.makeText(this, data.getStringExtra("mess"), Toast.LENGTH_SHORT).show();

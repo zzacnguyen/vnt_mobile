@@ -65,8 +65,9 @@ public class ActivityReview extends AppCompatActivity {
                         && (int) rbRating.getRating() == 0) {
                     Toast.makeText(ActivityReview.this, getResources().getString(R.string.text_PleaseReviewBeforeSend), Toast.LENGTH_SHORT).show();
                 } else {
-                    JSONObject json = null;
+                    JSONObject json;
                     if (idReview.equals("0")) {
+                        // đánh giá mới
                         try {
                             json = new JSONObject("{"
                                     + Config.POST_KEY_JSON_REVIEW.get(0) + ":\"" + id + "\","
@@ -85,6 +86,7 @@ public class ActivityReview extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else {
+                        // sửa đánh giá
                         try {
                             json = new JSONObject("{"
                                     + Config.PUT_KEY_JSON_REVIEW.get(0) + ":\"" + (int) rbRating.getRating() + "\","

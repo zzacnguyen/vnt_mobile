@@ -209,12 +209,10 @@
     <string name="title_ListOfEnterpriseService">All your service</string>
     <string name="text_Profile">Profile</string>
     <string name="text_Seen">Seen</string>
-    <string name="text_NumberStarMustBeANumber">NumberStar must be a number</string>
     <string name="text_PhoneNumberIsNotAllowedToBeEmpty">Phone number is not allowed to be empty</string>
-    <string name="text_InvalidPhoneNumber">Invalid phone number</string>
     <string name="text_EditSuccessfully">Edit successfully</string>
-    <string name="text_LowestPriceMustBeANumber">Lowest price must be a number</string>
-    <string name="text_HighestPriceMustBeANumber">Highest price must be a number</string>
+    <string name="text_LowestPriceIsNotAllowedToBeEmpty">text_HighestPriceMustBeANumber</string>
+    <string name="text_HighestPriceIsNotAllowedToBeEmpty">Highest price is not allowed to be empty</string>
     <string name="Toast_TheInformationIsNotEnpty">The information is not empty</string>
     <string name="text_YourTrip">Your trip schedule</string>
     <string name="text_AddProfileFailed">Add profile failed</string>
@@ -222,6 +220,6 @@
     <string name="text_ChangeAvatarFailed">Change avatar failed</string>
     <string name="Toast_UsernameOrPasswordIsEmpty">Username or password is empty. Please try again</string>
     <string name="text_FullNameIsNotAllowedToBeEmpty">Full name is not allowed to be empty</string>
-    <string name="text_InvalidEmailAddress">Invalid email address</string>
     <string name="text_SuccessfulSharing">Successful sharing</string>
+    <string name="text_EmailIsNotAllowedToBeEmpty">Email is not allowed to be empty</string>
 </resources>

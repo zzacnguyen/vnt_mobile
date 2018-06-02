@@ -19,16 +19,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.fullName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 public class ActivityLogin extends AppCompatActivity {
 
-    EditText etUserId, etPassword;
+    EditText etUsername, etPassword;
     Button btnReg, btnLogin;
     ImageView btnBack;
     SessionManager sessionManager;
@@ -38,7 +41,7 @@ public class ActivityLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etUserId = findViewById(R.id.editText_UserName);
+        etUsername = findViewById(R.id.editText_UserName);
         etPassword = findViewById(R.id.editText_Password);
         btnLogin = findViewById(R.id.button_Login);
         btnReg = findViewById(R.id.button_Register);
@@ -57,16 +60,16 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (etUserId.getText().toString().equals("")) {
-                    etUserId.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
+                if (etUsername.getText().toString().equals("")) {
+                    etUsername.setError(getResources().getString(R.string.text_UsernameIsNotAllowedToBeEmpty));
                 } else if (etPassword.getText().toString().equals("")) {
                     etPassword.setError(getResources().getString(R.string.text_PasswordIsNotAllowedToBeEmpty));
-                } else if (etUserId.getText().toString().equals("") && etPassword.getText().toString().equals("")) {
+                } else if (etUsername.getText().toString().equals("") && etPassword.getText().toString().equals("")) {
                     Toast.makeText(ActivityLogin.this, getResources().getString(R.string.Toast_UsernameOrPasswordIsEmpty), Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         JSONObject jsonPost = new JSONObject("{" + Config.POST_KEY_JSON_LOGIN_REGISTER.get(0) + ":\""
-                                + etUserId.getText().toString() + "\"," + Config.POST_KEY_JSON_LOGIN_REGISTER.get(1) + ":\""
+                                + etUsername.getText().toString() + "\"," + Config.POST_KEY_JSON_LOGIN_REGISTER.get(1) + ":\""
                                 + etPassword.getText().toString() + "\"}");
                         String rs = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_LOGIN).get();
                         JSONObject jsonGet = new JSONObject(rs);
@@ -81,12 +84,21 @@ public class ActivityLogin extends AppCompatActivity {
 
                             userId = Integer.parseInt(arrayUser.get(0));
                             userName = arrayUser.get(1);
-                            if (!arrayUser.get(2).equals(Config.NULL)) {
-                                avatar = setImage("", Config.FOLDER_AVATAR, arrayUser.get(2));
+                            fullName = arrayUser.get(2);
+                            if (!arrayUser.get(3).equals(Config.NULL)) {
+                                avatar = setImage(Config.URL_HOST + Config.URL_GET_AVATAR + arrayUser.get(3),
+                                        Config.FOLDER_AVATAR, arrayUser.get(3));
                             } else {
                                 avatar = null;
                             }
-                            sessionManager.createLoginSession(userId + "", userName, arrayUser.get(3), avatar);
+                            String type = arrayUser.get(4);
+                            type = type.substring(1, type.length() - 1);
+                            if (type.length() == 1) {
+                                userType.add(type);
+                            } else {
+                                userType.addAll(Arrays.asList(type.split(",")));
+                            }
+                            sessionManager.createLoginSession(etUsername.getText().toString(), etPassword.getText().toString());
 
                             if (getCallingActivity() != null) {
                                 finishActivity(1);

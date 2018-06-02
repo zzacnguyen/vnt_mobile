@@ -51,12 +51,12 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
     private static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
-    Bitmap bmBanner, bmInfo1, bmInfo2;
     //REQUEST Code
     final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
             RESULT_INFO2 = 113,
             REQUEST_CAMERA_CAPTURE = 110;
+    Bitmap bmBanner, bmInfo1, bmInfo2;
     TextView txtOpenTime, txtCloseTime, btnSend, btnCancel;
     EditText etServiceName, etWebsite, etServicePhone, etServiceAbout, etLowestPrice, etHighestPrice, etNumberStar;
     ImageView imgBanner, imgInfo1, imgInfo2;
@@ -105,8 +105,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
 
         type = getIntent().getIntExtra("type", 0);
         idPlace = getIntent().getIntExtra("id", 0);
-        if (type != 2) {
-            etNumberStar.setVisibility(View.GONE);
+        if (type == 2) {
+            etNumberStar.setVisibility(View.VISIBLE);
         }
 
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -114,10 +114,10 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 // region bắt lỗi nhập
-                if (!etLowestPrice.getText().toString().trim().matches("^[0-9]*$")) {
-                    etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceMustBeANumber));
-                } else if (!etHighestPrice.getText().toString().trim().matches("^[0-9]*$")) {
-                    etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceMustBeANumber));
+                if (!etLowestPrice.getText().toString().equals("")) {
+                    etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotAllowedToBeEmpty));
+                } else if (!etHighestPrice.getText().toString().equals("")) {
+                    etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceIsNotAllowedToBeEmpty));
                 } else if (Integer.parseInt(etLowestPrice.getText().toString())
                         > Integer.parseInt(etHighestPrice.getText().toString())) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotHigherThanHighestPrice));
@@ -125,14 +125,10 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     etServiceName.setError(getResources().getString(R.string.text_ServiceNameIsNotAllowedToBeEmpty));
                 } else if (etServicePhone.getText().toString().equals("")) {
                     etServicePhone.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
-                } else if (!etServicePhone.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
-                    etServicePhone.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
                 } else if (etWebsite.getText().toString().equals("")) {
                     etWebsite.setError(getResources().getString(R.string.text_WebsiteIsNotAllowedToBeEmpty));
                 } else if (etNumberStar.getText().toString().equals("") && etNumberStar.getVisibility() != View.GONE) {
                     etNumberStar.setError(getResources().getString(R.string.text_NumberStarIsNotAllowedToBeEmpty));
-                } else if (!etNumberStar.getText().toString().trim().matches("^[0-9]*$")) {
-                    etNumberStar.setError(getResources().getString(R.string.text_NumberStarMustBeANumber));
                 } else if (etServiceAbout.getText().toString().equals("")) {
                     etServiceAbout.setError(getResources().getString(R.string.text_DescriptionIsNotAllowedToBeEmpty));
                 } // endregion

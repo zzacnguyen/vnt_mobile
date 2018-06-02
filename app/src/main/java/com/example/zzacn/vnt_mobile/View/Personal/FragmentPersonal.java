@@ -36,9 +36,10 @@ public class FragmentPersonal extends Fragment {
 
     public static int userId;
     public static String userName;
-    private static String userPoint;
+    public static String fullName;
     public static ArrayList<String> userType = new ArrayList<>();
     public static Bitmap avatar;
+    public static String userPoint;
     Button btnUpgradeMember, btnGeneral, btnLogin, btnLogout;
     TextView txtUserName, txtUserType, txtUserPoint;
     CircleImageView Cavatar;
@@ -65,23 +66,23 @@ public class FragmentPersonal extends Fragment {
         Register = view.findViewById(R.id.Register);
         editProfile = view.findViewById(R.id.EditProfile);
 
-        try {
-            JSONObject jsonPoint = new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_POINT).get());
-            userPoint = parseJsonNoId(jsonPoint, Config.GET_KEY_JSON_POINT).get(0);
-        } catch (InterruptedException | ExecutionException | JSONException e) {
-            e.printStackTrace();
-        }
-
         if (userId == 0) {
             linearUpgradeMember.setVisibility(View.GONE);
             editProfile.setVisibility(View.GONE);
             Logout.setVisibility(View.GONE);
         } else {
+            try {
+                JSONObject jsonPoint =
+                        new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_POINT + userId).get());
+                userPoint = parseJsonNoId(jsonPoint, Config.GET_KEY_JSON_POINT).get(0);
+            } catch (InterruptedException | ExecutionException | JSONException e) {
+                e.printStackTrace();
+            }
             editProfile.setVisibility(View.VISIBLE);
             if (avatar != null) {
                 Cavatar.setImageBitmap(avatar);
             }
-            txtUserName.setText(userName);
+            txtUserName.setText(fullName != null ? fullName : userName);
             StringBuilder stringUserType = new StringBuilder();
             for (int i = 0; i < userType.size(); i++) {
                 if (userType.get(i).equals("2")) {
@@ -123,11 +124,6 @@ public class FragmentPersonal extends Fragment {
             @Override
             public void onClick(View view) {
                 sessionManager = new SessionManager(getApplicationContext());
-                userId = 0;
-                userName = null;
-                userType = null;
-                avatar = null;
-                userPoint = null;
                 sessionManager.logoutUser();
 
                 getActivity().getSupportFragmentManager().popBackStack();

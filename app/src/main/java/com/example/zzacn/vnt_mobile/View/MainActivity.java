@@ -38,6 +38,7 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String username, password;
     public static Fragment childFragment = null;
     public static boolean isStoragePermissionGranted;
     BottomNavigationView bottomNavigationView;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     View badge;
     BottomNavigationItemView itemView;
     TextView txtBadge;
+    int i = 0;
+    private boolean isFirstRun = true;
 
     public void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 Fragment selectedFragment = null;
-                int i = 0;
                 Menu menu = bottomNavigationView.getMenu();
 
                 switch (item.getItemId()) {
@@ -98,10 +100,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isStoragePermissionGranted();
+        if (isFirstRun) {
+            isStoragePermissionGranted();
 
-        sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.checkLogin();
+            sessionManager = new SessionManager(getApplicationContext());
+            sessionManager.checkLogin();
+
+            isFirstRun = false;
+        }
 
         BottomNavigation();
 
@@ -239,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void isStoragePermissionGranted() {
+    private void isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -275,5 +281,23 @@ public class MainActivity extends AppCompatActivity {
             ft.addToBackStack(backStateName);
             ft.commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        switch (i) {
+            case 0:
+                replaceFragment(new FragmentHome());
+                break;
+
+            case 1:
+                replaceFragment(new FavoriteFragment());
+                break;
+
+            case 2:
+                replaceFragment(new FragmentNotification());
+                break;
+        }
+        super.onResume();
     }
 }

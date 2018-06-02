@@ -36,7 +36,6 @@ public class FavoriteFragment extends Fragment {
     ArrayList<String> finalArr = new ArrayList<>();
     TextView tvServiceName;
     ImageView imgServiceImage;
-    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -44,22 +43,21 @@ public class FavoriteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
+        getFavoriteList(view, userId);
+
+        return view;
+    }
+
+    private void getFavoriteList(View view, int id) {
         tvServiceName = view.findViewById(R.id.textView_Favorite);
         imgServiceImage = view.findViewById(R.id.imageView_Favorite);
 
-        recyclerView = view.findViewById(R.id.RecyclerView_FavoriteList);
+        final RecyclerView recyclerView = view.findViewById(R.id.RecyclerView_FavoriteList);
         recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        getFavoriteList(userId);
-
-        return view;
-    }
-
-    private void getFavoriteList(int id) {
 
         try {
             finalArr = JsonHelper.parseJsonNoId(new JSONObject(new HttpRequestAdapter.httpGet().execute(Config.URL_HOST +

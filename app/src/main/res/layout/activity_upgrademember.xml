@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,34 +11,33 @@
         android:fitsSystemWindows="true">
 
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/bgToolbar"
+            app:layout_collapseMode="pin">
+
+            <ImageView
+                android:id="@+id/button_Back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="left"
+                android:background="@null"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_arrow_left_36dp"
+                android:textSize="18sp"
+                android:tint="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/bgToolbar"
-                app:layout_collapseMode="pin">
+                android:layout_height="wrap_content"
+                android:text="@string/text_UpgradeMember"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
 
-                <ImageView
-                    android:id="@+id/button_Back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@null"
-                    android:foregroundGravity="center"
-                    android:layout_gravity="left"
-                    android:src="@drawable/ic_arrow_left_36dp"
-                    android:tint="@color/colorWhite"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/toolbarTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_UpgradeMember"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
-
-            </android.support.v7.widget.Toolbar>
-
+        </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -129,6 +127,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="6"
                     android:ems="10"
+                    android:inputType="text"
                     android:singleLine="true"
                     android:textSize="14sp" />
 
@@ -167,6 +166,8 @@
                         android:layout_margin="8dp"
                         android:layout_weight="6"
                         android:ems="10"
+                        android:inputType="phone"
+                        android:maxLength="12"
                         android:singleLine="true"
                         android:textSize="14sp" />
 
@@ -192,6 +193,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="6"
                         android:ems="10"
+                        android:inputType="textWebEditText"
                         android:singleLine="true"
                         android:textSize="14sp" />
 
@@ -217,6 +219,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="6"
                         android:ems="10"
+                        android:inputType="textEmailAddress"
                         android:singleLine="true"
                         android:textSize="14sp" />
 
@@ -242,6 +245,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="6"
                         android:ems="10"
+                        android:inputType="text"
                         android:singleLine="true"
                         android:textSize="14sp" />
 
@@ -267,6 +271,7 @@
                         android:layout_margin="8dp"
                         android:layout_weight="6"
                         android:ems="10"
+                        android:inputType="text"
                         android:singleLine="true"
                         android:textSize="14sp" />
 
@@ -316,8 +321,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/tbPlace"
                 android:text="@string/text_UpgradeMember"
                 android:textAllCaps="false"

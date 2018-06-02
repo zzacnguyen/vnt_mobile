@@ -38,7 +38,6 @@ public class FragmentHome extends Fragment {
     View view, viewLineYourService, viewLineYourSchedule;
     LinearLayout linearEnterpriseService, linearSchedule;
     FloatingActionButton fabAdd, fabAddService, fabAddTrip;
-    Boolean showFab = false;
 
     @Nullable
     @Override
@@ -49,8 +48,6 @@ public class FragmentHome extends Fragment {
         fabAdd = view.findViewById(R.id.fabAdd);
         fabAddService = view.findViewById(R.id.fab_AddService);
         fabAddTrip = view.findViewById(R.id.fab_AddTrip);
-
-        HideFab();
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,20 +61,18 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View view) {
                 // nếu người dùng là doanh nghiệp thì mở activity thêm địa điểm
-                if (userType.contains("2")) {
+                if (userType.size() == 1 && userType.contains("2")) {
                     startActivity(new Intent(getContext(), ActivityAddPlace.class));
                 }
                 // nếu người dùng là hdv thì mở activity thêm lịch trình
-                else if (userType.contains("3")) {
+                else if (userType.size() == 1 && userType.contains("3")) {
                     startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
                 } else {
                     // cả 2 người dùng thì mở thêm 2 fab
-                    if(showFab){
-                        ShowFab();
-                        showFab = true;
-                    }else{
+                    if (fabAddService.isShown()) {
                         HideFab();
-                        showFab = false;
+                    } else {
+                        ShowFab();
                     }
                 }
             }
@@ -90,7 +85,7 @@ public class FragmentHome extends Fragment {
             }
         });
 
-        fabAddService.setOnClickListener(new View.OnClickListener() {
+        fabAddTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
@@ -172,6 +167,9 @@ public class FragmentHome extends Fragment {
 
             // hiện fab
             fabAdd.setVisibility(View.VISIBLE);
+            fabAddService.setVisibility(View.VISIBLE);
+            fabAddTrip.setVisibility(View.VISIBLE);
+            HideFab();
         }
 
         // load place
@@ -202,12 +200,12 @@ public class FragmentHome extends Fragment {
         view = null;
     }
 
-    private void HideFab(){
+    private void HideFab() {
         fabAddService.hide();
         fabAddTrip.hide();
     }
 
-    private void ShowFab(){
+    private void ShowFab() {
         fabAddService.show();
         fabAddTrip.show();
     }

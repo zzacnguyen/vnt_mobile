@@ -133,12 +133,13 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/textView_ServiceName"
+                <EditText
+                    android:id="@+id/editText_ServiceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:text=""
+                    android:background="@null"
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp" />
 
@@ -225,6 +226,7 @@
                         android:background="@color/colorWhite"
                         android:hint="@string/hint_PhoneNumber"
                         android:textColor="#000"
+                        android:maxLength="12"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -483,11 +485,12 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView_ServiceAbout"
+                <EditText
+                    android:id="@+id/editText_ServiceAbout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:background="@color/colorWhite"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

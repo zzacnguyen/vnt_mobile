@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -99,7 +98,7 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
         // load thông tin người dùng lên nếu có
         loadProfile();
 
-        // load các loại người dùng có thể nâng cấp vào spinner
+        // region load các loại người dùng có thể nâng cấp vào spinner
         final ArrayList<String> arrayNumberPrivileges = new ArrayList<>(), arrayNamePrivileges = new ArrayList<>();
         try {
             String privileges = new HttpRequestAdapter.httpGet()
@@ -134,6 +133,7 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
 
         arrayAdapterPrivileges.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnrUserType.setAdapter(arrayAdapterPrivileges);
+        // endregion
 
         spnrUserType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -157,12 +157,6 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
     }
 
     void loadProfile() {
-        etFullName.setInputType(InputType.TYPE_NULL);
-        etPhoneNumber.setInputType(InputType.TYPE_NULL);
-        etEmail.setInputType(InputType.TYPE_NULL);
-        etWebsite.setInputType(InputType.TYPE_NULL);
-        etCountry.setInputType(InputType.TYPE_NULL);
-        etLanguage.setInputType(InputType.TYPE_NULL);
         ArrayList<String> arrayContact;
         try {
             String rs = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_CONTACT_INFO + userId).get();
@@ -172,12 +166,12 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
             arrayContact = null;
         }
         if (arrayContact != null) {
-            etFullName.setText(arrayContact.get(0));
-            etPhoneNumber.setText(arrayContact.get(1));
-            etWebsite.setText(arrayContact.get(2));
-            etEmail.setText(arrayContact.get(3));
-            etLanguage.setText(arrayContact.get(4));
-            etCountry.setText(arrayContact.get(5));
+            etFullName.setText(arrayContact.get(0).equals(Config.NULL) ? "" : arrayContact.get(0));
+            etPhoneNumber.setText(arrayContact.get(1).equals(Config.NULL) ? "" : arrayContact.get(1));
+            etWebsite.setText(arrayContact.get(2).equals(Config.NULL) ? "" : arrayContact.get(2));
+            etEmail.setText(arrayContact.get(3).equals(Config.NULL) ? "" : arrayContact.get(3));
+            etLanguage.setText(arrayContact.get(4).equals(Config.NULL) ? "" : arrayContact.get(4));
+            etCountry.setText(arrayContact.get(5).equals(Config.NULL) ? "" : arrayContact.get(5));
         }
     }
 
@@ -197,10 +191,8 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                     // region post thông tin người dùng
                     if (etFullName.getText().toString().equals("")) {
                         etFullName.setError(getResources().getString(R.string.text_FullNameIsNotAllowedToBeEmpty));
-                    } else if (etPhoneNumber.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
-                        etPhoneNumber.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
-                    } else if (etEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
-                        etEmail.setError(getResources().getString(R.string.text_InvalidEmailAddress));
+                    } else if (etPhoneNumber.getText().toString().equals("")) {
+                        etPhoneNumber.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
                     } else {
                         JSONObject jsonContactInfo = new JSONObject("{"
                                 + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
@@ -216,19 +208,12 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                     }
                     // endregion
 
-                    // region post nâng quyền
-                    JSONObject jsonPrivilege = new JSONObject("{\"quyen\":\"" + privilege + "\"}");
-                    String sttPostPrivilege = new HttpRequestAdapter.httpPost(jsonPrivilege)
-                            .execute(Config.URL_HOST + Config.URL_POST_UPGRADE_MEMBER + userId).get();
-                    if (sttPostPrivilege.equals("1"))
-                        isPostPrivilegeSuccess = true;
-                    // endregion
-
                     // region post avatar
                     if (isChangeAvatar) {
                         MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                         ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                        avatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        avatar = bitmapAvatar;
                         ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
                         reqEntity.addPart("avatar", contentAvatar);
                         try {
@@ -242,6 +227,18 @@ public class ActivityUpgradeMember extends AppCompatActivity implements View.OnC
                         } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
+                    } else {
+                        isPostImage = true;
+                    }
+                    // endregion
+
+                    // region post nâng quyền
+                    if (isPostContactSuccess && isPostImage) {
+                        JSONObject jsonPrivilege = new JSONObject("{\"quyen\":\"" + privilege + "\"}");
+                        String sttPostPrivilege = new HttpRequestAdapter.httpPost(jsonPrivilege)
+                                .execute(Config.URL_HOST + Config.URL_POST_UPGRADE_MEMBER + userId).get();
+                        if (sttPostPrivilege.equals("1"))
+                            isPostPrivilegeSuccess = true;
                     }
                     // endregion
 

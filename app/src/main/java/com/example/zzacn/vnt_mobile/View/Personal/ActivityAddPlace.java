@@ -209,8 +209,6 @@ public class ActivityAddPlace extends AppCompatActivity {
             etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
         } else if (etPlacePhone.getText().toString().equals("")) {
             etPlacePhone.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
-        } else if (!etPlacePhone.getText().toString().trim().matches("^\\+[0-9]{10,13}$")) {
-            etPlacePhone.setError(getResources().getString(R.string.text_InvalidPhoneNumber));
         } else if (etPlaceAbout.getText().toString().equals("")) {
             etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
         } else if (idWard == 0) {

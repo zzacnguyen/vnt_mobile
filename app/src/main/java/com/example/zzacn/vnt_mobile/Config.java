@@ -36,6 +36,7 @@ public class Config {
     public static final String URL_GET_LINK_DETAIL_1 = "get-detail-1/";
     public static final String URL_GET_LINK_DETAIL_2 = "get-detail-2/";
     public static final String URL_GET_LINK_BANNER = "get-banner/";
+    public static final String URL_GET_AVATAR = "public/avatar/";
     public static final String URL_GET_THUMB = "public/thumbnails/";
     public static final String URL_GET_PRIVILEGE = "get-privilege-registrable/";
     public static final String URL_GET_EVENT_NUMBER = "counter-events/";
@@ -53,6 +54,7 @@ public class Config {
     public static final String URL_POST_EVENT = "events";
     public static final String URL_POST_PLACE = "add-places";
     public static final String URL_POST_SERVICE = "add-services/";
+    public static final String URL_PUT_IMAGE = "edit-image/";
     public static final String URL_POST_IMAGE = "upload-image/";
     public static final String URL_POST_AVATAR = "upload-image-user/";
     public static final String URL_POST_CONTACT_INFO = "edit-user-mobile/";
@@ -85,7 +87,7 @@ public class Config {
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
 
     public static final ArrayList<String> GET_KEY_JSON_USER =
-            new ArrayList<>(Arrays.asList("username", "avatar", "level"));
+            new ArrayList<>(Arrays.asList("username", "fullname", "avatar", "level"));
 
     public static final ArrayList<String> GET_KEY_JSON_CONTACT_INFO =
             new ArrayList<>(Arrays.asList("contact_name", "contact_phone", "contact_website",

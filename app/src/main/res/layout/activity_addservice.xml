@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -101,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="@string/hint_ServiceName"
+                    android:inputType="text"
                     android:maxLength="50"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -112,6 +112,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="@string/hint_Website"
+                    android:inputType="textWebEditText"
                     android:maxLength="100"
                     android:padding="5dp"
                     android:textSize="16sp" />
@@ -126,7 +127,8 @@
                     android:inputType="number"
                     android:maxLength="1"
                     android:padding="5dp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/etServicePhone"
@@ -135,8 +137,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/white_grey_border_bottom"
                     android:hint="@string/hint_PhoneNumber"
-                    android:inputType="number"
-                    android:maxLength="13"
+                    android:inputType="phone"
+                    android:maxLength="12"
                     android:padding="5dp"
                     android:textSize="16sp" />
 
@@ -146,6 +148,7 @@
                     android:layout_height="150dp"
                     android:background="@null"
                     android:hint="@string/hint_Description"
+                    android:inputType="text"
                     android:maxLength="300"
                     android:padding="5dp"
                     android:text=""
@@ -185,11 +188,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:gravity="center"
                         android:hint="@string/hint_LowestPrice"
                         android:inputType="number"
                         android:maxLength="11"
                         android:padding="5dp"
-                        android:gravity="center"
                         android:textSize="16sp" />
 
                     <TextView

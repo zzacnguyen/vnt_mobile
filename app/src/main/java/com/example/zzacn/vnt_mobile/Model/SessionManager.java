@@ -4,25 +4,32 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 
-import java.io.ByteArrayOutputStream;
+import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Config;
+import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
+import static com.example.zzacn.vnt_mobile.Model.ModelService.setImage;
+import static com.example.zzacn.vnt_mobile.View.MainActivity.password;
+import static com.example.zzacn.vnt_mobile.View.MainActivity.username;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.fullName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 
 public class SessionManager {
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "username";
-    private static final String KEY_TYPE = "level";
-    private static final String KEY_AVATAR = "avatar";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
     private static final String PREF_NAME = "Session";
     private static final String IS_LOGIN = "IsLoggedIn";
     // Shared Preferences
@@ -40,29 +47,16 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String id, String name, String type, Bitmap bitmap) {
+    public void createLoginSession(String username, String password) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
-        // Storing id in pref
-        editor.putString(KEY_ID, id);
+        // Storing username in pref
+        editor.putString(KEY_USERNAME, username);
 
-        // Storing name in pref
-        editor.putString(KEY_NAME, name);
+        // Storing password in pref
+        editor.putString(KEY_PASSWORD, password);
 
-        // Storing type in pref
-        editor.putString(KEY_TYPE, type);
-
-        // Storing avatar in pref
-        if (bitmap != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-            String encoded = Base64.encodeToString(b, Base64.DEFAULT);
-            editor.putString(KEY_AVATAR, encoded);
-        } else {
-            editor.putString(KEY_AVATAR, null);
-        }
         // commit changes
         editor.commit();
     }
@@ -76,20 +70,39 @@ public class SessionManager {
         if (this.isLoggedIn()) {
             // get user data from session
             HashMap<String, String> user = getUserDetails();
-            userId = Integer.parseInt(user.get(KEY_ID));
-            userName = user.get(KEY_NAME);
-            String rs = user.get(KEY_TYPE);
-            rs = rs.substring(1, rs.length() - 1);
-            if (rs.length() == 1) {
-                userType.add(rs);
-            } else {
-                userType.addAll(Arrays.asList(rs.split(",")));
-            }
-            if (user.get(KEY_AVATAR) != null) {
-                byte[] imageAsBytes = Base64.decode(user.get(KEY_AVATAR).getBytes(), Base64.DEFAULT);
-                avatar = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            } else {
-                avatar = null;
+
+            username = user.get(KEY_USERNAME);
+            password = user.get(KEY_PASSWORD);
+            try {
+                JSONObject jsonPost = new JSONObject("{"
+                        + Config.POST_KEY_JSON_LOGIN_REGISTER.get(0) + ":\"" + username + "\","
+                        + Config.POST_KEY_JSON_LOGIN_REGISTER.get(1) + ":\"" + password + "\"}");
+                String rs = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST + Config.URL_LOGIN).get();
+                JSONObject jsonGet = new JSONObject(rs);
+                ArrayList<String> arrayUser =
+                        JsonHelper.parseJson(new JSONObject(jsonGet.getString(Config.GET_KEY_JSON_LOGIN.get(0))),
+                                Config.GET_KEY_JSON_USER);
+
+                if (arrayUser != null) {
+                    userId = Integer.parseInt(arrayUser.get(0));
+                    userName = arrayUser.get(1);
+                    fullName = arrayUser.get(2);
+                    if (!arrayUser.get(3).equals(Config.NULL)) {
+                        avatar = setImage(Config.URL_HOST + Config.URL_GET_AVATAR + arrayUser.get(3),
+                                Config.FOLDER_AVATAR, arrayUser.get(3));
+                    } else {
+                        avatar = null;
+                    }
+                    String type = arrayUser.get(4);
+                    type = type.substring(1, type.length() - 1);
+                    if (type.length() == 1) {
+                        userType.add(type);
+                    } else {
+                        userType.addAll(Arrays.asList(type.split(",")));
+                    }
+                }
+            } catch (JSONException | ExecutionException | InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -99,17 +112,11 @@ public class SessionManager {
      */
     private HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
-        // user id
-        user.put(KEY_ID, pref.getString(KEY_ID, null));
+        // username
+        user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
 
-        // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
-
-        // user type
-        user.put(KEY_TYPE, pref.getString(KEY_TYPE, null));
-
-        // user avatar
-        user.put(KEY_AVATAR, pref.getString(KEY_AVATAR, null));
+        // password
+        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
 
         // return user
         return user;
@@ -120,6 +127,8 @@ public class SessionManager {
      */
     public void logoutUser() {
         // Clearing all data from Shared Preferences
+        username = null;
+        password = null;
         editor.clear();
         editor.commit();
     }

@@ -191,12 +191,10 @@
     <string name="text_Profile">Thông tin cá nhân</string>
     <string name="title_ListOfEnterpriseService">Dịch vụ của bạn</string>
     <string name="text_Seen">Đã xem</string>
-    <string name="text_NumberStarMustBeANumber">Số sao phải là số</string>
     <string name="text_PhoneNumberIsNotAllowedToBeEmpty">Số điện thoại không được để trống</string>
-    <string name="text_InvalidPhoneNumber">Số điện thoại không hợp lệ</string>
     <string name="text_EditSuccessfully">Chỉnh sửa thành công</string>
-    <string name="text_LowestPriceMustBeANumber">Giá thấp nhất phải là số</string>
-    <string name="text_HighestPriceMustBeANumber">Giá cao nhất phải là số</string>
+    <string name="text_LowestPriceIsNotAllowedToBeEmpty">Giá thấp nhất không được để trống</string>
+    <string name="text_HighestPriceIsNotAllowedToBeEmpty">Giá cao nhất không được để trống</string>
     <string name="Toast_TheInformationIsNotEnpty">Không được để trống thông tin</string>
     <string name="text_YourTrip">Lịch trình của bạn</string>
     <string name="text_AddProfileFailed">Thêm thông tin thất bại</string>
@@ -204,6 +202,6 @@
     <string name="text_UpgradePrivilegeFailed">Nâng cấp quyền thất bại</string>
     <string name="Toast_UsernameOrPasswordIsEmpty">Tài khoản hoặc mật khẩu bỏ trống, vui lòng nhập lại</string>
     <string name="text_FullNameIsNotAllowedToBeEmpty">Họ tên không được để trống</string>
-    <string name="text_InvalidEmailAddress">Email không hợp lệ</string>
     <string name="text_SuccessfulSharing">Chia sẻ thành công</string>
+    <string name="text_EmailIsNotAllowedToBeEmpty">Email không được để trống</string>
 </resources>
