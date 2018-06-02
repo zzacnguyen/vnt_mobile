@@ -51,10 +51,11 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
     //REQUEST Code
-    final int RESULT_BANNER = 111,
+    static final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
             RESULT_INFO2 = 113,
-            REQUEST_CAMERA_CAPTURE = 110;
+            REQUEST_CAMERA_CAPTURE = 110,
+            REQUEST_TAKE_PHOTO = 114;
     Bitmap bmBanner, bmInfo1, bmInfo2;
     TextView txtOpenTime, txtCloseTime, btnSend, btnCancel;
     EditText etServiceName, etWebsite, etServicePhone, etServiceAbout, etLowestPrice, etHighestPrice, etNumberStar;
@@ -94,11 +95,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         ibCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
                     dispatchTakePictureIntent();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -240,6 +237,53 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public void onClick(View view) { //Custom sự kiện click
+
+        final Calendar calendar = Calendar.getInstance();
+        int mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int mMinute = calendar.get(Calendar.MINUTE);
+
+        switch (view.getId()) { //Bắt sự kiện click dựa trên id của giao diện, ko phải id của biến
+
+            case R.id.imgPickBanner:
+                PickImageFromGallery(RESULT_BANNER);
+                break;
+
+            case R.id.imgPickInfo1:
+                PickImageFromGallery(RESULT_INFO1);
+                break;
+
+            case R.id.imgPickInfo2:
+                PickImageFromGallery(RESULT_INFO2);
+                break;
+
+            case R.id.txtOpenTime: //Set sự kiện click cho textview
+                TimePickerDialog openTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        txtOpenTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                }, mHour, mMinute, true);
+
+                openTimePickerDialog.show();
+                break;
+
+            case R.id.txtCloseTime:
+                TimePickerDialog closeTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        txtCloseTime.setText(String.format("%02d:%02d", hourOfDay, minute));
+                    }
+                }, mHour, mMinute, true);
+
+                closeTimePickerDialog.show();
+                break;
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Lấy hình ảnh và đưa lên màn hình
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -287,7 +331,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                 }
                 break;
 
-            case REQUEST_CAMERA_CAPTURE:
+            case REQUEST_TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     Uri imageUri = Uri.parse(mCurrentPhotoPath);
 
@@ -299,53 +343,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                                 }
                             });
                 }
-        }
-    }
-
-    @Override
-    public void onClick(View view) { //Custom sự kiện click
-
-        final Calendar calendar = Calendar.getInstance();
-        int mHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int mMinute = calendar.get(Calendar.MINUTE);
-
-        switch (view.getId()) { //Bắt sự kiện click dựa trên id của giao diện, ko phải id của biến
-
-            case R.id.imgPickBanner:
-                PickImageFromGallery(RESULT_BANNER);
-                break;
-
-            case R.id.imgPickInfo1:
-                PickImageFromGallery(RESULT_INFO1);
-                break;
-
-            case R.id.imgPickInfo2:
-                PickImageFromGallery(RESULT_INFO2);
-                break;
-
-            case R.id.txtOpenTime: //Set sự kiện click cho textview
-                TimePickerDialog openTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
-                    @SuppressLint("DefaultLocale")
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        txtOpenTime.setText(String.format("%02d:%02d", hourOfDay, minute));
-                    }
-                }, mHour, mMinute, true);
-
-                openTimePickerDialog.show();
-                break;
-
-            case R.id.txtCloseTime:
-                TimePickerDialog closeTimePickerDialog = new TimePickerDialog(ActivityAddService.this, new TimePickerDialog.OnTimeSetListener() {
-                    @SuppressLint("DefaultLocale")
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        txtCloseTime.setText(String.format("%02d:%02d", hourOfDay, minute));
-                    }
-                }, mHour, mMinute, true);
-
-                closeTimePickerDialog.show();
-                break;
         }
     }
 
@@ -373,12 +370,12 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         return image;
     }
 
-    private void dispatchTakePictureIntent() throws IOException {
+    private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile;
+            File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -387,21 +384,13 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(ActivityAddService.this,
+                Uri photoURI = FileProvider.getUriForFile(this,
                         BuildConfig.APPLICATION_ID + ".provider",
-                        createImageFile());
+                        photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_CAMERA_CAPTURE);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
     }
 
 }
