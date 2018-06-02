@@ -24,6 +24,7 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.avatar
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.fullName;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userName;
+import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userPoint;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
 
@@ -129,6 +130,12 @@ public class SessionManager {
         // Clearing all data from Shared Preferences
         username = null;
         password = null;
+        userId = 0;
+        userName = null;
+        userType.clear();
+        userPoint = null;
+        avatar = null;
+        fullName = null;
         editor.clear();
         editor.commit();
     }

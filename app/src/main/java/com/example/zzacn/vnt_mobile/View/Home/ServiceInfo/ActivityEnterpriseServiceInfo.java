@@ -88,9 +88,9 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                     btnDone.setText(getResources().getString(R.string.text_Done));
                 } else {
                     // region bắt lỗi nhập
-                    if (!etLowestPrice.getText().toString().equals("")) {
+                    if (etLowestPrice.getText().toString().equals("")) {
                         etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotAllowedToBeEmpty));
-                    } else if (!etHighestPrice.getText().toString().equals("")) {
+                    } else if (etHighestPrice.getText().toString().equals("")) {
                         etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceIsNotAllowedToBeEmpty));
                     } else if (Integer.parseInt(etLowestPrice.getText().toString())
                             > Integer.parseInt(etHighestPrice.getText().toString())) {

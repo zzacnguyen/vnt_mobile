@@ -211,7 +211,7 @@
     <string name="text_Seen">Seen</string>
     <string name="text_PhoneNumberIsNotAllowedToBeEmpty">Phone number is not allowed to be empty</string>
     <string name="text_EditSuccessfully">Edit successfully</string>
-    <string name="text_LowestPriceIsNotAllowedToBeEmpty">text_HighestPriceMustBeANumber</string>
+    <string name="text_LowestPriceIsNotAllowedToBeEmpty">Lowest price is not allowed to be empty</string>
     <string name="text_HighestPriceIsNotAllowedToBeEmpty">Highest price is not allowed to be empty</string>
     <string name="Toast_TheInformationIsNotEnpty">The information is not empty</string>
     <string name="text_YourTrip">Your trip schedule</string>

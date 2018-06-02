@@ -128,6 +128,7 @@ public class ActivityTripScheduleInfo extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == 11) {
+            finish();
             startActivity(getIntent());
         }
         super.onActivityResult(requestCode, resultCode, data);

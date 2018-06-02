@@ -82,7 +82,7 @@ public class FragmentPersonal extends Fragment {
             if (avatar != null) {
                 Cavatar.setImageBitmap(avatar);
             }
-            txtUserName.setText(fullName != null ? fullName : userName);
+            txtUserName.setText(!fullName.equals(Config.NULL) ? fullName : userName);
             StringBuilder stringUserType = new StringBuilder();
             for (int i = 0; i < userType.size(); i++) {
                 if (userType.get(i).equals("2")) {

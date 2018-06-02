@@ -50,7 +50,6 @@ import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId
 
 public class ActivityAddService extends AppCompatActivity implements View.OnClickListener {
 
-    private static ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
     //REQUEST Code
     final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
@@ -114,9 +113,9 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 // region bắt lỗi nhập
-                if (!etLowestPrice.getText().toString().equals("")) {
+                if (etLowestPrice.getText().toString().equals("")) {
                     etLowestPrice.setError(getResources().getString(R.string.text_LowestPriceIsNotAllowedToBeEmpty));
-                } else if (!etHighestPrice.getText().toString().equals("")) {
+                } else if (etHighestPrice.getText().toString().equals("")) {
                     etHighestPrice.setError(getResources().getString(R.string.text_HighestPriceIsNotAllowedToBeEmpty));
                 } else if (Integer.parseInt(etLowestPrice.getText().toString())
                         > Integer.parseInt(etHighestPrice.getText().toString())) {
@@ -359,7 +358,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DCIM), "Camera");
@@ -379,7 +378,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
+            File photoFile;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
