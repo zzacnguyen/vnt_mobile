@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +80,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         linearObjectiveDetail = view.findViewById(R.id.ObjectiveDetail);
         linearStrengthDetail = view.findViewById(R.id.StrengthDetail);
 
-        if(userType.size() == 1 && userType.contains("3")){
+        if (userType.contains("3")) {
             linearStrengthDetail.setVisibility(View.VISIBLE);
             linearObjectiveDetail.setVisibility(View.VISIBLE);
         }
@@ -121,13 +120,20 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         etObjectiveDetail.setInputType(InputType.TYPE_NULL);
         etStrengthDetail.setInputType(InputType.TYPE_NULL);
 
-        ArrayList<String> arrayContact;
+        ArrayList<String> arrayContact, arrayTourguideInfo = null;
         try {
             String rs = new HttpRequestAdapter.httpGet().execute(Config.URL_HOST + Config.URL_GET_CONTACT_INFO + userId).get();
-            arrayContact = parseJsonNoId(new JSONObject(rs), Config.GET_KEY_JSON_CONTACT_INFO);
+            JSONObject jsonUserInfo = new JSONObject(rs);
+            arrayContact = parseJsonNoId(jsonUserInfo.getJSONObject(Config.GET_KEY_JSON_USER_INFO.get(0)),
+                    Config.GET_KEY_JSON_CONTACT_INFO);
+            if (userType.contains("3")) {
+                arrayTourguideInfo = parseJsonNoId(jsonUserInfo.getJSONObject(Config.GET_KEY_JSON_USER_INFO.get(1)),
+                        Config.GET_KEY_JSON_TOURGUIDE_INFO);
+            }
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
             arrayContact = null;
+            arrayTourguideInfo = null;
         }
         if (arrayContact != null) {
             etFullName.setText(arrayContact.get(0).equals(Config.NULL) ? "" : arrayContact.get(0));
@@ -136,6 +142,10 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
             etEmail.setText(arrayContact.get(3).equals(Config.NULL) ? "" : arrayContact.get(3));
             etLanguage.setText(arrayContact.get(4).equals(Config.NULL) ? "" : arrayContact.get(4));
             etCountry.setText(arrayContact.get(5).equals(Config.NULL) ? "" : arrayContact.get(5));
+        }
+        if (arrayTourguideInfo != null) {
+            etObjectiveDetail.setText(arrayTourguideInfo.get(0).equals(Config.NULL) ? "" : arrayTourguideInfo.get(0));
+            etStrengthDetail.setText(arrayTourguideInfo.get(1).equals(Config.NULL) ? "" : arrayTourguideInfo.get(1));
         }
     }
 
@@ -158,6 +168,15 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 if (etFullName.getText().toString().equals("")) {
                     etFullName.setError(getResources().getString(R.string.text_FullNameIsNotAllowedToBeEmpty));
                 } else {
+                    String tourGuide;
+                    if (userType.contains("3")) {
+                        tourGuide = "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(6) + ":\"" + "1" + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(7) + ":\"" + etObjectiveDetail.getText() + "\","
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(8) + ":\"" + etStrengthDetail.getText();
+                    } else {
+                        tourGuide = "";
+                    }
                     try {
                         JSONObject jsonEditProfile = new JSONObject("{"
                                 + Config.POST_KEY_JSON_CONTACT_INFO.get(0) + ":\"" + etFullName.getText() + "\","
@@ -165,14 +184,13 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                                 + Config.POST_KEY_JSON_CONTACT_INFO.get(2) + ":\"" + etWebsite.getText() + "\","
                                 + Config.POST_KEY_JSON_CONTACT_INFO.get(3) + ":\"" + etEmail.getText() + "\","
                                 + Config.POST_KEY_JSON_CONTACT_INFO.get(4) + ":\"" + etLanguage.getText() + "\","
-                                + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText() + "\"}");
+                                + Config.POST_KEY_JSON_CONTACT_INFO.get(5) + ":\"" + etCountry.getText()
+                                + tourGuide + "\"}");
 
                         String sttPostProfile = new HttpRequestAdapter.httpPost(jsonEditProfile)
                                 .execute(Config.URL_HOST + Config.URL_POST_CONTACT_INFO + userId).get();
 
-                        if (sttPostProfile.equals("1")) {
-                            isPostText = true;
-                        }
+                        isPostText = sttPostProfile.equals("1");
 
                     } catch (JSONException | InterruptedException | ExecutionException e) {
                         e.printStackTrace();
@@ -194,9 +212,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                         String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
                                 + Config.URL_POST_AVATAR + userId).get();
                         // nếu post thành công trả về "status:200"
-                        if (response.equals("\"status:200\"")) {
-                            isPostImage = true;
-                        }
+                        isPostImage = response.equals("\"status:200\"");
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }

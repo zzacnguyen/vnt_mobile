@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.53/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.54/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -89,9 +89,15 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_USER =
             new ArrayList<>(Arrays.asList("username", "fullname", "avatar", "level"));
 
+    public static final ArrayList<String> GET_KEY_JSON_USER_INFO =
+            new ArrayList<>(Arrays.asList("data", "tourguide"));
+
     public static final ArrayList<String> GET_KEY_JSON_CONTACT_INFO =
-            new ArrayList<>(Arrays.asList("contact_name", "contact_phone", "contact_website",
-                    "contact_email_address", "contact_language", "contact_country"));
+            new ArrayList<>(Arrays.asList("contact_name", "contact_phone", "contact_website", "contact_email_address",
+                    "contact_language", "contact_country"));
+
+    public static final ArrayList<String> GET_KEY_JSON_TOURGUIDE_INFO =
+            new ArrayList<>(Arrays.asList("user_objective_details", "user_strengths_details"));
 
     public static final ArrayList<String> GET_KEY_JSON_PLACE =
             new ArrayList<>(Arrays.asList("sightseeing_name", "image_id", "image_details_1"));
@@ -181,7 +187,8 @@ public class Config {
 
     public static final ArrayList<String> POST_KEY_JSON_CONTACT_INFO =
             new ArrayList<>(Arrays.asList("\"contact_name\"", "\"contact_phone\"", "\"contact_website\"",
-                    "\"contact_email_address\"", "\"contact_language\"", "\"contact_country\"", "\"contact_avatar\""));
+                    "\"contact_email_address\"", "\"contact_language\"", "\"contact_country\"",
+                    "tourguide", "user_objective_details", "user_strengths_details"));
 
     public static final ArrayList<String> POST_KEY_JSON_SERVICE =
             new ArrayList<>(Arrays.asList("\"sv_description\"", "\"sv_open\"", "\"sv_close\"",
