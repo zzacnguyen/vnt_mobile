@@ -152,6 +152,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                             break;
                     }
 
+                    Boolean isPostService = false, isPostImage = false;
+
                     try {
                         JSONObject jsonPost = new JSONObject("{"
                                 // mô tả
@@ -177,6 +179,11 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                         // post dịch vụ lên trả về id dịch vụ đó
                         idService = new HttpRequestAdapter.httpPost(jsonPost)
                                 .execute(Config.URL_HOST + Config.URL_POST_SERVICE + idPlace).get();
+
+                        idService = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : ""; // lấy id dịch vụ trả về có dạng "id_service:..." bỏ dấu " và cắt chuỗi theo dấu : lấy số id phía sau
+
+                        isPostService = !idService.equals("");
+
                     } catch (InterruptedException | ExecutionException | JSONException e) {
                         e.printStackTrace();
                     }
@@ -186,8 +193,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     bmBanner = ((BitmapDrawable) imgBanner.getDrawable()).getBitmap();
                     bmInfo1 = ((BitmapDrawable) imgInfo1.getDrawable()).getBitmap();
                     bmInfo2 = ((BitmapDrawable) imgInfo2.getDrawable()).getBitmap();
-
-                    idService = idService.contains(":") ? idService.replaceAll("\"", "").split(":")[1] : ""; // lấy id dịch vụ trả về có dạng "id_service:..." bỏ dấu " và cắt chuỗi theo dấu : lấy số id phía sau
+                    //*Chỗ nãy có sửa thành if(isPostService) dc k ?
                     if (!idService.equals("")) { // nếu post thành công có id dịch vụ trả về
                         ByteArrayOutputStream ban = new ByteArrayOutputStream();
                         bmBanner.compress(Bitmap.CompressFormat.JPEG, 80, ban);
@@ -209,21 +215,39 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                             String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
                                     + Config.URL_POST_IMAGE + idService).get();
                             // nếu post thành công trả về "status:200"
-                            if (response.equals("\"status:200\"")) {
-                                Toast.makeText(ActivityAddService.this, getResources()
-                                        .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ActivityAddService.this, getResources()
-                                        .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
-                            }
+                            
+                            isPostImage = response.equals("\"status:200\"");
+                            
+//                            if (response.equals("\"status:200\"")) {
+//                                Toast.makeText(ActivityAddService.this, getResources()
+//                                        .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(ActivityAddService.this, getResources()
+//                                        .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
+//                            }
                         } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
+                    }
+                    // endregion
+                    
+                    if (isPostService && isPostImage){
+                        Toast.makeText(ActivityAddService.this, getResources()
+                                .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ActivityAddService.this, MainActivity.class));
                     } else {
-                        Toast.makeText(ActivityAddService.this, getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
-                    } // endregion
+                        if(!isPostService){
+                            Toast.makeText(ActivityAddService.this, getResources()
+                                        .getString(R.string.toast_AddServiceFailed), Toast.LENGTH_SHORT).show();
+                        }else if (!isPostImage){
+                            Toast.makeText(ActivityAddService.this, getResources()
+                                    .getString(R.string.toast_UploadImageFailed), Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(ActivityAddService.this, getResources()
+                                    .getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                    startActivity(new Intent(ActivityAddService.this, MainActivity.class));
                 }
             }
         });

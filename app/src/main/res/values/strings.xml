@@ -225,4 +225,7 @@
     <string name="text_ObjectiveDetail">Objective detail:</string>
     <string name="text_StrengthsDetail">Strengths detail:</string>
     <string name="Toast_UpgradeSuccessfuly">Upgrade successfully</string>
+    <string name="toast_AddServiceFailed">Add service failed</string>
+    <string name="toast_UploadImageFailed">Upload image failed</string>
+    <string name="toast_EditServiceInfomationFail">Edit service information fail</string>
 </resources>

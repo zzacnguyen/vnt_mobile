@@ -207,4 +207,7 @@
     <string name="text_ObjectiveDetail">Chuyên ngành:</string>
     <string name="text_StrengthsDetail">Điểm mạnh:</string>
     <string name="Toast_UpgradeSuccessfuly">Nâng cấp thành công</string>
+    <string name="toast_AddServiceFailed">Thêm dịch vụ thất bại</string>
+    <string name="toast_UploadImageFailed">Thêm ảnh thất bại</string>
+    <string name="toast_EditServiceInfomationFail">Sửa thông tin dịch vụ thất bại</string>
 </resources>

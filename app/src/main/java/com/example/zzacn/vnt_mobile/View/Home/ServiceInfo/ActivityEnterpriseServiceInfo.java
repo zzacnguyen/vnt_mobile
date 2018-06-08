@@ -203,7 +203,13 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                             disbleWidget();
                             btnDone.setText(getResources().getString(R.string.text_Edit));
                         } else {
-                            Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+                            if (!isPostTextSuccessfully){
+                                Toast.makeText(this, getResources().getString(R.string.toast_EditServiceInfomationFail), Toast.LENGTH_SHORT).show();
+                            }else if (!isPostImageSuccessfully){
+                                Toast.makeText(this, getResources().getString(R.string.toast_UploadImageFailed), Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }
