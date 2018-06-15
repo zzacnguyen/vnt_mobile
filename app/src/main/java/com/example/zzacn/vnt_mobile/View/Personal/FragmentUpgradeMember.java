@@ -256,15 +256,15 @@ public class FragmentUpgradeMember extends Fragment implements View.OnClickListe
                     // region post avatar
                     if (isChangeAvatar) {
                         MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-                        ByteArrayOutputStream ban = new ByteArrayOutputStream();
-                        bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, ban);
+                        ByteArrayOutputStream avt = new ByteArrayOutputStream();
+                        bitmapAvatar.compress(Bitmap.CompressFormat.JPEG, 80, avt);
                         avatar = bitmapAvatar;
-                        ContentBody contentAvatar = new ByteArrayBody(ban.toByteArray(), "a.jpg");
+                        ContentBody contentAvatar = new ByteArrayBody(avt.toByteArray(), "a.jpg");
                         reqEntity.addPart("avatar", contentAvatar);
                         try {
                             // post hình lên
                             String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
-                                    + Config.URL_POST_IMAGE + userId).get();
+                                    + Config.URL_POST_AVATAR + userId).get();
                             // nếu post thành công trả về "status:200"
                             isPostImage = response.equals("\"status:200\"");
                         } catch (InterruptedException | ExecutionException e) {

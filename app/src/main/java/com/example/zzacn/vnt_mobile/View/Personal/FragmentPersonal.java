@@ -58,7 +58,7 @@ public class FragmentPersonal extends Fragment {
         btnLogout = view.findViewById(R.id.button_Logout);
         txtUserName = view.findViewById(R.id.textView_UserName);
         txtUserType = view.findViewById(R.id.textView_UserType);
-        txtUserPoint = view.findViewById(R.id.textView_UserMark);
+        txtUserPoint = view.findViewById(R.id.textView_UserPoint);
         Cavatar = view.findViewById(R.id.avatar);
         linearUpgradeMember = view.findViewById(R.id.UpgradeMember);
         Logout = view.findViewById(R.id.Logout);
@@ -87,6 +87,8 @@ public class FragmentPersonal extends Fragment {
             for (int i = 0; i < userType.size(); i++) {
                 if (userType.get(i).equals("2")) {
                     stringUserType.append(getResources().getString(R.string.text_Enterprise));
+                    txtUserPoint.setVisibility(View.VISIBLE);
+                    txtUserPoint.setText(userPoint);
                 } else if (userType.get(i).equals("3")) {
                     stringUserType.append(getResources().getString(R.string.text_TourGuide));
                 } else {
@@ -98,7 +100,6 @@ public class FragmentPersonal extends Fragment {
                 }
             }
             txtUserType.setText(stringUserType.toString());
-            txtUserPoint.setText(userPoint);
             linearUpgradeMember.setVisibility(View.VISIBLE);
 
             Logout.setVisibility(View.VISIBLE);

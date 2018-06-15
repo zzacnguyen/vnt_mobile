@@ -156,9 +156,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                             // url : localhost/doan3_canthotour/edit-services/services-id={id_service}&user-id={id_user}
                             String rs = new HttpRequestAdapter.httpPost(jsonPost).execute(Config.URL_HOST
                                     + Config.URL_PUT_SERVICE_INFO.get(0) + idService + Config.URL_PUT_SERVICE_INFO.get(1) + userId).get();
-                            if (rs.equals("\"status:200\"")) {
-                                isPostTextSuccessfully = true;
-                            }
+                            isPostTextSuccessfully = rs.equals("\"status:200\"");
                         } catch (InterruptedException | ExecutionException | JSONException e) {
                             e.printStackTrace();
                         }
@@ -187,9 +185,7 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                                 String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
                                         + Config.URL_PUT_IMAGE + idService).get();
                                 // nếu post thành công trả về "status:200"
-                                if (response.equals("\"status:200\"")) {
-                                    isPostImageSuccessfully = true;
-                                }
+                                isPostImageSuccessfully = response.equals("\"status:200\"");
                             } catch (InterruptedException | ExecutionException e) {
                                 e.printStackTrace();
                             }
@@ -203,12 +199,10 @@ public class ActivityEnterpriseServiceInfo extends AppCompatActivity implements 
                             disbleWidget();
                             btnDone.setText(getResources().getString(R.string.text_Edit));
                         } else {
-                            if (!isPostTextSuccessfully){
+                            if (!isPostTextSuccessfully) {
                                 Toast.makeText(this, getResources().getString(R.string.toast_EditServiceInfomationFail), Toast.LENGTH_SHORT).show();
-                            }else if (!isPostImageSuccessfully){
+                            } else if (!isPostImageSuccessfully) {
                                 Toast.makeText(this, getResources().getString(R.string.toast_UploadImageFailed), Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(this, getResources().getString(R.string.text_EditFailed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

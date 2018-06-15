@@ -42,6 +42,7 @@ public class ActivityAddPlace extends AppCompatActivity {
     Button btnPlacePicker;
     LinearLayout linearPlace, linearEat, linearHotel, linearEntertaiment, linearVehicle;
     String stringIdPlace;
+    boolean isPostSuccessful;
 
     Spinner spnrDistrict, spnrProvince, spnrWard;
     ArrayAdapter<String> arrayListProvince, arrayListDistrict, arrayListWard;
@@ -157,7 +158,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postPlace())
+                postPlace();
+                if (isPostSuccessful)
                     openActivityAddService(4);
             }
         });
@@ -165,7 +167,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postPlace())
+                postPlace();
+                if (isPostSuccessful)
                     openActivityAddService(1);
             }
         });
@@ -173,7 +176,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postPlace())
+                postPlace();
+                if (isPostSuccessful)
                     openActivityAddService(2);
             }
         });
@@ -181,7 +185,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearEntertaiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postPlace())
+                postPlace();
+                if (isPostSuccessful)
                     openActivityAddService(5);
             }
         });
@@ -189,7 +194,8 @@ public class ActivityAddPlace extends AppCompatActivity {
         linearVehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (postPlace())
+                postPlace();
+                if (isPostSuccessful)
                     openActivityAddService(3);
             }
         });
@@ -202,14 +208,14 @@ public class ActivityAddPlace extends AppCompatActivity {
         });
     }
 
-    private boolean postPlace() {
-        if (etPlaceName.getText().toString().equals("")) {
+    private void postPlace() {
+        if (etPlaceName.getText().toString().trim().equals("")) {
             etPlaceName.setError(getResources().getString(R.string.text_WhatIsYourPlaceName));
-        } else if (etAddress.getText().toString().equals("")) {
+        } else if (etAddress.getText().toString().trim().equals("")) {
             etAddress.setError(getResources().getString(R.string.text_EnterYourAddress));
-        } else if (etPlacePhone.getText().toString().equals("")) {
+        } else if (etPlacePhone.getText().toString().trim().equals("")) {
             etPlacePhone.setError(getResources().getString(R.string.text_PhoneNumberIsNotAllowedToBeEmpty));
-        } else if (etPlaceAbout.getText().toString().equals("")) {
+        } else if (etPlaceAbout.getText().toString().trim().equals("")) {
             etPlaceAbout.setError(getResources().getString(R.string.text_TypeYouDescription));
         } else if (idWard == 0) {
             Toast.makeText(ActivityAddPlace.this, getResources().getString(R.string.text_ChooseAddress), Toast.LENGTH_SHORT).show();
@@ -237,17 +243,16 @@ public class ActivityAddPlace extends AppCompatActivity {
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
             }
-            if (stringIdPlace.equals("\"status:500\"")) {
+            if (stringIdPlace.equals("\"status:500\"") || stringIdPlace.equals("failure")) {
                 Toast.makeText(ActivityAddPlace.this, getResources()
                         .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
-                return false;
+                isPostSuccessful = false;
             } else {
                 stringIdPlace = stringIdPlace.contains(":")
                         ? stringIdPlace.replaceAll("\"", "").split(":")[1] : "0";
-                return true;
+                isPostSuccessful = true;
             }
         }
-        return true;
     }
 
     private void openActivityAddService(int type) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_Personal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_Personal">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -70,8 +70,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:paddingTop="4dp"
                         android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
                         android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
@@ -85,13 +85,14 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/textView_UserMark"
+                        android:id="@+id/textView_UserPoint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text=""
                         android:textColor="@color/tbEat"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -113,13 +114,13 @@
                 android:visibility="gone">
 
                 <Button
-                    android:onClick="addFragment"
                     android:id="@+id/button_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_edit_profile"
+                    android:onClick="addFragment"
                     android:text="@string/text_Profile"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
@@ -141,13 +142,13 @@
                 android:padding="5dp">
 
                 <Button
-                    android:onClick="addFragment"
                     android:id="@+id/button_Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_signin_24dp"
+                    android:onClick="addFragment"
                     android:text="@string/text_SignIn"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
@@ -169,13 +170,13 @@
                 android:padding="5dp">
 
                 <Button
-                    android:onClick="addFragment"
                     android:id="@+id/buttonRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_signup_24dp"
+                    android:onClick="addFragment"
                     android:text="@string/text_SignUp"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />
@@ -198,13 +199,13 @@
                 android:visibility="gone">
 
                 <Button
-                    android:onClick="addFragment"
                     android:id="@+id/button_UpgradeMember"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableLeft="@drawable/ic_verified_user_24dp"
+                    android:onClick="addFragment"
                     android:text="@string/text_UpgradeMember"
                     android:textAlignment="textStart"
                     android:textAllCaps="false" />

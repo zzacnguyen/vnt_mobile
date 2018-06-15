@@ -193,8 +193,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     bmBanner = ((BitmapDrawable) imgBanner.getDrawable()).getBitmap();
                     bmInfo1 = ((BitmapDrawable) imgInfo1.getDrawable()).getBitmap();
                     bmInfo2 = ((BitmapDrawable) imgInfo2.getDrawable()).getBitmap();
-                    //*Chỗ nãy có sửa thành if(isPostService) dc k ?
-                    if (!idService.equals("")) { // nếu post thành công có id dịch vụ trả về
+                    if (isPostService) { // nếu post thành công có id dịch vụ trả về
                         ByteArrayOutputStream ban = new ByteArrayOutputStream();
                         bmBanner.compress(Bitmap.CompressFormat.JPEG, 80, ban);
                         ContentBody contentBanner = new ByteArrayBody(ban.toByteArray(), "a.jpg");
@@ -217,14 +216,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                             // nếu post thành công trả về "status:200"
                             
                             isPostImage = response.equals("\"status:200\"");
-                            
-//                            if (response.equals("\"status:200\"")) {
-//                                Toast.makeText(ActivityAddService.this, getResources()
-//                                        .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                Toast.makeText(ActivityAddService.this, getResources()
-//                                        .getString(R.string.text_Error), Toast.LENGTH_SHORT).show();
-//                            }
+
                         } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
@@ -234,6 +226,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                     if (isPostService && isPostImage){
                         Toast.makeText(ActivityAddService.this, getResources()
                                 .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
+                        finish();
                         startActivity(new Intent(ActivityAddService.this, MainActivity.class));
                     } else {
                         if(!isPostService){
@@ -242,9 +235,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                         }else if (!isPostImage){
                             Toast.makeText(ActivityAddService.this, getResources()
                                     .getString(R.string.toast_UploadImageFailed), Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(ActivityAddService.this, getResources()
-                                    .getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
                         }
                     }
 
