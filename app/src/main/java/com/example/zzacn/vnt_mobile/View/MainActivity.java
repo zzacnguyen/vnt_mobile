@@ -288,21 +288,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        switch (i) {
-            case 0:
-                replaceFragment(new FragmentHome());
-                break;
-
-            case 1:
-                replaceFragment(new FavoriteFragment());
-                break;
-
-            case 2:
-                replaceFragment(new FragmentNotification());
-                break;
-        }
-        super.onResume();
-    }
+//    @Override
+//    protected void onResume() {
+//        switch (i) {
+//            case 0:
+//                replaceFragment(new FragmentHome());
+//                break;
+//
+//            case 1:
+//                replaceFragment(new FavoriteFragment());
+//                break;
+//
+//            case 2:
+//                replaceFragment(new FragmentNotification());
+//                break;
+//        }
+//        super.onResume();
+//    }
 }

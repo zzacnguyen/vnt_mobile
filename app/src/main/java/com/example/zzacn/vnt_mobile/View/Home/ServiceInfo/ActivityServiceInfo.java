@@ -202,6 +202,8 @@ public class ActivityServiceInfo extends AppCompatActivity implements View.OnCli
         btnBack = findViewById(R.id.button_Back);
         txtTranslate = findViewById(R.id.tvTranslate);
 
+        btnBack.setOnClickListener(this);
+
         idService = getIntent().getIntExtra("id", 0);
 
         //Init FB share content
