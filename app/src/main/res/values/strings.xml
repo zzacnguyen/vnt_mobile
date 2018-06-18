@@ -228,4 +228,5 @@
     <string name="toast_AddServiceFailed">Add service failed</string>
     <string name="toast_UploadImageFailed">Upload image failed</string>
     <string name="toast_EditServiceInfomationFail">Edit service information fail</string>
+    <string name="text_Nearby">Nearby</string>
 </resources>
