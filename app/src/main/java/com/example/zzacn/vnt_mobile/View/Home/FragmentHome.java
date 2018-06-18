@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.zzacn.vnt_mobile.Adapter.EnterpriseServiceAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.NearbyAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ScheduleAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ServiceAdapter;
 import com.example.zzacn.vnt_mobile.Config;
@@ -27,6 +28,8 @@ import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
 
 import java.util.ArrayList;
 
+import static com.example.zzacn.vnt_mobile.View.MainActivity.lat;
+import static com.example.zzacn.vnt_mobile.View.MainActivity.lon;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userType;
 
@@ -117,6 +120,12 @@ public class FragmentHome extends Fragment {
                     new ModelTripSchedule().getScheduleInMain(Config.URL_HOST + url), getContext());
             recyclerView.setAdapter(scheduleAdapter);
             scheduleAdapter.notifyDataSetChanged();
+        } else if (url.equals(Config.URL_GET_NEARBY.get(0) + lat + Config.URL_GET_NEARBY.get(1) + lon
+                + Config.URL_GET_NEARBY.get(2) + "5000")) {
+            NearbyAdapter nearbyAdapter = new NearbyAdapter(
+                    new ModelService().getServiceNearby(Config.URL_HOST + url, arrayKey, 0), getContext());
+            recyclerView.setAdapter(nearbyAdapter);
+            nearbyAdapter.notifyDataSetChanged();
         } else {
             ServiceAdapter serviceAdapter = new ServiceAdapter(
                     new ModelService().getServiceInMain(Config.URL_HOST + url, arrayKey), getContext());
@@ -132,27 +141,32 @@ public class FragmentHome extends Fragment {
         linearSchedule = view.findViewById(R.id.linearSchedule);
 
         // region load service
-        // load enterprise's service nếu người dùng là doanh nghiệp + hiện nút thêm địa điểm
         if (userType != null && userType.contains("2")) {
+            // region load enterprise's service nếu người dùng là doanh nghiệp + hiện nút thêm địa điểm
             linearEnterpriseService.setVisibility(View.VISIBLE);
             viewLineYourService.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_EnterpriseService);
             loadService(Config.URL_GET_ALL_ENTERPRISE_SERVICE + userId, Config.GET_KEY_JSON_ENTERPRISE_SERVICE);
             fabAdd.setVisibility(View.VISIBLE);
+            // endregion
         }
 
-        // load lịch trình nếu là người dùng hdv + hiện nút thêm lịch trình
         if (userType != null && userType.contains("3")) {
+            // region load lịch trình nếu là người dùng hdv + hiện nút thêm lịch trình
             linearSchedule.setVisibility(View.VISIBLE);
             viewLineYourSchedule.setVisibility(View.VISIBLE);
             recyclerView = view.findViewById(R.id.RecyclerView_Schedule);
             loadService(Config.URL_GET_TRIP_SCHEDULE + userId, new ArrayList<String>());
             fabAdd.setVisibility(View.VISIBLE);
+            // endregion
         }
 
         // load lịch trình và địa điểm dịch vụ nếu là người dùng hdv và doanh nghiệp
         // hiện thêm 2 nút thêm lịch trình và thêm địa điểm
         if (userType != null && userType.contains("2") && userType.contains("3")) {
+
+            // region load lịch trình và dịch vụ của doanh nghiệp
+
             // load lịch trình
             linearEnterpriseService.setVisibility(View.VISIBLE);
             viewLineYourService.setVisibility(View.VISIBLE);
@@ -170,7 +184,14 @@ public class FragmentHome extends Fragment {
             fabAddService.setVisibility(View.VISIBLE);
             fabAddTrip.setVisibility(View.VISIBLE);
             HideFab();
+            // endregion
+
         }
+
+        // load nearby
+        recyclerView = view.findViewById(R.id.RecyclerView_Nearby);
+        loadService(Config.URL_GET_NEARBY.get(0) + lat + Config.URL_GET_NEARBY.get(1) + lon
+                + Config.URL_GET_NEARBY.get(2) + "5000", Config.GET_KEY_JSON_NEARBY);
 
         // load place
         recyclerView = view.findViewById(R.id.RecyclerView_Place);

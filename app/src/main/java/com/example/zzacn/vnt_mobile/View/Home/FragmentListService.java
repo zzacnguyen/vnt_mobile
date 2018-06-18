@@ -18,11 +18,13 @@ import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfEnterpriseServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfTripScheduleAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.NearbyAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.ModelTripSchedule;
+import com.example.zzacn.vnt_mobile.Model.Object.NearLocation;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.Object.TripSchedule;
 import com.example.zzacn.vnt_mobile.R;
@@ -92,6 +94,11 @@ public class FragmentListService extends Fragment {
                     toolbar.setBackgroundColor(getResources().getColor(R.color.tbEntertain));
                     toolbarTitle.setText(getResources().getString(R.string.title_ListOfEntertainment));
                     getFullServiceList(url, Config.GET_KEY_JSON_ENTERTAINMENT);
+                    break;
+                case 7:
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.bgToolbar));
+                    toolbarTitle.setText(getResources().getString(R.string.text_Nearby));
+                    getFullListNearby(url);
                     break;
             }
         }
@@ -267,6 +274,22 @@ public class FragmentListService extends Fragment {
                 }
             }
         });
+    }
+
+    private void getFullListNearby(String url) {
+        RecyclerView recyclerView = view.findViewById(R.id.RecyclerView_ServiceList);
+        recyclerView.setHasFixedSize(true); //Tối ưu hóa dữ liệu, k bị ảnh hưởng bởi nội dung trong adapter
+
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
+        ArrayList<NearLocation> nearLocations = new ModelService().getServiceNearby(url, Config.GET_KEY_JSON_NEARBY, 1);
+
+        NearbyAdapter nearbyAdapter = new NearbyAdapter(nearLocations, getContext());
+        recyclerView.setAdapter(nearbyAdapter);
+        nearbyAdapter.notifyDataSetChanged();
     }
 
     private ArrayList<Service> getData(String url, ArrayList<String> formatJson) {

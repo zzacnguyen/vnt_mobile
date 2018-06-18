@@ -7,6 +7,7 @@ import android.os.Environment;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
+import com.example.zzacn.vnt_mobile.Model.Object.NearLocation;
 import com.example.zzacn.vnt_mobile.Model.Object.Review;
 import com.example.zzacn.vnt_mobile.Model.Object.Service;
 import com.example.zzacn.vnt_mobile.Model.Object.ServiceInfo;
@@ -276,6 +277,48 @@ public class ModelService {
 
                     services.add(service);
                 }
+            }
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    public ArrayList<NearLocation> getServiceNearby(String url, ArrayList<String> formatJson, int num) {
+
+        ArrayList<String> arrayList;
+        ArrayList<NearLocation> services = new ArrayList<>();
+
+        try {
+            String rs = new HttpRequestAdapter.httpGet().execute(url).get();
+            JSONArray jsonArray = new JSONArray(rs);
+
+            // num == 0 thì giới hạn 5 dịch vụ ở home
+            // numm == 1 thì load tất cả
+            if (num == 1) {
+                num = jsonArray.length();
+            } else {
+                num = jsonArray.length() >= 5 ? 5 : jsonArray.length();
+            }
+            for (int i = 0; i < num; i++) {
+
+                NearLocation service = new NearLocation();
+                JSONObject jsonObjectData = jsonArray.getJSONObject(i);
+
+                arrayList = parseJsonNoId(jsonObjectData, formatJson);
+
+                //Set hình ảnh
+                service.setNearLocationImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(2),
+                        Config.FOLDER_THUMB1, arrayList.get(2)));
+                //Set mã dịch vụ
+                service.setNearLocationId(Integer.parseInt(arrayList.get(0)));
+                //Set tên dịch vụ
+                service.setNearLocationName(arrayList.get(1));
+                // set khoảng cách
+                service.setNearLocationDistance(arrayList.get(3));
+
+                services.add(service);
+                arrayList.clear();
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();

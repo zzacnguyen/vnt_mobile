@@ -1,8 +1,14 @@
 package com.example.zzacn.vnt_mobile.View;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static String username, password;
     public static Fragment childFragment = null;
     public static boolean isStoragePermissionGranted;
+    public static double lat = 10.0447131, lon = 105.7632715;
     BottomNavigationView bottomNavigationView;
     int badgeNumber = 0;
     SessionManager sessionManager;
@@ -50,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     TextView txtBadge;
     int i = 0;
     private boolean isFirstRun = true;
+    private LocationManager locationManager;
+    private LocationListener listener;
 
     public void BottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation); //Bottom navigation view
@@ -109,6 +118,35 @@ public class MainActivity extends AppCompatActivity {
 
             isFirstRun = false;
         }
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+                System.out.println(location.getLatitude() + "  " + location.getLongitude());
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(i);
+            }
+        };
+
+        isGpsPermissionGranted();
 
         BottomNavigation();
 
@@ -229,6 +267,13 @@ public class MainActivity extends AppCompatActivity {
                 childFragment.setArguments(bundle);
                 break;
 
+            case R.id.btnAllNear: //Danh sách dịch vụ lân cận
+                bundle.putString("url", Config.URL_HOST + Config.URL_GET_NEARBY.get(0) + lat + Config.URL_GET_NEARBY.get(1) + lon
+                        + Config.URL_GET_NEARBY.get(2) + "5000");
+                bundle.putInt("type", 7);
+                childFragment.setArguments(bundle);
+                break;
+
             case R.id.button_Login:
                 childFragment = new FragmentLogin();
                 break;
@@ -262,6 +307,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void isGpsPermissionGranted() {
+        // first check for permissions
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 10);
+            }
+            return;
+        }
+        // this code won't execute IF permissions are not allowed, because in the line above there is return statement.
+        locationManager.requestLocationUpdates("gps", 5000, 0, listener);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0
@@ -270,6 +331,10 @@ public class MainActivity extends AppCompatActivity {
             isStoragePermissionGranted = true;
         } else {
             isStoragePermissionGranted = false;
+        }
+
+        if (requestCode == 10) {
+            isGpsPermissionGranted();
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -288,21 +353,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onResume() {
-//        switch (i) {
-//            case 0:
-//                replaceFragment(new FragmentHome());
-//                break;
-//
-//            case 1:
-//                replaceFragment(new FavoriteFragment());
-//                break;
-//
-//            case 2:
-//                replaceFragment(new FragmentNotification());
-//                break;
-//        }
-//        super.onResume();
-//    }
+    @Override
+    protected void onResume() {
+        switch (i) {
+            case 1:
+                replaceFragment(new FavoriteFragment());
+                break;
+
+            case 2:
+                replaceFragment(new FragmentNotification());
+                break;
+        }
+        super.onResume();
+    }
 }

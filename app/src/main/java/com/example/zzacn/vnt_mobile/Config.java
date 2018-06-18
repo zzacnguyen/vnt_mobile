@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.54/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.7/doan3_canthotour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -16,6 +16,8 @@ public class Config {
             new ArrayList<>(Arrays.asList("search/searchServicesTypeKeyword/type=", "&keyword="));
     public static final ArrayList<String> URL_SEARCH_SERVICE_NEAR =
             new ArrayList<>(Arrays.asList("search/servicevicinity/location=", "&type=", "&radius="));
+    public static final ArrayList<String> URL_GET_NEARBY =
+            new ArrayList<>(Arrays.asList("search-near-m/lat=", "&lon=", "&radius="));
     public static final String URL_GET_ALL_EATS = "eating";
     public static final String URL_GET_HISTORY_SEARCH = "usersearch";
     public static final String URL_GET_POINT = "point-for-user/";
@@ -82,6 +84,9 @@ public class Config {
     public static final ArrayList<String> KEY_SERVICE_INFO =
             new ArrayList<>(Arrays.asList("isLike", "idLike", "like_id", "isRating", "idRating",
                     "rating_id", "service", "type_event", "type_name", "count_like"));
+
+    public static final ArrayList<String> GET_KEY_JSON_NEARBY =
+            new ArrayList<>(Arrays.asList("id_service", "name", "image", "distance"));
 
     public static final ArrayList<String> GET_KEY_JSON_EAT =
             new ArrayList<>(Arrays.asList("eat_name", "image_id", "image_details_1"));
