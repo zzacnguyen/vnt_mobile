@@ -19,11 +19,11 @@ import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 import java.util.ArrayList;
 
 
-public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.ViewHolder> {
+public class ListNearbyAdapter extends RecyclerView.Adapter<ListNearbyAdapter.ViewHolder> {
     private ArrayList<NearLocation> nearLocations;
     private Context context;
 
-    public NearbyAdapter(ArrayList<NearLocation> nearLocations, Context context) {
+    public ListNearbyAdapter(ArrayList<NearLocation> nearLocations, Context context) {
         this.nearLocations = nearLocations;
         this.context = context;
     }
@@ -32,7 +32,7 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //Khi gọi DiaDanhAdapter thì hàm này chạy đầu tiên
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View itemView = layoutInflater.inflate(R.layout.custom_nearby, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.custom_nearby_list, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -70,9 +70,9 @@ public class NearbyAdapter extends RecyclerView.Adapter<NearbyAdapter.ViewHolder
             super(itemView);
 
             txtTen = itemView.findViewById(R.id.textView_NearName);
-            txtKhoangCach = itemView.findViewById(R.id.textView_NearRadius);
+            txtKhoangCach = itemView.findViewById(R.id.textView_Radius);
             imgHinh = itemView.findViewById(R.id.imageview_ViewNear);
-            cardView = itemView.findViewById(R.id.cardView_Near);
+            cardView = itemView.findViewById(R.id.cardView_NearLocation);
         }
     }
 }

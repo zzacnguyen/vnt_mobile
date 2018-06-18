@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
+import com.example.zzacn.vnt_mobile.Adapter.ListNearbyAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfEnterpriseServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfServiceAdapter;
 import com.example.zzacn.vnt_mobile.Adapter.ListOfTripScheduleAdapter;
-import com.example.zzacn.vnt_mobile.Adapter.NearbyAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Helper.JsonHelper;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
@@ -287,9 +287,9 @@ public class FragmentListService extends Fragment {
 
         ArrayList<NearLocation> nearLocations = new ModelService().getServiceNearby(url, Config.GET_KEY_JSON_NEARBY, 1);
 
-        NearbyAdapter nearbyAdapter = new NearbyAdapter(nearLocations, getContext());
-        recyclerView.setAdapter(nearbyAdapter);
-        nearbyAdapter.notifyDataSetChanged();
+        ListNearbyAdapter listNearbyAdapter = new ListNearbyAdapter(nearLocations, getContext());
+        recyclerView.setAdapter(listNearbyAdapter);
+        listNearbyAdapter.notifyDataSetChanged();
     }
 
     private ArrayList<Service> getData(String url, ArrayList<String> formatJson) {
