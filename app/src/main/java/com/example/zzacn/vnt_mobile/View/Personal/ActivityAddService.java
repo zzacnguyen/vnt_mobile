@@ -54,7 +54,6 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
     static final int RESULT_BANNER = 111,
             RESULT_INFO1 = 112,
             RESULT_INFO2 = 113,
-            REQUEST_CAMERA_CAPTURE = 110,
             REQUEST_TAKE_PHOTO = 114;
     Bitmap bmBanner, bmInfo1, bmInfo2;
     TextView txtOpenTime, txtCloseTime, btnSend, btnCancel;
@@ -214,7 +213,7 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                             String response = new HttpRequestAdapter.httpPostImage(reqEntity).execute(Config.URL_HOST
                                     + Config.URL_POST_IMAGE + idService).get();
                             // nếu post thành công trả về "status:200"
-                            
+
                             isPostImage = response.equals("\"status:200\"");
 
                         } catch (InterruptedException | ExecutionException e) {
@@ -222,10 +221,8 @@ public class ActivityAddService extends AppCompatActivity implements View.OnClic
                         }
                     }
                     // endregion
-                    
+
                     if (isPostService && isPostImage){
-                        Toast.makeText(ActivityAddService.this, getResources()
-                                .getString(R.string.text_Success), Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(new Intent(ActivityAddService.this, MainActivity.class));
                     } else {

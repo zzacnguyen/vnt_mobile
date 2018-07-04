@@ -436,7 +436,7 @@
                             android:layout_gravity="center"
                             android:padding="17dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_restaurant_black_36dp" />
+                            android:src="@drawable/ic_hotel_36dp" />
 
                         <TextView
                             android:layout_width="match_parent"

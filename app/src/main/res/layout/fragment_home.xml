@@ -156,7 +156,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Schedule"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -209,7 +209,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_EnterpriseService"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -260,7 +260,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Nearby"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
@@ -309,7 +309,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/RecyclerView_Place"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>

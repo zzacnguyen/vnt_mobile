@@ -22,6 +22,7 @@ import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.ModelService;
 import com.example.zzacn.vnt_mobile.Model.ModelTripSchedule;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.MainActivity;
 import com.example.zzacn.vnt_mobile.View.Personal.ActivityAddPlace;
 import com.example.zzacn.vnt_mobile.View.Personal.TripSchedule.ActivityAddTripSchedule;
 import com.example.zzacn.vnt_mobile.View.Search.ActivityAdvancedSearch;
@@ -84,6 +85,7 @@ public class FragmentHome extends Fragment {
         fabAddService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getActivity().finish();
                 startActivity(new Intent(getContext(), ActivityAddPlace.class));
             }
         });
@@ -91,6 +93,7 @@ public class FragmentHome extends Fragment {
         fabAddTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getActivity().finish();
                 startActivity(new Intent(getContext(), ActivityAddTripSchedule.class));
             }
         });

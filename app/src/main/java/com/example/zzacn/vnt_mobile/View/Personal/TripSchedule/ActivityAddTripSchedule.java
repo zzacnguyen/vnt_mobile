@@ -2,6 +2,7 @@ package com.example.zzacn.vnt_mobile.View.Personal.TripSchedule;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.zzacn.vnt_mobile.Adapter.HttpRequestAdapter;
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.R;
+import com.example.zzacn.vnt_mobile.View.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,23 +96,21 @@ public class ActivityAddTripSchedule extends AppCompatActivity {
                             stt = new HttpRequestAdapter.httpPost(jsonPost)
                                     .execute(Config.URL_HOST + Config.URL_POST_TRIP_SCHEDULE + userId).get();
 
-                            Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
+                            // nếu status == status:200
+                            if (Objects.equals(stt, "\"status:200\"")) {
+                                finish();
+                                startActivity(new Intent(ActivityAddTripSchedule.this, MainActivity.class));
+                            } else {
+                                Toast.makeText(ActivityAddTripSchedule.this
+                                        , getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
+                            }
+
                         } catch (JSONException | InterruptedException | ExecutionException e) {
                             e.printStackTrace();
                         }
                     }
                 } else {
                     Toast.makeText(ActivityAddTripSchedule.this, getResources().getString(R.string.Toast_TheInformationIsNotEnpty), Toast.LENGTH_SHORT).show();
-                }
-
-                // nếu status != null và = OK
-                if (Objects.equals(stt, "\"status:200\"")) {
-                    Toast.makeText(getApplication()
-                            , getResources().getString(R.string.text_AddNewSuccess), Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    Toast.makeText(ActivityAddTripSchedule.this
-                            , getResources().getString(R.string.text_AddFailed), Toast.LENGTH_SHORT).show();
                 }
             }
         });

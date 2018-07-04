@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationChanged(Location location) {
                 lat = location.getLatitude();
                 lon = location.getLongitude();
-                System.out.println(location.getLatitude() + "  " + location.getLongitude());
             }
 
             @Override
