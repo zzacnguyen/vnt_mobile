@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Config {
-    public static final String URL_HOST = "http://192.168.1.7/doan3_canthotour/";
+    public static final String URL_HOST = "http://192.168.1.16/luanvan_vietnamtour/";
     public static final String URL_LOGIN = "login-mobile";
     public static final String URL_GET_CONTACT_INFO = "get-info-user-mobile/";
     public static final String URL_GET_PROVINCE = "province";
@@ -31,6 +31,7 @@ public class Config {
     public static final String URL_GET_ALL_SERVICE_VENUE = "get-list-serives-venue/";
     public static final String URL_GET_ALL_VEHICLES = "transport";
     public static final String URL_GET_ALL_EVENTS = "events";
+    public static final String URL_GET_ALL_NOTIFICATION = "load-notification/";
     public static final String URL_GET_ALL_ENTERTAINMENTS = "entertainments";
     public static final String URL_GET_ALL_FAVORITE = "like";
     public static final String URL_GET_LINK_THUMB_1 = "get-thumb-1/";
@@ -73,7 +74,6 @@ public class Config {
     public static final String NULL = "null";
     public static final String KEY_DISTANCE = "distance";
     public static final String DEFAULT_DISTANCE = "500";
-
 
     public static final ArrayList<String> GET_KEY_JSON_EVENT_TYPE =
             new ArrayList<>(Collections.singletonList("type_name"));
@@ -125,6 +125,9 @@ public class Config {
     public static final ArrayList<String> GET_KEY_JSON_EVENT =
             new ArrayList<>(Arrays.asList("event_name", "event_start", "event_end",
                     "image_id", "image_details_1", "is_seen", "id_event"));
+
+    public static final ArrayList<String> GET_KEY_JSON_NOTIFICATION =
+            new ArrayList<>(Arrays.asList("event_name", "image_id", "image_details_1", "is_seen", "id_event", "event_user"));
 
     public static final ArrayList<String> GET_KEY_JSON_ENTERTAINMENT =
             new ArrayList<>(Arrays.asList("entertainments_name", "image_id", "image_details_1"));

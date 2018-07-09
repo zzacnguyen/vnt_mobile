@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Interface.OnLoadMoreListener;
-import com.example.zzacn.vnt_mobile.Model.Object.Event;
+import com.example.zzacn.vnt_mobile.Model.Object.Notification;
+import com.example.zzacn.vnt_mobile.Model.SessionManager;
 import com.example.zzacn.vnt_mobile.R;
 import com.example.zzacn.vnt_mobile.View.Home.ServiceInfo.ActivityServiceInfo;
 
@@ -26,19 +27,19 @@ import java.util.ArrayList;
 import static com.example.zzacn.vnt_mobile.View.Personal.FragmentPersonal.userId;
 
 
-public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private Context context;
-    private ArrayList<Event> events;
+    private ArrayList<Notification> notifications;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    public EventAdapter(RecyclerView recyclerView, ArrayList<Event> events, Context context) {
+    public NotificationAdapter(RecyclerView recyclerView, ArrayList<Notification> notifications, Context context) {
         this.context = context;
-        this.events = events;
+        this.notifications = notifications;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -62,14 +63,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        return events.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return notifications.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(context).inflate(R.layout.custom_event, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.custom_notification, parent, false);
             return new ViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_loading, parent, false);
@@ -82,11 +83,10 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             final ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.txtTenSk.setText(events.get(position).getEventName());
-            viewHolder.txtNgaySk.setText(events.get(position).getEventDate());
-            viewHolder.imgHinhSk.setImageBitmap(events.get(position).getEventImage());
-            viewHolder.cardView.setTag(events.get(position).getServiceId());
-            if (events.get(position).isSeen()){
+            viewHolder.txtName.setText(notifications.get(position).getNotificationName());
+            viewHolder.imgImage.setImageBitmap(notifications.get(position).getNotificationImage());
+            viewHolder.cardView.setTag(notifications.get(position).getServiceId());
+            if (notifications.get(position).isSeen()) {
                 viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
                 viewHolder.txtSeen.setText(context.getResources().getString(R.string.text_Seen));
             }
@@ -94,19 +94,27 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent iEventInfo = new Intent(context, ActivityServiceInfo.class);
-                    iEventInfo.putExtra("id", (int) view.getTag());
                     try {
                         new HttpRequestAdapter.httpPost(new JSONObject("{"
-                                + Config.POST_KEY_JSON_SEEN.get(0) + ":\"" + events.get(position).getEventId() + "\","
+                                + Config.POST_KEY_JSON_SEEN.get(0) + ":\"" + notifications.get(position).getEventId() + "\","
                                 + Config.POST_KEY_JSON_SEEN.get(1) + ":\"" + userId + "\"}"))
                                 .execute(Config.URL_HOST + Config.URL_POST_SEEN_EVENT);
                         viewHolder.cardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    iEventInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(iEventInfo);
+                    if (notifications.get(position).getEventUser() == 2) {
+                        if (notifications.get(position).getNotificationImage() != null) {
+                            Intent iNotificationInfo = new Intent(context, ActivityServiceInfo.class);
+                            iNotificationInfo.putExtra("id", (int) view.getTag());
+                            iNotificationInfo.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(iNotificationInfo);
+                        }
+                    } else {
+                        SessionManager sessionManager = new SessionManager(context);
+                        sessionManager.logoutUser();
+                        sessionManager.checkLogin();
+                    }
                 }
             });
         } else if (holder instanceof LoadingViewHolder) {
@@ -117,7 +125,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return notifications.size();
     }
 
     public void setLoaded() {
@@ -127,16 +135,14 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //"Normal item" Viewholder
     static class ViewHolder extends RecyclerView.ViewHolder {
         //ViewHolder chạy thứ 2, phần này giúp cho recycler view ko bị load lại dữ liệu khi thực hiện thao tác vuốt màn hình
-        TextView txtTenSk, txtNgaySk, txtSeen;
-        ImageView imgHinhSk;
+        TextView txtName, txtSeen;
+        ImageView imgImage;
         View cardView;
 
         ViewHolder(View itemView) {
             super(itemView);
-
-            txtTenSk = itemView.findViewById(R.id.textView_EventName);
-            imgHinhSk = itemView.findViewById(R.id.image_ViewSuKien);
-            txtNgaySk = itemView.findViewById(R.id.textView_EventDate);
+            txtName = itemView.findViewById(R.id.textViewNotificationName);
+            imgImage = itemView.findViewById(R.id.imageViewNotification);
             txtSeen = itemView.findViewById(R.id.textView_isSeen);
             cardView = itemView.findViewById(R.id.cardView_SuKien);
         }

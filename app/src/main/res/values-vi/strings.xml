@@ -127,9 +127,7 @@
     <string name="toast_ShareSuccessful">Chia sẽ thành công</string>
     <string name="toast_ShareCancel">Chia sẽ đã bị hủy</string>
     <string name="toast_ShareError">Chia sẽ thất bại</string>
-    <string name="text_PleaseEnterASearchKey">Chưa nhập thông tin tìm kiếm</string>
     <string name="text_NoResults">Không có kết quá</string>
-    <string name="text_PleaseEnterSearchKey">Chưa nhập</string>
     <string name="text_WhatIsYourPlaceName">Tên địa điểm không được để trống</string>
     <string name="text_EnterYourAddress">Địa chỉ không được để trống</string>
     <string name="text_EnterYourPhoneNumber">Số điện thoại không được để trống</string>
@@ -211,6 +209,5 @@
     <string name="toast_UploadImageFailed">Thêm ảnh thất bại</string>
     <string name="toast_EditServiceInfomationFail">Sửa thông tin dịch vụ thất bại</string>
     <string name="text_Nearby">Các địa điểm gần bạn</string>
-    <string name="text_Service">Dịch vụ</string>
-    <string name="text_MyNotification">Của tôi</string>
+    <string name="text_Event">Sự kiện</string>
 </resources>

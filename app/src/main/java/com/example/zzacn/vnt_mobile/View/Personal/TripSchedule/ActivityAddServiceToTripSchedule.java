@@ -103,12 +103,12 @@ public class ActivityAddServiceToTripSchedule extends AppCompatActivity {
     void searchByType(int serviceType) {
 
         String url = Config.URL_HOST + Config.URL_SEARCH_TYPE.get(0) + serviceType
-                + Config.URL_SEARCH_TYPE.get(1) + etSearch.getText().toString().replaceAll(" ", "\\+");
+                + Config.URL_SEARCH_TYPE.get(1);
 
         if (!etSearch.getText().toString().equals("")) {
-            search(url, serviceType);
+            search(url + etSearch.getText().toString().replaceAll(" ", "\\+"), serviceType);
         } else {
-            Toast.makeText(ActivityAddServiceToTripSchedule.this, getResources().getString(R.string.text_PleaseEnterASearchKey), Toast.LENGTH_SHORT).show();
+            search(url + "+", serviceType);
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.zzacn.vnt_mobile.Config;
 import com.example.zzacn.vnt_mobile.Model.Object.Event;
+import com.example.zzacn.vnt_mobile.Model.Object.Notification;
 import com.example.zzacn.vnt_mobile.R;
 
 import org.json.JSONArray;
@@ -50,5 +51,36 @@ public class ModelEvent {
         }
 
         return events;
+    }
+
+    public ArrayList<Notification> getNotificationList(String getJson) { //Get danh sách thông báo sự kiện
+
+        ArrayList<String> arrayList;
+        ArrayList<Notification> notifications = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(getJson);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                Notification notification = new Notification();
+                arrayList = parseJson(jsonArray.getJSONObject(i), Config.GET_KEY_JSON_NOTIFICATION); //Parse json
+
+                notification.setServiceId(Integer.parseInt(arrayList.get(0))); //Set mã dịch vụ
+                notification.setEventId(Integer.parseInt(arrayList.get(5)));
+                notification.setNotificationName(arrayList.get(1)); //Set tên
+                notification.setNotificationImage(setImage(Config.URL_HOST + Config.URL_GET_THUMB + arrayList.get(3),
+                        Config.FOLDER_THUMB1, arrayList.get(3))); // set hình
+                // kiểm tra đã xem
+                notification.setSeen(arrayList.get(4).equals("1"));
+                notification.setEventUser(Integer.parseInt(arrayList.get(6)));
+
+                notifications.add(notification);
+                arrayList.clear();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return notifications;
     }
 }
