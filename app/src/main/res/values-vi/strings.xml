@@ -211,4 +211,6 @@
     <string name="toast_UploadImageFailed">Thêm ảnh thất bại</string>
     <string name="toast_EditServiceInfomationFail">Sửa thông tin dịch vụ thất bại</string>
     <string name="text_Nearby">Các địa điểm gần bạn</string>
+    <string name="text_Service">Dịch vụ</string>
+    <string name="text_MyNotification">Của tôi</string>
 </resources>
